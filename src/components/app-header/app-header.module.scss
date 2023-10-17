@@ -1,4 +1,4 @@
-.app_header {
+.header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,12 +33,14 @@
     max-width: max-content;
     user-select: none;
 
-    &_active {
-      color: var(--text-primary-color);
-    }
+    &_state {
+      &_active {
+        color: var(--text-primary-color);
+      }
 
-    &_inactive {
-      color: var(--text-inactive-color);
+      &_inactive {
+        color: var(--text-inactive-color);
+      }
     }
   }
 }
