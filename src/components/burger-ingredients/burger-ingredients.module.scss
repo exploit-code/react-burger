@@ -8,7 +8,7 @@
   &__body {
     display: grid;
     gap: 40px;
-    height: calc(var(--vh) - var(--header-height) - var(--burger-ingredients-head));
+    height: calc(var(--vh100) - var(--header-height) - var(--burger-ingredients-head));
     overflow: auto;
 
     &::-webkit-scrollbar {
