@@ -1,38 +1,24 @@
 import styles from "./app-header.module.scss";
 import cn from "classnames";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import HeaderMenuItem from "../header-menu-item/header-menu-item";
 
 const AppHeader = () => {
   return (
-    <header className={cn(styles.header, "pt-4 pb-4")}>
-      <div className={styles.header__content}>
+    <header className={cn(styles.app_header, "pt-4 pb-4")}>
+      <div className={styles.app_header__content}>
         <nav>
-          <ul className={styles.header__list}>
-            <li>
-              <a href="/" className={cn(styles.header__link, styles.header__link_state_active, "pt-4 pb-4 pl-5 pr-5 text text_type_main-default")}>
-                <BurgerIcon type="primary" />
-                <span>Конструктор</span>
-              </a>
-            </li>
-            <li>
-              <a href="/" className={cn(styles.header__link, styles.header__link_state_inactive, "pt-4 pb-4 pl-5 pr-5 text text_type_main-default")}>
-                <ListIcon type="secondary" />
-                <span>Лента заказов</span>
-              </a>
-            </li>
+          <ul className={styles.app_header__list}>
+            <HeaderMenuItem icon={<BurgerIcon type="primary" />} text="Конструктор" active={true} />
+            <HeaderMenuItem icon={<ListIcon type="secondary" />} text="Лента заказов" active={false} />
           </ul>
         </nav>
-        <div className={styles.header__logo}>
+        <div className={styles.app_header__logo}>
           <Logo />
         </div>
         <nav>
-          <ul className={styles.header__list}>
-            <li>
-              <a href="/" className={cn(styles.header__link, styles.header__link_state_inactive, "pt-4 pb-4 pl-5 pr-5 text text_type_main-default")}>
-                <ProfileIcon type="secondary" />
-                <span>Личный кабинет</span>
-              </a>
-            </li>
+          <ul className={styles.app_header__list}>
+            <HeaderMenuItem icon={<ProfileIcon type="secondary" />} text="Личный кабинет" active={false} />
           </ul>
         </nav>
       </div>

@@ -1,4 +1,4 @@
-.header {
+.app_header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,24 +23,5 @@
   &__logo {
     display: flex;
     align-items: center;
-  }
-
-  &__link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    max-width: max-content;
-    user-select: none;
-
-    &_state {
-      &_active {
-        color: var(--text-primary-color);
-      }
-
-      &_inactive {
-        color: var(--text-inactive-color);
-      }
-    }
   }
 }
