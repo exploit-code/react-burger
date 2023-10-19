@@ -1,0 +1,39 @@
+.ingredients {
+
+  &__head {
+    display: grid;
+    gap: 20px;
+  }
+
+  &__body {
+    display: grid;
+    gap: 40px;
+    height: calc(var(--vh100) - var(--header-height) - var(--burger-ingredients-head));
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--text-inactive-color);
+    }
+  }
+
+  &__tabs {
+    display: flex;
+  }
+
+  &__group {
+    display: grid;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 24px 16px 40px 16px;
+  }
+}

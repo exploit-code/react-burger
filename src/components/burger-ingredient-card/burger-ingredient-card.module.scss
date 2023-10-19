@@ -1,0 +1,30 @@
+.burger_ingredient_card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+
+  &__box {
+    display: flex;
+    justify-content: center;
+
+    &_head {
+      padding: 0 16px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    &_body {
+      align-items: center;
+      gap: 8px;
+    }
+
+    &_footer {
+      text-align: center;
+    }
+  }
+
+  &__image {
+    width: 100%;
+  }
+}

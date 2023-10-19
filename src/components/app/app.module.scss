@@ -1,0 +1,15 @@
+.main {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  gap: 40px;
+  max-height: 100vh;
+
+  // &__section {
+  //   border-left: 1px dashed red;
+  //   border-right: 1px dashed red;
+  // }
+}

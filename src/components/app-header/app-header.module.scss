@@ -1,0 +1,27 @@
+.app_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background);
+
+  &__content {
+    width: 100%;
+    max-width: 1280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__list {
+    display: flex;
+    gap: 8px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+  }
+}

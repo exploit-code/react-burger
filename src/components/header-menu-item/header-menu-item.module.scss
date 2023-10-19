@@ -1,0 +1,18 @@
+.header_menu_item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  max-width: max-content;
+  user-select: none;
+
+  &_state {
+    &_active {
+      color: var(--text-primary-color);
+    }
+
+    &_inactive {
+      color: var(--text-inactive-color);
+    }
+  }
+}
