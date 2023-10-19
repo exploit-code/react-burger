@@ -4,9 +4,14 @@ import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
 import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
+import PopupOverlay from "../popup-overlay/popup-overlay";
+import IngredientPopup from "../ingredient-popup/ingredient-popup";
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState("bun");
+  const [showPopup, setShowPopup] = useState(false);
+  const [showIngredient, setShowIngredient] = useState(null);
 
   const filteredData = {
     bunItems: data.filter((filterItem) => filterItem.type === "bun"),
@@ -70,7 +75,7 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.bunItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setShowPopup={setShowPopup} setShowIngredient={setShowIngredient} key={item._id} />
             ))}
           </ul>
         </div>
@@ -78,7 +83,7 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Соусы</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.sauceItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setShowPopup={setShowPopup} setShowIngredient={setShowIngredient} key={item._id} />
             ))}
           </ul>
         </div>
@@ -86,17 +91,23 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Начинки</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.mainItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setShowPopup={setShowPopup} setShowIngredient={setShowIngredient} key={item._id} />
             ))}
           </ul>
         </div>
       </div>
+
+      {showPopup && (
+        <PopupOverlay>
+          <IngredientPopup setShowPopup={setShowPopup} ingredient={showIngredient} />
+        </PopupOverlay>
+      )}
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
 };
 
 export default BurgerIngredients;
