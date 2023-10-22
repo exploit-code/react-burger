@@ -4,10 +4,10 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/types";
 
-const BurgerIngredientCard = ({ ingredient, setShowPopup, setShowIngredient }) => {
+const BurgerIngredientCard = ({ ingredient, setCurrentIngredient, openModal }) => {
   const ingredientClick = () => {
-    setShowPopup(true);
-    setShowIngredient(ingredient);
+    setCurrentIngredient(ingredient);
+    openModal(true);
   };
 
   return (
@@ -29,8 +29,8 @@ const BurgerIngredientCard = ({ ingredient, setShowPopup, setShowIngredient }) =
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  setShowPopup: PropTypes.func,
-  setShowIngredient: PropTypes.func,
+  setCurrentIngredient: PropTypes.func,
+  openModal: PropTypes.func,
 };
 
 export default BurgerIngredientCard;

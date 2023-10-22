@@ -1,0 +1,24 @@
+.modal {
+  background-color: var(--background);
+  border-radius: 40px;
+  width: 100%;
+  max-width: 720px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64px;
+  }
+
+  &__body {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
