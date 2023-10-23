@@ -4,22 +4,18 @@ import styles from "./modal.module.scss";
 import CloseButton from "../close-button/close-button";
 import cn from "classnames";
 import PropTypes from "prop-types";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 
 const Modal = ({ title = "", children, closeModal }) => {
   const portal = document.getElementById("portal");
 
-  const escFunction = useCallback(
-    (e) => {
-      if (e.key === "Escape") closeModal();
-    },
-    [closeModal]
-  );
-
   useEffect(() => {
+    const escFunction = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
     document.addEventListener("keydown", escFunction, false);
     return () => document.removeEventListener("keydown", escFunction, false);
-  }, [escFunction]);
+  }, [closeModal]);
 
   return createPortal(
     <ModalOverlay closeModal={closeModal}>

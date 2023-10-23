@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const CloseButton = ({ closeModal }) => {
   return (
-    <button className={styles.close_button} onClick={() => closeModal()}>
+    <button className={styles.close_button} onClick={closeModal}>
       <CloseIcon type="primary" />
     </button>
   );

@@ -17,14 +17,9 @@ const App = () => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
       })
-      .then((result) => {
-        setIsLoaded(true);
-        setIngredients(result.data);
-      })
-      .catch((error) => {
-        setIsLoaded(true);
-        setError(error);
-      });
+      .then((result) => setIngredients(result.data))
+      .catch((error) => setError(error))
+      .finally(() => setIsLoaded(true));
   }, []);
 
   return (
