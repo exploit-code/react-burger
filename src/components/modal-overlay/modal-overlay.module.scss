@@ -1,0 +1,15 @@
+.modal_overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--popup-overlay-bg);
+  top: 0;
+  left: 0;
+
+  &_state_hidden {
+    display: none;
+  }
+}

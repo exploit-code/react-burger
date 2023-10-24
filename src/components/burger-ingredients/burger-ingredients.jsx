@@ -4,9 +4,15 @@ import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
 import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/types";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+import { useModal } from "../../hooks/useModal";
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState("bun");
+  const [currentIngredient, setCurrentIngredient] = useState(null);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const filteredData = {
     bunItems: data.filter((filterItem) => filterItem.type === "bun"),
@@ -70,7 +76,7 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.bunItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
         </div>
@@ -78,7 +84,7 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Соусы</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.sauceItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
         </div>
@@ -86,17 +92,23 @@ const BurgerIngredients = ({ data }) => {
           <h2 className="text text_type_main-medium">Начинки</h2>
           <ul className={styles.ingredients__list}>
             {filteredData.mainItems.map((item) => (
-              <BurgerIngredientCard image={item.image} price={item.price} name={item.name} key={item._id} />
+              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
         </div>
       </div>
+
+      {isModalOpen && (
+        <Modal title={"Детали ингредиента"} closeModal={closeModal}>
+          <IngredientDetails currentIngredient={currentIngredient} />
+        </Modal>
+      )}
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
 };
 
 export default BurgerIngredients;

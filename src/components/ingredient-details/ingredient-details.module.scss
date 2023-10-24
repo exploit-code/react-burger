@@ -1,0 +1,32 @@
+.ingredient_popup {
+  background-color: var(--background);
+  border-radius: 40px;
+  width: 100%;
+  max-width: 720px;
+  box-sizing: border-box;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__body {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__image_box {
+    display: flex;
+    padding: 0 20px;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 480px;
+    height: 240px;
+  }
+}
