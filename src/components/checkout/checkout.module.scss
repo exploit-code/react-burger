@@ -1,0 +1,16 @@
+.checkout {
+  display: flex;
+  justify-self: flex-end;
+  gap: 40px;
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__currency {
+    width: 36px;
+    height: 36px;
+  }
+}

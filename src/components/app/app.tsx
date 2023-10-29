@@ -4,6 +4,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { useEffect, useState } from "react";
 import Loader from "../loader/loader";
+import { IngredientsContext } from "../../context/ingredientsContext";
 
 const App = () => {
   const [error, setError] = useState(null);
@@ -35,7 +36,9 @@ const App = () => {
                 <BurgerIngredients data={ingredients} />
               </div>
               <div className={styles.main__section}>
-                <BurgerConstructor data={ingredients} />
+                <IngredientsContext.Provider value={ingredients}>
+                  <BurgerConstructor />
+                </IngredientsContext.Provider>
               </div>
             </>
           )

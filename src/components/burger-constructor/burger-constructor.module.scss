@@ -7,12 +7,6 @@
     gap: 16px;
   }
 
-  &__head,
-  &__footer {
-    padding-left: 48px;
-    padding-right: 24px;
-  }
-
   &__body {
     display: flex;
     flex-direction: column;
@@ -29,20 +23,20 @@
     }
   }
 
-  &__checkout {
-    display: flex;
-    justify-self: flex-end;
-    gap: 40px;
-  }
+  // &__checkout {
+  //   display: flex;
+  //   justify-self: flex-end;
+  //   gap: 40px;
+  // }
 
-  &__price {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  // &__price {
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 8px;
+  // }
 
-  &__currency {
-    width: 36px;
-    height: 36px;
-  }
+  // &__currency {
+  //   width: 36px;
+  //   height: 36px;
+  // }
 }
