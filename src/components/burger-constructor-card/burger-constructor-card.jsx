@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 
 const BurgerConstructorCard = ({ name, price, image }) => {
   return (
-    <div className={styles.burger_constructor_card}>
+    <li className={styles.burger_constructor_card}>
       <DragIcon type="primary" />
       <ConstructorElement text={name} price={price} thumbnail={image} />
-    </div>
+    </li>
   );
 };
 
