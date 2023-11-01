@@ -2,7 +2,8 @@ import styles from "./burger-ingredient-card.module.scss";
 import cn from "classnames";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { ingredientType } from "../../utils/prop-types";
+import { memo } from "react";
 
 const BurgerIngredientCard = ({ ingredient, setCurrentIngredient, openModal }) => {
   const ingredientClick = () => {
@@ -33,4 +34,4 @@ BurgerIngredientCard.propTypes = {
   openModal: PropTypes.func,
 };
 
-export default BurgerIngredientCard;
+export default memo(BurgerIngredientCard);

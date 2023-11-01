@@ -1,6 +1,6 @@
 import styles from "./ingredient-params.module.scss";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { ingredientType } from "../../utils/prop-types";
 import cn from "classnames";
 
 const IngredientParams = ({ currentIngredient }) => {

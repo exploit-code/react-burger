@@ -1,24 +1,23 @@
 import styles from "./burger-ingredients.module.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { ingredientType } from "../../utils/prop-types";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
+import { memo } from "react";
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = useState("bun");
   const [currentIngredient, setCurrentIngredient] = useState(null);
   const { isModalOpen, openModal, closeModal } = useModal();
 
-  const filteredData = {
-    bunItems: data.filter((filterItem) => filterItem.type === "bun"),
-    sauceItems: data.filter((filterItem) => filterItem.type === "sauce"),
-    mainItems: data.filter((filterItem) => filterItem.type === "main"),
-  };
+  const bunItems = useMemo(() => data.filter((filterItem) => filterItem.type === "bun"), [data]);
+  const sauceItems = useMemo(() => data.filter((filterItem) => filterItem.type === "sauce"), [data]);
+  const mainItems = useMemo(() => data.filter((filterItem) => filterItem.type === "main"), [data]);
 
   const bunBoxRef = useRef(null);
   const sauceBoxRef = useRef(null);
@@ -75,7 +74,7 @@ const BurgerIngredients = ({ data }) => {
         <div className={styles.ingredients__group} ref={bunBoxRef}>
           <h2 className="text text_type_main-medium">Булки</h2>
           <ul className={styles.ingredients__list}>
-            {filteredData.bunItems.map((item) => (
+            {bunItems.map((item) => (
               <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
@@ -83,7 +82,7 @@ const BurgerIngredients = ({ data }) => {
         <div className={styles.ingredients__group} ref={sauceBoxRef}>
           <h2 className="text text_type_main-medium">Соусы</h2>
           <ul className={styles.ingredients__list}>
-            {filteredData.sauceItems.map((item) => (
+            {sauceItems.map((item) => (
               <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
@@ -91,7 +90,7 @@ const BurgerIngredients = ({ data }) => {
         <div className={styles.ingredients__group} ref={mainBoxRef}>
           <h2 className="text text_type_main-medium">Начинки</h2>
           <ul className={styles.ingredients__list}>
-            {filteredData.mainItems.map((item) => (
+            {mainItems.map((item) => (
               <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
             ))}
           </ul>
@@ -111,4 +110,4 @@ BurgerIngredients.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
 };
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);

@@ -1,7 +1,7 @@
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./checkout.module.scss";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { ingredientType } from "../../utils/prop-types";
 
 const Checkout = ({ openModal, ingredients, bun, setOrder }) => {
   const currentBurgerIngredients = [bun, ...ingredients, bun];

@@ -5,20 +5,16 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { useEffect, useState } from "react";
 import Loader from "../loader/loader";
 import { IngredientsContext } from "../../context/ingredientsContext";
+import { getIngredients } from "../../utils/burger-api";
 
 const App = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [ingredients, setIngredients] = useState([]);
-  const apiURL = "https://norma.nomoreparties.space/api/ingredients";
 
   useEffect(() => {
-    fetch(apiURL)
-      .then((res) => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
-      .then((result) => setIngredients(result.data))
+    getIngredients()
+      .then(setIngredients)
       .catch((error) => setError(error))
       .finally(() => setIsLoaded(true));
   }, []);
