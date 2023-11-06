@@ -11,15 +11,20 @@ import Checkout from "../checkout/checkout";
 import { v4 as uuidv4 } from 'uuid';
 
 const BurgerConstructor = () => {
-  const getIngredientsData = useContext(IngredientsContext);
-  const bun = getIngredientsData.find((item) => item.type === "bun");
-  const ingredients = getIngredientsData.filter((item) => item.type !== "bun");
+
+
+
+
+  // const bun = getIngredientsData.find((item) => item.type === "bun");
+  // const ingredients = getIngredientsData.filter((item) => item.type !== "bun");
+  const ingredients = [];
+
   const { isModalOpen, openModal, closeModal } = useModal();
   const [order, setOrder] = useState(0);
 
   return (
     <section className={cn(styles.burger_constructor)}>
-      <div className={cn(styles.burger_constructor__combine, "pt-25")}>
+      {/* <div className={cn(styles.burger_constructor__combine, "pt-25")}>
         <Bun type={"top"} isLocked={true} text={"Краторная булка N-200i (верх)"} price={bun.price} thumbnail={bun.image} />
 
         <ul className={cn(styles.burger_constructor__body, "pl-4 pr-4")}>
@@ -29,9 +34,9 @@ const BurgerConstructor = () => {
         </ul>
 
         <Bun type={"bottom"} isLocked={true} text={"Краторная булка N-200i (низ)"} price={bun.price} thumbnail={bun.image} />
-      </div>
+      </div>  */}
 
-      <Checkout openModal={openModal} ingredients={ingredients} bun={bun} setOrder={setOrder} />
+      {/* <Checkout openModal={openModal} ingredients={ingredients} bun={bun} setOrder={setOrder} /> */}
 
       {isModalOpen && (
         <Modal closeModal={closeModal}>

@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS_LOADING, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_ERROR } from "../actions/burger-ingredients";
+import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_ERROR } from "../actions/burger-ingredients";
 
 const initialState = {
   data: [],
@@ -8,7 +8,7 @@ const initialState = {
 
 export const ingredients = (state = initialState, action) => {
   switch (action.type) {
-    case GET_INGREDIENTS_LOADING:
+    case GET_INGREDIENTS_REQUEST:
       return {
         ...state,
         loading: true,
@@ -26,6 +26,7 @@ export const ingredients = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
+        data: [],
       };
     default:
       return state;

@@ -18,7 +18,7 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
     <li className={styles.burger_ingredient_card} onClick={ingredientClick}>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}>
         <img className={styles.burger_ingredient_card__image} src={ingredient.image_large} alt={ingredient.name} />
-        <Counter count={1} size="default" extraClass="m-1" />
+        <Counter count={0} size="default" extraClass="m-1" />
       </div>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_body, "text text_type_digits-default")}>
         <span>{ingredient.price}</span>

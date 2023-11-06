@@ -13,7 +13,7 @@ const App = () => {
             <BurgerIngredients />
           </div>
           <div className={styles.main__section}>
-            {/* <BurgerConstructor /> */}
+            <BurgerConstructor />
           </div>
         </>
       </main>
