@@ -9,6 +9,7 @@ import { useModal } from "../../hooks/useModal";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/loader";
+import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
 
 import { getIngredients } from "../../services/actions/burger-ingredients";
 
@@ -17,13 +18,13 @@ const BurgerIngredients = () => {
   const isLoading = useSelector((store) => store.ingredients.loading);
   const isError = useSelector((store) => store.ingredients.error);
   const ingredients = useSelector((store) => store.ingredients.data);
+  const currentIngredient = useSelector((store) => store.currentIngredient.ingredient);
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
 
   const [current, setCurrent] = useState("bun");
-  const [currentIngredient, setCurrentIngredient] = useState(null);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const bunItems = useMemo(() => ingredients.filter((filterItem) => filterItem.type === "bun"), [ingredients]);
@@ -42,6 +43,10 @@ const BurgerIngredients = () => {
       });
     }
   };
+
+  useEffect(() => {
+    if (!isModalOpen && currentIngredient !== null) dispatch({ type: CLEAR_CURRENT_INGREDIENT, payload: null });
+  }, [isModalOpen, currentIngredient, dispatch]);
 
   return (
     <>
@@ -89,7 +94,7 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Булки</h2>
               <ul className={styles.ingredients__list}>
                 {bunItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
                 ))}
               </ul>
             </div>
@@ -97,7 +102,7 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Соусы</h2>
               <ul className={styles.ingredients__list}>
                 {sauceItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
                 ))}
               </ul>
             </div>
@@ -105,11 +110,12 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Начинки</h2>
               <ul className={styles.ingredients__list}>
                 {mainItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
                 ))}
               </ul>
             </div>
           </div>
+
           {isModalOpen && (
             <Modal title={"Детали ингредиента"} closeModal={closeModal}>
               <IngredientDetails currentIngredient={currentIngredient} />

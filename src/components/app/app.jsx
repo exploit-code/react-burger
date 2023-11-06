@@ -12,7 +12,9 @@ const App = () => {
           <div className={styles.main__section}>
             <BurgerIngredients />
           </div>
-          <div className={styles.main__section}>{/* <BurgerConstructor /> */}</div>
+          <div className={styles.main__section}>
+            {/* <BurgerConstructor /> */}
+          </div>
         </>
       </main>
     </>

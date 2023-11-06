@@ -4,11 +4,14 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/prop-types";
 import { memo } from "react";
+import { useDispatch } from "react-redux";
+import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
 
-const BurgerIngredientCard = ({ ingredient, setCurrentIngredient, openModal }) => {
+const BurgerIngredientCard = ({ ingredient, openModal }) => {
+  const dispatch = useDispatch();
   const ingredientClick = () => {
-    setCurrentIngredient(ingredient);
     openModal(true);
+    dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
   };
 
   return (
@@ -30,7 +33,6 @@ const BurgerIngredientCard = ({ ingredient, setCurrentIngredient, openModal }) =
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  setCurrentIngredient: PropTypes.func,
   openModal: PropTypes.func,
 };
 
