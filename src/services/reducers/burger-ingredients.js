@@ -1,29 +1,31 @@
 import { GET_INGREDIENTS_LOADING, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_ERROR } from "../actions/burger-ingredients";
 
 const initialState = {
-  ingredients: [],
+  data: [],
   loading: false,
   error: false,
 };
 
-export const burgerIngredients = (state = initialState, action) => {
+export const ingredients = (state = initialState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS_LOADING:
       return {
         ...state,
-        pending: true,
+        loading: true,
+        error: false,
       };
     case GET_INGREDIENTS_SUCCESS:
       return {
         ...state,
-        pending: false,
-        ingredients: action.data,
+        loading: false,
+        data: action.payload,
+        error: false,
       };
     case GET_INGREDIENTS_ERROR:
       return {
         ...state,
-        pending: false,
-        reject: true,
+        loading: false,
+        error: true,
       };
     default:
       return state;
