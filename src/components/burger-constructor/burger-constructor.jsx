@@ -44,7 +44,7 @@ const BurgerConstructor = () => {
         </ul>
 
         <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_bottom)}>
-          {bun && <Bun type={"top"} isLocked={true} text={"Краторная булка N-200i (низ)"} price={bun.price} thumbnail={bun.image} />}
+          {bun && <Bun type={"bottom"} isLocked={true} text={"Краторная булка N-200i (низ)"} price={bun.price} thumbnail={bun.image} />}
         </div>
       </div>
 

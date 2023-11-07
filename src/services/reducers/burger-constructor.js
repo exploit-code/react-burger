@@ -21,10 +21,16 @@ export const constructorIngredients = (state = initialState, action) => {
         };
       }
     case REMOVE_INGREDIENT:
-      return {
-        ...state,
-        ingredients: state.ingredients.filter((el) => el.id !== action.payload),
-      };
+      const indexToRemove = state.ingredients.findIndex((el) => el.id === action.payload);
+      if (indexToRemove !== -1) {
+        const newIngredients = [...state.ingredients];
+        newIngredients.splice(indexToRemove, 1);
+        return {
+          ...state,
+          ingredients: newIngredients,
+        };
+      }
+      return state;
     default:
       return state;
   }
