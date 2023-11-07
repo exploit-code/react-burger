@@ -1,4 +1,6 @@
 .ingredients {
+  height: calc(100vh - 88px);
+
   &__head {
     display: grid;
     gap: 20px;

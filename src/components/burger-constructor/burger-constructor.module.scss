@@ -1,19 +1,41 @@
 .burger_constructor {
   display: grid;
   gap: 40px;
+  align-content: start;
+  padding-top: 100px;
+  box-sizing: border-box;
 
   &__combine {
     display: grid;
+    align-items: start;
+    grid-template-rows: max-content 1fr max-content;
     gap: 16px;
+    border: 1px solid lightgreen;
+    justify-content: center;
+    grid-template-columns: 1fr;
   }
 
-  &__body {
+  &__bun {
+    display: flex;
+    justify-content: center;
+    min-height: 80px;
+
+    &_top {
+      align-self: flex-start;
+    }
+    &_bottom {
+      align-items: flex-end;
+    }
+  }
+
+  &__ingredients {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: calc(var(--vh50) - var(--header-height));
     overflow: auto;
     margin: 0;
+    padding: 0;
+    height: 275px;
 
     &::-webkit-scrollbar {
       width: 8px;

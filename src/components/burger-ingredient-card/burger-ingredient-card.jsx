@@ -7,6 +7,8 @@ import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
 
+import { useDrag } from "react-dnd";
+
 const BurgerIngredientCard = ({ ingredient, openModal }) => {
   const dispatch = useDispatch();
   const ingredientClick = () => {
@@ -14,8 +16,13 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
     dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
   };
 
+  const [, dragRef] = useDrag({
+    type: "ingredients",
+    item: ingredient,
+  });
+
   return (
-    <li className={styles.burger_ingredient_card} onClick={ingredientClick}>
+    <li className={styles.burger_ingredient_card} onClick={ingredientClick} ref={dragRef}>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}>
         <img className={styles.burger_ingredient_card__image} src={ingredient.image_large} alt={ingredient.name} />
         <Counter count={0} size="default" extraClass="m-1" />
