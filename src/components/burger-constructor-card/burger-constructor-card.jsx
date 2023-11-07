@@ -6,10 +6,7 @@ import { useDispatch } from "react-redux";
 
 const BurgerConstructorCard = ({ name, price, image, id }) => {
   const dispatch = useDispatch();
-
-  const removeIngredient = () => {
-    dispatch({ type: REMOVE_INGREDIENT, payload: id });
-  };
+  const removeIngredient = () => dispatch({ type: REMOVE_INGREDIENT, payload: id });
 
   return (
     <li className={styles.burger_constructor_card}>

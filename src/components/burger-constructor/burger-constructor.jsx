@@ -7,7 +7,6 @@ import { useModal } from "../../hooks/useModal";
 import Bun from "../bun/bun";
 import Checkout from "../checkout/checkout";
 import { v4 as uuidv4 } from "uuid";
-
 import { useDrop } from "react-dnd";
 import { ADD_INGREDIENT } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +15,7 @@ const BurgerConstructor = () => {
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const dispatch = useDispatch();
-  const bun = useSelector((store) => store.constructorIngredients.bun);
-  const ingredients = useSelector((store) => store.constructorIngredients.ingredients);
+  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
 
   const [, ingredientsRef] = useDrop({
     accept: "ingredients",

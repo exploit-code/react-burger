@@ -15,9 +15,8 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
     dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
   };
 
-  const constructorIngredients = useSelector((store) => store.constructorIngredients.ingredients);
-  const constructorBun = useSelector((store) => store.constructorIngredients.bun);
-  const allConstructorIngredients = [...constructorIngredients, constructorBun];
+  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const allConstructorIngredients = [...ingredients, bun];
   const count = allConstructorIngredients.filter((item) => item?._id === ingredient._id).length;
 
   const [, dragRef] = useDrag({

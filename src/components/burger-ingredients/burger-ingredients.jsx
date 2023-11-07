@@ -10,25 +10,20 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/loader";
 import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
-
 import { getIngredients } from "../../services/actions/burger-ingredients";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector((store) => store.ingredients.loading);
-  const isError = useSelector((store) => store.ingredients.error);
-  const ingredients = useSelector((store) => store.ingredients.data);
+  const { loading, error, data } = useSelector((store) => store.ingredients);
   const currentIngredient = useSelector((store) => store.currentIngredient.ingredient);
 
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+  useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
-  const bunItems = useMemo(() => ingredients.filter((filterItem) => filterItem.type === "bun"), [ingredients]);
-  const sauceItems = useMemo(() => ingredients.filter((filterItem) => filterItem.type === "sauce"), [ingredients]);
-  const mainItems = useMemo(() => ingredients.filter((filterItem) => filterItem.type === "main"), [ingredients]);
+  const bunItems = useMemo(() => data.filter((filterItem) => filterItem.type === "bun"), [data]);
+  const sauceItems = useMemo(() => data.filter((filterItem) => filterItem.type === "sauce"), [data]);
+  const mainItems = useMemo(() => data.filter((filterItem) => filterItem.type === "main"), [data]);
 
   const bunBoxRef = useRef(null);
   const sauceBoxRef = useRef(null);
@@ -65,8 +60,8 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      {isLoading || isError ? (
-        <Loader text={isLoading ? "loading" : "error"} />
+      {loading || error ? (
+        <Loader text={loading ? "loading" : "error"} />
       ) : (
         <section className={styles.ingredients}>
           <div className={cn(styles.ingredients__head, "pt-10 pb-10")}>
