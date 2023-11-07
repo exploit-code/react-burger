@@ -24,7 +24,6 @@ const BurgerIngredients = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const [current, setCurrent] = useState("bun");
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const bunItems = useMemo(() => ingredients.filter((filterItem) => filterItem.type === "bun"), [ingredients]);
@@ -34,6 +33,7 @@ const BurgerIngredients = () => {
   const bunBoxRef = useRef(null);
   const sauceBoxRef = useRef(null);
   const mainBoxRef = useRef(null);
+  const ingredientsBoxRef = useRef(null);
 
   const scrollToElement = (ref) => {
     if (ref.current) {
@@ -47,6 +47,21 @@ const BurgerIngredients = () => {
   useEffect(() => {
     if (!isModalOpen && currentIngredient !== null) dispatch({ type: CLEAR_CURRENT_INGREDIENT, payload: null });
   }, [isModalOpen, currentIngredient, dispatch]);
+
+  const [current, setCurrent] = useState("bun");
+
+  const ingredientsScroll = () => {
+    const bunBox = Math.round(bunBoxRef.current.getBoundingClientRect().y);
+    const sauceBox = Math.round(sauceBoxRef.current.getBoundingClientRect().y);
+    const mainBox = Math.round(mainBoxRef.current.getBoundingClientRect().y);
+    const pos = Math.round(ingredientsBoxRef.current.getBoundingClientRect().y);
+
+    if (bunBox && sauceBox && mainBox) {
+      if (pos >= bunBox && pos < sauceBox) setCurrent("bun");
+      else if (pos >= sauceBox && pos < mainBox) setCurrent("sauce");
+      else if (pos >= mainBox) setCurrent("main");
+    }
+  };
 
   return (
     <>
@@ -89,7 +104,7 @@ const BurgerIngredients = () => {
               </Tab>
             </div>
           </div>
-          <div className={styles.ingredients__body}>
+          <div className={styles.ingredients__body} onScroll={ingredientsScroll} ref={ingredientsBoxRef}>
             <div className={styles.ingredients__group} ref={bunBoxRef}>
               <h2 className="text text_type_main-medium">Булки</h2>
               <ul className={styles.ingredients__list}>
