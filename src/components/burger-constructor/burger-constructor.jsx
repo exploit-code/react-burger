@@ -17,27 +17,32 @@ const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
 
-  const [, ingredientsRef] = useDrop({
+  const [{ isHover }, ingredientsRef] = useDrop({
     accept: "ingredients",
-    drop(item) {
-      if (item.type === "bun") {
-        dispatch({ type: ADD_INGREDIENT, payload: item });
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      if (ingredient.type === "bun") {
+        dispatch({ type: ADD_INGREDIENT, payload: ingredient });
       } else {
-        dispatch({ type: ADD_INGREDIENT, payload: item });
+        dispatch({ type: ADD_INGREDIENT, payload: ingredient });
       }
     },
   });
 
+  const borderColor = isHover ? "lightgreen" : "#3A3A55";
+
   return (
     <section className={cn(styles.burger_constructor)}>
-      <div className={cn(styles.burger_constructor__combine)} ref={ingredientsRef}>
+      <div className={cn(styles.burger_constructor__combine)} ref={ingredientsRef} style={{ borderColor }}>
         <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_top)}>
           {bun && <Bun type={"top"} isLocked={true} text={"Краторная булка N-200i (верх)"} price={bun.price} thumbnail={bun.image} />}
         </div>
 
         <ul className={cn(styles.burger_constructor__ingredients)}>
           {ingredients.map((item) => (
-            <BurgerConstructorCard name={item.name} price={item.price} image={item.image} key={uuidv4()} />
+            <BurgerConstructorCard name={item.name} price={item.price} image={item.image} id={item._id} key={uuidv4()} />
           ))}
         </ul>
 

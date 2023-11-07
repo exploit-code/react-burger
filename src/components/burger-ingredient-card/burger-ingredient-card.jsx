@@ -43,7 +43,7 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  openModal: PropTypes.func,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default memo(BurgerIngredientCard);

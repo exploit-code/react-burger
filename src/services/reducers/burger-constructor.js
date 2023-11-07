@@ -9,7 +9,6 @@ export const constructorIngredients = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.payload.type === "bun") {
-        console.log("added bun");
         return {
           ...state,
           bun: action.payload,
@@ -21,16 +20,14 @@ export const constructorIngredients = (state = initialState, action) => {
         };
       }
     case REMOVE_INGREDIENT:
-      const indexToRemove = state.ingredients.findIndex((el) => el.id === action.payload);
-      if (indexToRemove !== -1) {
-        const newIngredients = [...state.ingredients];
-        newIngredients.splice(indexToRemove, 1);
-        return {
-          ...state,
-          ingredients: newIngredients,
-        };
-      }
-      return state;
+      const removedEl = state.ingredients.findIndex((item) => item._id === action.payload);
+      if (removedEl === -1) return state.ingredients;
+      const updatedIngredients = [...state.ingredients];
+      updatedIngredients.splice(removedEl, 1);
+      return {
+        ...state,
+        ingredients: updatedIngredients,
+      };
     default:
       return state;
   }

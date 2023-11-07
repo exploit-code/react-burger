@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 
 const BurgerConstructorCard = ({ name, price, image, id }) => {
   const dispatch = useDispatch();
-  const removeIngredient = () => dispatch({ type: REMOVE_INGREDIENT, payload: id });
+  const removeIngredient = (id) => {
+    dispatch({ type: REMOVE_INGREDIENT, payload: id });
+  };
 
   return (
     <li className={styles.burger_constructor_card}>
       <DragIcon type="primary" />
-      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={removeIngredient} />
+      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={() => removeIngredient(id)} />
     </li>
   );
 };
@@ -20,6 +22,7 @@ BurgerConstructorCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default BurgerConstructorCard;
