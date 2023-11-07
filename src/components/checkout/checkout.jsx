@@ -8,8 +8,8 @@ const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
 
   const ingredients = useSelector((store) => store.constructorIngredients.ingredients);
-  const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
   const bun = useSelector((store) => store.constructorIngredients.bun);
+  const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
 
   const handleOrderClick = () => {
     openModal();
@@ -26,7 +26,7 @@ const Checkout = ({ openModal }) => {
         <span className="text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
+      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={totalPrice ? false : true}>
         Оформить заказ
       </Button>
     </div>
