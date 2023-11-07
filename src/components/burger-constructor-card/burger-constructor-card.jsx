@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 
 const BurgerConstructorCard = ({ name, price, image, id }) => {
   const dispatch = useDispatch();
+
   const removeIngredient = () => {
     dispatch({ type: REMOVE_INGREDIENT, payload: id });
-    console.log('remove')
   };
 
   return (
