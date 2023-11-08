@@ -16,22 +16,29 @@ export const constructorIngredients = (state = initialState, action) => {
       } else {
         return {
           ...state,
-          ingredients: state.ingredients.concat(action.payload),
+          ingredients: [...state.ingredients, action.payload],
         };
       }
     case REMOVE_INGREDIENT:
-      const removedEl = state.ingredients.findIndex((item) => item._id === action.payload);
-      if (removedEl === -1) return state.ingredients;
+      const removedElementIndex = state.ingredients.findIndex((item) => item._id === action.payload);
+      if (removedElementIndex === -1) {
+        return state;
+      }
+      const updIngredients = [...state.ingredients];
+      updIngredients.splice(removedElementIndex, 1);
+      return {
+        ...state,
+        ingredients: updIngredients,
+      };
+    case MOVE_INGREDIENT:
+      const { fromIndex, toIndex } = action.payload;
+      const movedIngredient = state.ingredients[fromIndex];
       const updatedIngredients = [...state.ingredients];
-      updatedIngredients.splice(removedEl, 1);
+      updatedIngredients.splice(fromIndex, 1);
+      updatedIngredients.splice(toIndex, 0, movedIngredient);
       return {
         ...state,
         ingredients: updatedIngredients,
-      };
-    case MOVE_INGREDIENT:
-      console.log("move ingredient");
-      return {
-        ...state,
       };
     default:
       return state;
