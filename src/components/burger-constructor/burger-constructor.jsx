@@ -23,11 +23,7 @@ const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
-      if (ingredient.type === "bun") {
-        dispatch({ type: ADD_INGREDIENT, payload: ingredient });
-      } else {
-        dispatch({ type: ADD_INGREDIENT, payload: ingredient });
-      }
+      dispatch({ type: ADD_INGREDIENT, payload: ingredient });
     },
   });
 
