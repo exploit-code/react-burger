@@ -1,28 +1,32 @@
 import styles from "./burger-constructor-card.module.scss";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
+import { ingredientType } from "../../utils/prop-types";
 import { REMOVE_INGREDIENT } from "../../services/actions/burger-constructor";
 import { useDispatch } from "react-redux";
+import { useDrag } from "react-dnd";
 
-const BurgerConstructorCard = ({ name, price, image, id }) => {
+const BurgerConstructorCard = ({ ingredient }) => {
   const dispatch = useDispatch();
-  const removeIngredient = (id) => {
-    dispatch({ type: REMOVE_INGREDIENT, payload: id });
+  const removeIngredient = (ingredient) => {
+    dispatch({ type: REMOVE_INGREDIENT, payload: ingredient._id });
   };
 
+  const [, constructorIngredientDragRef] = useDrag({
+    type: "moveIngredients",
+    item: ingredient,
+  });
+
   return (
-    <li className={styles.burger_constructor_card}>
+    <li className={styles.burger_constructor_card} ref={constructorIngredientDragRef}>
       <DragIcon type="primary" />
-      <ConstructorElement text={name} price={price} thumbnail={image} handleClose={() => removeIngredient(id)} />
+      <ConstructorElement text={ingredient.name} price={ingredient.price} thumbnail={ingredient.image} handleClose={() => removeIngredient(ingredient)} />
     </li>
   );
 };
 
 BurgerConstructorCard.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  ingredient: PropTypes.shape(ingredientType).isRequired,
 };
 
 export default BurgerConstructorCard;

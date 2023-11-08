@@ -8,7 +8,7 @@ import Bun from "../bun/bun";
 import Checkout from "../checkout/checkout";
 import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
-import { ADD_INGREDIENT } from "../../services/actions/burger-constructor";
+import { ADD_INGREDIENT, MOVE_INGREDIENT } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
 
 const BurgerConstructor = () => {
@@ -27,6 +27,13 @@ const BurgerConstructor = () => {
     },
   });
 
+  const [, moveIngredientsRef] = useDrop({
+    accept: "moveIngredients",
+    drop(ingredient) {
+      dispatch({ type: MOVE_INGREDIENT, payload: ingredient });
+    },
+  });
+
   const borderColor = isHover ? "lightgreen" : "#3A3A55";
 
   return (
@@ -36,9 +43,9 @@ const BurgerConstructor = () => {
           {bun && <Bun type={"top"} isLocked={true} text={"Краторная булка N-200i (верх)"} price={bun.price} thumbnail={bun.image} />}
         </div>
 
-        <ul className={cn(styles.burger_constructor__ingredients)}>
+        <ul className={cn(styles.burger_constructor__ingredients)} ref={moveIngredientsRef}>
           {ingredients.map((item) => (
-            <BurgerConstructorCard name={item.name} price={item.price} image={item.image} id={item._id} key={uuidv4()} />
+            <BurgerConstructorCard ingredient={item} key={uuidv4()} />
           ))}
         </ul>
 

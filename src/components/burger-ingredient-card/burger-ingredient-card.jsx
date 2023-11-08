@@ -19,13 +19,13 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
   const allConstructorIngredients = [...ingredients, bun];
   const count = allConstructorIngredients.filter((item) => item?._id === ingredient._id).length;
 
-  const [, dragRef] = useDrag({
+  const [, ingredientDragRef] = useDrag({
     type: "ingredients",
     item: ingredient,
   });
 
   return (
-    <li className={styles.burger_ingredient_card} onClick={handleIngredientClick} ref={dragRef}>
+    <li className={styles.burger_ingredient_card} onClick={handleIngredientClick} ref={ingredientDragRef}>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}>
         <img className={styles.burger_ingredient_card__image} src={ingredient.image_large} alt={ingredient.name} />
         <Counter count={count} size="default" extraClass="m-1" />
