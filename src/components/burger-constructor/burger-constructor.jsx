@@ -6,9 +6,8 @@ import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
 import Bun from "../bun/bun";
 import Checkout from "../checkout/checkout";
-import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
-import { ADD_INGREDIENT } from "../../services/actions/burger-constructor";
+import { addIngridientAction } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
 
 const BurgerConstructor = () => {
@@ -23,7 +22,7 @@ const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient) {
-      dispatch({ type: ADD_INGREDIENT, payload: ingredient });
+      dispatch(addIngridientAction(ingredient));
     },
   });
 
@@ -38,7 +37,7 @@ const BurgerConstructor = () => {
 
         <ul className={cn(styles.burger_constructor__ingredients)}>
           {ingredients.map((item, index) => (
-            <BurgerConstructorCard ingredient={item} key={uuidv4()} index={index} />
+            <BurgerConstructorCard ingredient={item} key={item.uuid} index={index} />
           ))}
         </ul>
 

@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, MOVE_INGREDIENT } from "../actions/burger-constructor";
+import { ADD_INGREDIENT, REMOVE_INGREDIENT, REMOVE_ALL_INGREDIENT, MOVE_INGREDIENT } from "../actions/burger-constructor";
 
 const initialState = {
   bun: null,
@@ -29,6 +29,12 @@ export const constructorIngredients = (state = initialState, action) => {
       return {
         ...state,
         ingredients: updIngredients,
+      };
+    case REMOVE_ALL_INGREDIENT:
+      return {
+        ...state,
+        bun: null,
+        ingredients: [],
       };
     case MOVE_INGREDIENT:
       const { fromIndex, toIndex } = action.payload;
