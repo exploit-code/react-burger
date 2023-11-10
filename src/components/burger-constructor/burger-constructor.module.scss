@@ -1,24 +1,41 @@
 .burger_constructor {
   display: grid;
   gap: 40px;
+  align-content: start;
+  padding-top: 100px;
+  box-sizing: border-box;
 
   &__combine {
     display: grid;
+    align-items: start;
+    grid-template-rows: max-content 1fr max-content;
     gap: 16px;
+    border: 1px solid lightgreen;
+    justify-content: center;
+    grid-template-columns: 1fr;
   }
 
-  &__head,
-  &__footer {
-    padding-left: 48px;
-    padding-right: 24px;
+  &__bun {
+    display: flex;
+    justify-content: center;
+    min-height: 80px;
+
+    &_top {
+      align-self: flex-start;
+    }
+    &_bottom {
+      align-items: flex-end;
+    }
   }
 
-  &__body {
+  &__ingredients {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    height: calc(var(--vh50) - var(--header-height));
     overflow: auto;
+    margin: 0;
+    padding: 0;
+    height: 275px;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -27,22 +44,5 @@
     &::-webkit-scrollbar-thumb {
       background-color: var(--text-inactive-color);
     }
-  }
-
-  &__checkout {
-    display: flex;
-    justify-self: flex-end;
-    gap: 40px;
-  }
-
-  &__price {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  &__currency {
-    width: 36px;
-    height: 36px;
   }
 }

@@ -1,28 +1,34 @@
 import styles from "./burger-ingredients.module.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import { useModal } from "../../hooks/useModal";
+import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../loader/loader";
+import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 
-const BurgerIngredients = ({ data }) => {
-  const [current, setCurrent] = useState("bun");
-  const [currentIngredient, setCurrentIngredient] = useState(null);
+const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+  const { loading, error, data } = useSelector((store) => store.ingredients);
+  const currentIngredient = useSelector((store) => store.currentIngredient.ingredient);
+
+  useEffect(() => dispatch(getIngredients()), [dispatch]);
+
   const { isModalOpen, openModal, closeModal } = useModal();
 
-  const filteredData = {
-    bunItems: data.filter((filterItem) => filterItem.type === "bun"),
-    sauceItems: data.filter((filterItem) => filterItem.type === "sauce"),
-    mainItems: data.filter((filterItem) => filterItem.type === "main"),
-  };
+  const bunItems = useMemo(() => data.filter((filterItem) => filterItem.type === "bun"), [data]);
+  const sauceItems = useMemo(() => data.filter((filterItem) => filterItem.type === "sauce"), [data]);
+  const mainItems = useMemo(() => data.filter((filterItem) => filterItem.type === "main"), [data]);
 
   const bunBoxRef = useRef(null);
   const sauceBoxRef = useRef(null);
   const mainBoxRef = useRef(null);
+  const ingredientsBoxRef = useRef(null);
 
   const scrollToElement = (ref) => {
     if (ref.current) {
@@ -33,82 +39,102 @@ const BurgerIngredients = ({ data }) => {
     }
   };
 
+  useEffect(() => {
+    if (!isModalOpen && currentIngredient !== null) dispatch({ type: CLEAR_CURRENT_INGREDIENT, payload: null });
+  }, [isModalOpen, currentIngredient, dispatch]);
+
+  const [current, setCurrent] = useState("bun");
+
+  const ingredientsScroll = () => {
+    const bunBox = Math.round(bunBoxRef.current.getBoundingClientRect().y);
+    const sauceBox = Math.round(sauceBoxRef.current.getBoundingClientRect().y);
+    const mainBox = Math.round(mainBoxRef.current.getBoundingClientRect().y);
+    const pos = Math.round(ingredientsBoxRef.current.getBoundingClientRect().y);
+
+    if (bunBox && sauceBox && mainBox) {
+      if (pos >= bunBox && pos < sauceBox) setCurrent("bun");
+      else if (pos >= sauceBox && pos < mainBox) setCurrent("sauce");
+      else if (pos >= mainBox) setCurrent("main");
+    }
+  };
+
   return (
-    <section className={styles.ingredients}>
-      <div className={cn(styles.ingredients__head, "pt-10 pb-10")}>
-        <h1 className="text text_type_main-large">Соберите бургер</h1>
-        <div className={styles.ingredients__tabs}>
-          <Tab
-            value="bun"
-            active={current === "bun"}
-            onClick={() => {
-              setCurrent("bun");
-              scrollToElement(bunBoxRef);
-            }}
-          >
-            Булки
-          </Tab>
-          <Tab
-            value="sauce"
-            active={current === "sauce"}
-            onClick={() => {
-              setCurrent("sauce");
-              scrollToElement(sauceBoxRef);
-            }}
-          >
-            Соусы
-          </Tab>
-          <Tab
-            value="main"
-            active={current === "main"}
-            onClick={() => {
-              setCurrent("main");
-              scrollToElement(mainBoxRef);
-            }}
-          >
-            Начинки
-          </Tab>
-        </div>
-      </div>
+    <>
+      {loading || error ? (
+        <Loader text={loading ? "loading" : "error"} />
+      ) : (
+        <section className={styles.ingredients}>
+          <div className={cn(styles.ingredients__head, "pt-10 pb-10")}>
+            <h1 className="text text_type_main-large">Соберите бургер</h1>
+            <div className={styles.ingredients__tabs}>
+              <Tab
+                value="bun"
+                active={current === "bun"}
+                onClick={() => {
+                  setCurrent("bun");
+                  scrollToElement(bunBoxRef);
+                }}
+              >
+                Булки
+              </Tab>
+              <Tab
+                value="sauce"
+                active={current === "sauce"}
+                onClick={() => {
+                  setCurrent("sauce");
+                  scrollToElement(sauceBoxRef);
+                }}
+              >
+                Соусы
+              </Tab>
+              <Tab
+                value="main"
+                active={current === "main"}
+                onClick={() => {
+                  setCurrent("main");
+                  scrollToElement(mainBoxRef);
+                }}
+              >
+                Начинки
+              </Tab>
+            </div>
+          </div>
+          <div className={styles.ingredients__body} onScroll={ingredientsScroll} ref={ingredientsBoxRef}>
+            <div className={styles.ingredients__group} ref={bunBoxRef}>
+              <h2 className="text text_type_main-medium">Булки</h2>
+              <ul className={styles.ingredients__list}>
+                {bunItems.map((item) => (
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                ))}
+              </ul>
+            </div>
+            <div className={styles.ingredients__group} ref={sauceBoxRef}>
+              <h2 className="text text_type_main-medium">Соусы</h2>
+              <ul className={styles.ingredients__list}>
+                {sauceItems.map((item) => (
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                ))}
+              </ul>
+            </div>
+            <div className={styles.ingredients__group} ref={mainBoxRef}>
+              <h2 className="text text_type_main-medium">Начинки</h2>
+              <ul className={styles.ingredients__list}>
+                {mainItems.map((item) => (
+                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                ))}
+              </ul>
+            </div>
+          </div>
 
-      <div className={styles.ingredients__body}>
-        <div className={styles.ingredients__group} ref={bunBoxRef}>
-          <h2 className="text text_type_main-medium">Булки</h2>
-          <ul className={styles.ingredients__list}>
-            {filteredData.bunItems.map((item) => (
-              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
-            ))}
-          </ul>
-        </div>
-        <div className={styles.ingredients__group} ref={sauceBoxRef}>
-          <h2 className="text text_type_main-medium">Соусы</h2>
-          <ul className={styles.ingredients__list}>
-            {filteredData.sauceItems.map((item) => (
-              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
-            ))}
-          </ul>
-        </div>
-        <div className={styles.ingredients__group} ref={mainBoxRef}>
-          <h2 className="text text_type_main-medium">Начинки</h2>
-          <ul className={styles.ingredients__list}>
-            {filteredData.mainItems.map((item) => (
-              <BurgerIngredientCard ingredient={item} setCurrentIngredient={setCurrentIngredient} openModal={openModal} key={item._id} />
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {isModalOpen && (
-        <Modal title={"Детали ингредиента"} closeModal={closeModal}>
-          <IngredientDetails currentIngredient={currentIngredient} />
-        </Modal>
+          {isModalOpen && (
+            <Modal title={"Детали ингредиента"} closeModal={closeModal}>
+              <IngredientDetails currentIngredient={currentIngredient} />
+            </Modal>
+          )}
+        </section>
       )}
-    </section>
+    </>
   );
 };
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
-};
-
-export default BurgerIngredients;
+export default memo(BurgerIngredients);

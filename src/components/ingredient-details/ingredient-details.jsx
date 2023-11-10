@@ -2,7 +2,7 @@ import cn from "classnames";
 import styles from "./ingredient-details.module.scss";
 import IngredientParams from "../ingredient-params/ingredient-params";
 import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/types";
+import { ingredientType } from "../../utils/prop-types";
 
 const IngredientDetails = ({ currentIngredient }) => {
   return (
