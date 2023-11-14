@@ -1,0 +1,27 @@
+.profile {
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 88px;
+  }
+
+  &__navlist {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      display: flex;
+    }
+  }
+
+  &__navlink {
+    text-decoration: none;
+    color: var(--colors-button-inactive);
+    padding: 8px 0;
+
+    &_active {
+      color: var(--text-primary-color);
+    }
+  }
+}
