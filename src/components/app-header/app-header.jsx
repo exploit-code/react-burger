@@ -2,6 +2,7 @@ import styles from "./app-header.module.scss";
 import cn from "classnames";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderMenuItem from "../header-menu-item/header-menu-item";
+import { Link } from "react-router-dom";
 
 const AppHeader = () => {
   return (
@@ -14,7 +15,9 @@ const AppHeader = () => {
           </ul>
         </nav>
         <div className={styles.app_header__logo}>
-          <Logo />
+          <Link to={{ pathname: "/" }}>
+            <Logo />
+          </Link>
         </div>
         <nav>
           <ul className={styles.app_header__list}>
