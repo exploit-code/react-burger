@@ -21,14 +21,16 @@
 
   &__navlink {
     text-decoration: none;
-    color: var(--colors-button-inactive);
     min-height: 64px;
     display: flex;
     align-items: center;
     width: 100%;
+    color: var(--text-primary-color);
+  }
 
-    &_active {
-      color: var(--text-primary-color);
-    }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
   }
 }
