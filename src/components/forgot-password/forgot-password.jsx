@@ -1,20 +1,16 @@
 import styles from "./forgot-password.module.scss";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useFormData } from "../../hooks/useFormData";
 
 export const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-
-  const handleChange = (e, setState) => {
-    setState(e.target.value);
-  };
+  const { value, setValue, handleChange } = useFormData({ email: "" });
 
   return (
     <div className={styles.forgotPassword}>
       <form className={styles.forgotPassword__form}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <EmailInput onChange={(e) => handleChange(e, setEmail)} value={email} name={"email"} isIcon={false} placeholder={"Укажите e-mail"} />
+        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} isIcon={false} placeholder={"Укажите e-mail"} />
         <Button htmlType="button" type="primary" size="medium">
           Восстановить
         </Button>
