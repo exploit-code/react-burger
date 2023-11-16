@@ -1,23 +1,42 @@
 import styles from "./reset-password.module.scss";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useFormData } from "../../hooks/useFormData";
+import { useDispatch, useSelector } from "react-redux";
+import { userResetPassword } from "../../services/actions/auth";
+import { useEffect, useRef } from "react";
 
 export const ResetPassword = () => {
-  const [code, setCode] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { reset, loading } = useSelector((store) => store.auth);
+  const previousReset = useRef(reset);
+  const { value, setValue, handleChange } = useFormData({ password: "", token: "" });
 
-  const handleChange = (e, setState) => {
-    setState(e.target.value);
+  const handleResetPasswordClick = () => {
+    dispatch(userResetPassword(value));
   };
+
+  useEffect(() => {
+    if (reset !== previousReset.current) navigate("/login");
+    previousReset.current = reset;
+  }, [reset, navigate]);
 
   return (
     <div className={styles.resetPassword}>
-      <form className={styles.resetPassword__form}>
+      <form className={styles.resetPassword__form} onSubmit={(e) => e.preventDefault()}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <PasswordInput onChange={(e) => handleChange(e, setPassword)} value={password} name={"password"} extraClass="mb-2" placeholder={"Введите новый пароль"} />
-        <Input type={"text"} onChange={(e) => handleChange(e, setCode)} value={code} placeholder={"Введите код из письма"} name={"code"} size={"default"} extraClass="ml-1" />
-        <Button htmlType="button" type="primary" size="medium">
+        <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} extraClass="mb-2" placeholder={"Введите новый пароль"} />
+        <Input
+          type={"text"}
+          onChange={(e) => handleChange(e, setValue)}
+          value={value.token}
+          placeholder={"Введите код из письма"}
+          name={"token"}
+          size={"default"}
+          extraClass="ml-1"
+        />
+        <Button htmlType="button" type="primary" size="medium" onClick={handleResetPasswordClick} disabled={loading ? true : false}>
           Сохранить
         </Button>
       </form>

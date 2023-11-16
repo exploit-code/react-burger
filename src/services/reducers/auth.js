@@ -8,6 +8,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_ERROR,
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
@@ -16,10 +19,11 @@ import {
 const initialState = {
   name: "",
   email: "",
-  auth: false,
+  loggedIn: false,
   loading: false,
   error: false,
-  resetPassword: false,
+  forgot: false,
+  reset: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -35,6 +39,7 @@ export const auth = (state = initialState, action) => {
         name: action.payload.name,
         email: action.payload.email,
         loading: false,
+        loggedIn: true,
       };
     case REGISTER_ERROR:
       return {
@@ -51,7 +56,9 @@ export const auth = (state = initialState, action) => {
     case LOGOUT_SUCCESS:
       return {
         ...state,
-        auth: false,
+        name: "",
+        email: "",
+        loggedIn: false,
         loading: false,
       };
     case LOGOUT_ERROR:
@@ -69,10 +76,28 @@ export const auth = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        auth: true,
+        loggedIn: true,
         loading: false,
       };
     case LOGIN_ERROR:
+      return {
+        ...state,
+        error: true,
+        loading: false,
+      };
+
+    case FORGOT_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case FORGOT_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        forgot: true,
+      };
+    case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
         error: true,
@@ -88,7 +113,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        resetPassword: true,
+        reset: true,
       };
     case RESET_PASSWORD_ERROR:
       return {
