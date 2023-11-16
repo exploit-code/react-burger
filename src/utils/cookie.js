@@ -34,9 +34,3 @@ export const deleteCookie = (name) => {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
 };
-
-// setCookie(
-//   "accessToken",
-//   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NTVkN2RhYzJjYzYxMDAxYjNkODJjNiIsImlhdCI6MTcwMDEyNDYzNCwiZXhwIjoxNzAwMTI1ODM0fQ.ELegWuW3hi0VWFTLAsjR6DqpVnCmgQjFXSylW9AFroE"
-// );
-// setCookie("refreshToken", "7b3fee058915eabdfb2777651801ba7cd4df014905c25dae78905d8de28c7f8e9f4bfe0e7e43c413");

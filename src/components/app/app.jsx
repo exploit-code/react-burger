@@ -6,8 +6,12 @@ import { ForgotPasswordPage } from "../../pages/forgot-password/forgot-password"
 import { ResetPasswordPage } from "../../pages/reset-password/reset-password";
 import { ProfilePage } from "../../pages/profile/profile";
 import { NotFoundPage } from "../../pages/not-found/not-found";
+import { useSelector } from "react-redux";
+import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 
 const App = () => {
+  const { authenticated } = useSelector((store) => store.auth);
+
   return (
     <Router>
       <Routes>
@@ -16,7 +20,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={authenticated} path={"/login"} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

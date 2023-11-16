@@ -3,7 +3,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { userForgotPassword } from "../../services/actions/auth";
+import { forgotPassword } from "../../services/actions/auth";
 import { useEffect, useRef } from "react";
 
 export const ForgotPassword = () => {
@@ -19,7 +19,7 @@ export const ForgotPassword = () => {
   }, [forgot, navigate]);
 
   const handleForgotPasswordClick = () => {
-    dispatch(userForgotPassword(value));
+    dispatch(forgotPassword(value));
   };
 
   return (

@@ -21,7 +21,19 @@ export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_ERROR = "RESET_PASSWORD_ERROR";
 
-export const userRegister = (props) => (dispatch) => {
+export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
+export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
+export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
+
+export const GET_USER_REQUEST = "GET_USER_REQUEST";
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_ERROR = "GET_USER_ERROR";
+
+export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
+
+export const register = (props) => (dispatch) => {
   dispatch({ type: REGISTER_REQUEST });
   request("auth/register", {
     method: "POST",
@@ -37,7 +49,7 @@ export const userRegister = (props) => (dispatch) => {
     });
 };
 
-export const userLogIn = (props) => (dispatch) => {
+export const login = (props) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   request("auth/login", {
     method: "POST",
@@ -53,7 +65,7 @@ export const userLogIn = (props) => (dispatch) => {
     });
 };
 
-export const userForgotPassword = (props) => (dispatch) => {
+export const forgotPassword = (props) => (dispatch) => {
   dispatch({ type: FORGOT_PASSWORD_REQUEST });
   request("password-reset", {
     method: "POST",
@@ -68,7 +80,7 @@ export const userForgotPassword = (props) => (dispatch) => {
     });
 };
 
-export const userResetPassword = (props) => (dispatch) => {
+export const resetPassword = (props) => (dispatch) => {
   dispatch({ type: RESET_PASSWORD_REQUEST });
   request("password-reset/reset", {
     method: "POST",
@@ -83,7 +95,7 @@ export const userResetPassword = (props) => (dispatch) => {
     });
 };
 
-export const userLogOut = (props) => (dispatch) => {
+export const logout = (props) => (dispatch) => {
   dispatch({ type: LOGOUT_REQUEST });
   request("auth/logout", {
     method: "POST",
@@ -95,5 +107,51 @@ export const userLogOut = (props) => (dispatch) => {
     })
     .catch(() => {
       dispatch({ type: LOGOUT_ERROR });
+    });
+};
+
+export const refreshToken = (props) => (dispatch) => {
+  dispatch({ type: REFRESH_TOKEN_REQUEST });
+  request("auth/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify(props),
+  })
+    .then((res) => {
+      dispatch({ type: REFRESH_TOKEN_SUCCESS, payload: res });
+      setCookie("refreshToken", res.refreshToken);
+    })
+    .catch(() => {
+      dispatch({ type: REFRESH_TOKEN_ERROR });
+    });
+};
+
+export const getUser = (props) => (dispatch) => {
+  dispatch({ type: GET_USER_REQUEST });
+  request("auth/user", {
+    method: "GET",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify(props),
+  })
+    .then((res) => {
+      dispatch({ type: GET_USER_SUCCESS, payload: res });
+    })
+    .catch(() => {
+      dispatch({ type: GET_USER_ERROR });
+    });
+};
+
+export const updateUser = (props) => (dispatch) => {
+  dispatch({ type: UPDATE_USER_REQUEST });
+  request("auth/user", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify(props),
+  })
+    .then((res) => {
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: res });
+    })
+    .catch(() => {
+      dispatch({ type: UPDATE_USER_ERROR });
     });
 };

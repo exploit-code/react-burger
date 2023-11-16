@@ -1,15 +1,18 @@
-import { NavLink } from "react-router-dom";
 import styles from "./profile.module.scss";
-import { EmailInput, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useState } from "react";
+import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { NavLink } from "react-router-dom";
+import { useFormData } from "../../hooks/useFormData";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../../services/actions/auth";
 
 export const Profile = () => {
-  const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const handleChange = (e, setState) => {
-    setState(e.target.value);
+  const { value, setValue, handleChange } = useFormData({ name: "", email: "", password: "" });
+  const { loading } = useSelector((store) => store.auth);
+
+  const handleRegicterClick = () => {
+    dispatch(updateUser(value));
   };
 
   return (
@@ -35,10 +38,13 @@ export const Profile = () => {
         <p className={"text text_type_main-default text_color_inactive"}>В этом разделе вы можете изменить свои персональные данные</p>
       </nav>
 
-      <form className={styles.profile__form}>
-        <EmailInput onChange={(e) => handleChange(e, setName)} value={name} name={"name"} placeholder="Имя" isIcon={true} error={false} extraClass="mb-2" />
-        <EmailInput onChange={(e) => handleChange(e, setLogin)} value={login} name={"login"} placeholder="Логин" isIcon={true} extraClass="mb-2" />
-        <PasswordInput onChange={(e) => handleChange(e, setPassword)} value={password} name={"password"} icon="EditIcon" />
+      <form className={styles.profile__form} onSubmit={(e) => e.preventDefault()}>
+        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.name} name={"name"} placeholder="Имя" isIcon={true} error={false} extraClass="mb-2" />
+        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"login"} placeholder="Логин" isIcon={true} extraClass="mb-2" />
+        <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} icon="EditIcon" />
+        <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
+          Сохранить
+        </Button>
       </form>
     </article>
   );

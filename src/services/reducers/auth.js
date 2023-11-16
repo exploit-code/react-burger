@@ -14,12 +14,15 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_ERROR,
 } from "../actions/auth";
 
 const initialState = {
   name: "",
   email: "",
-  accessToken: null,
+  authenticated: false,
   loading: false,
   error: false,
   forgot: false,
@@ -39,7 +42,7 @@ export const auth = (state = initialState, action) => {
         name: action.payload.user.name,
         email: action.payload.user.email,
         loading: false,
-        accessToken: action.payload.accessToken,
+        authenticated: true,
       };
     case REGISTER_ERROR:
       return {
@@ -58,7 +61,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         name: "",
         email: "",
-        accessToken: null,
+        authenticated: false,
         loading: false,
       };
     case LOGOUT_ERROR:
@@ -78,7 +81,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         name: action.payload.user.name,
         email: action.payload.user.email,
-        accessToken: action.payload.accessToken,
+        authenticated: true,
         loading: false,
       };
     case LOGIN_ERROR:
@@ -118,6 +121,24 @@ export const auth = (state = initialState, action) => {
         reset: true,
       };
     case RESET_PASSWORD_ERROR:
+      return {
+        ...state,
+        error: true,
+        loading: false,
+      };
+
+    case REFRESH_TOKEN_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case REFRESH_TOKEN_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        reset: true,
+      };
+    case REFRESH_TOKEN_ERROR:
       return {
         ...state,
         error: true,

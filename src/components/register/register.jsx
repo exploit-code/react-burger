@@ -3,7 +3,7 @@ import { Input, EmailInput, PasswordInput, Button } from "@ya.praktikum/react-de
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../../services/actions/auth";
+import { register } from "../../services/actions/auth";
 import { useEffect, useRef } from "react";
 
 export const Register = () => {
@@ -21,7 +21,7 @@ export const Register = () => {
   }, [loading, navigate]);
 
   const handleRegicterClick = () => {
-    dispatch(userRegister(value));
+    dispatch(register(value));
   };
 
   return (

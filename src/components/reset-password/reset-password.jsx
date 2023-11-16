@@ -3,7 +3,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { userResetPassword } from "../../services/actions/auth";
+import { resetPassword } from "../../services/actions/auth";
 import { useEffect, useRef } from "react";
 
 export const ResetPassword = () => {
@@ -14,7 +14,7 @@ export const ResetPassword = () => {
   const { value, setValue, handleChange } = useFormData({ password: "", token: "" });
 
   const handleResetPasswordClick = () => {
-    dispatch(userResetPassword(value));
+    dispatch(resetPassword(value));
   };
 
   useEffect(() => {
