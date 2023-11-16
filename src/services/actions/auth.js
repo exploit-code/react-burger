@@ -29,11 +29,27 @@ export const userRegister = (props) => (dispatch) => {
     body: JSON.stringify(props),
   })
     .then((res) => {
-      dispatch({ type: REGISTER_SUCCESS, payload: res.user });
+      dispatch({ type: REGISTER_SUCCESS, payload: res });
       setCookie("refreshToken", res.refreshToken);
     })
     .catch(() => {
       dispatch({ type: REGISTER_ERROR });
+    });
+};
+
+export const userLogIn = (props) => (dispatch) => {
+  dispatch({ type: LOGIN_REQUEST });
+  request("auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify(props),
+  })
+    .then((res) => {
+      dispatch({ type: LOGIN_SUCCESS, payload: res });
+      setCookie("refreshToken", res.refreshToken);
+    })
+    .catch(() => {
+      dispatch({ type: LOGIN_ERROR });
     });
 };
 
@@ -67,32 +83,17 @@ export const userResetPassword = (props) => (dispatch) => {
     });
 };
 
-// export const userLogOut = (token) => (dispatch) => {
-//   dispatch({ type: LOGOUT_REQUEST });
-//   request("auth/logout", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json;charset=utf-8" },
-//     body: JSON.stringify(token),
-//   })
-//     .then((res) => {
-//       dispatch({ type: LOGOUT_SUCCESS, payload: res });
-//     })
-//     .catch(() => {
-//       dispatch({ type: LOGOUT_ERROR });
-//     });
-// };
-
-// export const userLogIn = (user) => (dispatch) => {
-//   dispatch({ type: LOGIN_REQUEST });
-//   request("auth/login", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json;charset=utf-8" },
-//     body: JSON.stringify(token),
-//   })
-//     .then((res) => {
-//       dispatch({ type: LOGIN_SUCCESS, payload: res });
-//     })
-//     .catch(() => {
-//       dispatch({ type: LOGIN_ERROR });
-//     });
-// };
+export const userLogOut = (props) => (dispatch) => {
+  dispatch({ type: LOGOUT_REQUEST });
+  request("auth/logout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify(props),
+  })
+    .then((res) => {
+      dispatch({ type: LOGOUT_SUCCESS, payload: res });
+    })
+    .catch(() => {
+      dispatch({ type: LOGOUT_ERROR });
+    });
+};

@@ -19,7 +19,7 @@ import {
 const initialState = {
   name: "",
   email: "",
-  loggedIn: false,
+  accessToken: null,
   loading: false,
   error: false,
   forgot: false,
@@ -36,10 +36,10 @@ export const auth = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
         loading: false,
-        loggedIn: true,
+        accessToken: action.payload.accessToken,
       };
     case REGISTER_ERROR:
       return {
@@ -58,7 +58,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         name: "",
         email: "",
-        loggedIn: false,
+        accessToken: null,
         loading: false,
       };
     case LOGOUT_ERROR:
@@ -76,7 +76,9 @@ export const auth = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loggedIn: true,
+        name: action.payload.user.name,
+        email: action.payload.user.email,
+        accessToken: action.payload.accessToken,
         loading: false,
       };
     case LOGIN_ERROR:
