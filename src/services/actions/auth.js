@@ -103,7 +103,7 @@ export const logout = (props) => (dispatch) => {
   request("auth/logout", {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    body: JSON.stringify({ token: props }),
   })
     .then((res) => {
       dispatch({ type: LOGOUT_SUCCESS, payload: res });

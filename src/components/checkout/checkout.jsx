@@ -3,15 +3,22 @@ import styles from "./checkout.module.scss";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from "../../services/actions/order-details";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { accessToken } = useSelector((store) => store.auth);
   const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
 
   const handleOrderClick = () => {
-    openModal();
-    dispatch(getOrderNumber(ingredientsID));
+    if (!accessToken) {
+      navigate("/login");
+    } else {
+      openModal();
+      dispatch(getOrderNumber(ingredientsID));
+    }
   };
 
   const ingredientsPrice = ingredients.reduce((total, ingredient) => total + ingredient.price, 0);
@@ -24,7 +31,7 @@ const Checkout = ({ openModal }) => {
         <span className="text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={!(ingredients.length && bun)}>
+      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
         Оформить заказ
       </Button>
     </div>
