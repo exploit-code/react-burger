@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 
 const App = () => {
-  const { authenticated } = useSelector((store) => store.auth);
+  const { accessToken } = useSelector((store) => store.auth);
 
   return (
     <Router>
@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={authenticated} path={"/login"} />} />
+        <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={accessToken} path={"/login"} />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>

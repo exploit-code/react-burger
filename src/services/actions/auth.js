@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { setCookie } from "../../utils/cookie";
+import { setCookie, getCookie, deleteCookie } from "../../utils/cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -53,7 +53,10 @@ export const login = (props) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   request("auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: getCookie("refreshToken"),
+    },
     body: JSON.stringify(props),
   })
     .then((res) => {
@@ -104,6 +107,7 @@ export const logout = (props) => (dispatch) => {
   })
     .then((res) => {
       dispatch({ type: LOGOUT_SUCCESS, payload: res });
+      deleteCookie("refreshToken");
     })
     .catch(() => {
       dispatch({ type: LOGOUT_ERROR });

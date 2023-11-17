@@ -22,7 +22,7 @@ import {
 const initialState = {
   name: "",
   email: "",
-  authenticated: false,
+  accessToken: null,
   loading: false,
   error: false,
   forgot: false,
@@ -42,7 +42,7 @@ export const auth = (state = initialState, action) => {
         name: action.payload.user.name,
         email: action.payload.user.email,
         loading: false,
-        authenticated: true,
+        accessToken: action.payload.accessToken.split("Bearer ")[1],
       };
     case REGISTER_ERROR:
       return {
@@ -58,11 +58,7 @@ export const auth = (state = initialState, action) => {
       };
     case LOGOUT_SUCCESS:
       return {
-        ...state,
-        name: "",
-        email: "",
-        authenticated: false,
-        loading: false,
+        ...initialState,
       };
     case LOGOUT_ERROR:
       return {
@@ -81,7 +77,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         name: action.payload.user.name,
         email: action.payload.user.email,
-        authenticated: true,
+        accessToken: action.payload.accessToken.split("Bearer ")[1],
         loading: false,
       };
     case LOGIN_ERROR:
@@ -136,6 +132,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        accessToken: action.payload.accessToken.split('Bearer ')[1],
         reset: true,
       };
     case REFRESH_TOKEN_ERROR:
