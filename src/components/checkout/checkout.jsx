@@ -31,7 +31,7 @@ const Checkout = ({ openModal }) => {
         <span className="text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
+      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={bun && ingredients.length ? false : true}>
         Оформить заказ
       </Button>
     </div>

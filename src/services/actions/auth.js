@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { setCookie, getCookie, deleteCookie } from "../../utils/cookie";
+import { setCookie, deleteCookie } from "../../utils/cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -55,7 +55,6 @@ export const login = (props) => (dispatch) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization: getCookie("refreshToken"),
     },
     body: JSON.stringify(props),
   })
