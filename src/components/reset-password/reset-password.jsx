@@ -8,7 +8,7 @@ import { resetPassword } from "../../services/actions/auth";
 export const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, accessToken } = useSelector((store) => store.auth);
+  const { loading, accessToken, reset } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ password: "", token: "" });
 
   const handleResetPasswordClick = async () => {
@@ -20,7 +20,7 @@ export const ResetPassword = () => {
     }
   };
 
-  return accessToken ? (
+  return !reset || accessToken ? (
     <Navigate to="/" replace />
   ) : (
     <div className={styles.resetPassword}>

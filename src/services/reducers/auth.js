@@ -24,6 +24,7 @@ const initialState = {
   accessToken: null,
   loading: false,
   error: false,
+  reset: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -74,6 +75,7 @@ export const auth = (state = initialState, action) => {
         user: action.payload.user,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
         loading: false,
+        reset: false,
       };
     case LOGIN_ERROR:
       return {
@@ -91,7 +93,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        forgot: true,
+        reset: true,
       };
     case FORGOT_PASSWORD_ERROR:
       return {
@@ -109,7 +111,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        reset: true,
+        reset: false,
       };
     case RESET_PASSWORD_ERROR:
       return {

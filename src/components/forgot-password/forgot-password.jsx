@@ -4,21 +4,27 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../services/actions/auth";
+import { useEffect } from "react";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, accessToken } = useSelector((store) => store.auth);
+  const { loading, accessToken, reset } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ email: "" });
 
   const handleForgotPasswordClick = async () => {
     try {
       await dispatch(forgotPassword(value));
-      navigate("/reset-password");
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (reset) {
+      navigate("/reset-password");
+    }
+  }, [reset, navigate]);
 
   return accessToken ? (
     <Navigate to="/" replace />
