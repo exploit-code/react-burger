@@ -1,28 +1,28 @@
 import styles from "./forgot-password.module.scss";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../services/actions/auth";
-import { useEffect, useRef } from "react";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { forgot, loading } = useSelector((store) => store.auth);
-  const previousForgot = useRef(forgot);
+  const { loading, accessToken } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ email: "" });
 
-  useEffect(() => {
-    if (forgot !== previousForgot.current) navigate("/reset-password");
-    previousForgot.current = forgot;
-  }, [forgot, navigate]);
-
-  const handleForgotPasswordClick = () => {
-    dispatch(forgotPassword(value));
+  const handleForgotPasswordClick = async () => {
+    try {
+      await dispatch(forgotPassword(value));
+      navigate("/reset-password");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  return (
+  return accessToken ? (
+    <Navigate to="/" replace />
+  ) : (
     <div className={styles.forgotPassword}>
       <form className={styles.forgotPassword__form} onSubmit={(e) => e.preventDefault()}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>

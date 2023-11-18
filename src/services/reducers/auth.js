@@ -20,13 +20,10 @@ import {
 } from "../actions/auth";
 
 const initialState = {
-  name: "",
-  email: "",
+  user: null,
   accessToken: null,
   loading: false,
   error: false,
-  forgot: false,
-  reset: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -39,8 +36,7 @@ export const auth = (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        name: action.payload.user.name,
-        email: action.payload.user.email,
+        user: action.payload.user,
         loading: false,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
       };
@@ -75,8 +71,7 @@ export const auth = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        name: action.payload.user.name,
-        email: action.payload.user.email,
+        user: action.payload.user,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
         loading: false,
       };
@@ -132,8 +127,7 @@ export const auth = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        accessToken: action.payload.accessToken.split('Bearer ')[1],
-        reset: true,
+        accessToken: action.payload.accessToken.split("Bearer ")[1],
       };
     case REFRESH_TOKEN_ERROR:
       return {
