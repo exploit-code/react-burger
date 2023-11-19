@@ -12,23 +12,23 @@ export const Profile = () => {
   const { loading, refreshToken, user, accessToken, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ name: user.name, email: user.email, password: "" });
 
-  useEffect(() => {
-    if (error) dispatch(updateToken(refreshToken));
-    else dispatch(getUser(accessToken));
-  }, [accessToken, dispatch, refreshToken, error]);
-
-  const handleRegicterClick = () => {
-    dispatch(updateUser(value));
+  const handleUpdateUser = () => {
+    dispatch(updateUser({ user: value, accessToken }));
   };
 
-  const handleLogoutClick = (e) => {
+  const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout(refreshToken));
   };
 
-  const handleCancelClick = () => {
+  const handleCancel = () => {
     setValue({ name: user.name, email: user.email, password: "" });
   };
+
+  useEffect(() => {
+    if (error) dispatch(updateToken(refreshToken));
+    else dispatch(getUser(accessToken));
+  }, [accessToken, dispatch, refreshToken, error]);
 
   return (
     <article className={styles.profile}>
@@ -45,7 +45,7 @@ export const Profile = () => {
             </NavLink>
           </li>
           <li>
-            <Link className={styles.profile__navlink} onClick={(e) => handleLogoutClick(e)}>
+            <Link className={styles.profile__navlink} onClick={(e) => handleLogout(e)}>
               <span className="text text_type_main-medium text_color_inactive">Выход</span>
             </Link>
           </li>
@@ -57,10 +57,10 @@ export const Profile = () => {
         <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.name} name={"name"} placeholder="Имя" isIcon={true} error={false} />
         <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} placeholder="Логин" isIcon={true} />
         <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} icon="EditIcon" />
-        <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
+        <Button htmlType="button" type="primary" size="medium" onClick={handleUpdateUser} disabled={loading ? true : false}>
           Сохранить
         </Button>
-        <Button htmlType="button" type="primary" size="medium" onClick={handleCancelClick} disabled={loading ? true : false}>
+        <Button htmlType="button" type="primary" size="medium" onClick={handleCancel} disabled={loading ? true : false}>
           Отмена
         </Button>
       </form>

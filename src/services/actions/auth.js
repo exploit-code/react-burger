@@ -124,11 +124,12 @@ export const getUser = (props) => (dispatch) => {
 };
 
 export const updateUser = (props) => (dispatch) => {
+  console.log(props)
   dispatch({ type: UPDATE_USER_REQUEST });
   request("auth/user", {
     method: "PATCH",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props.accessToken}` },
+    body: JSON.stringify(props.user),
   })
     .then((res) => {
       dispatch({ type: UPDATE_USER_SUCCESS, payload: res });
