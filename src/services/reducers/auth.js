@@ -130,7 +130,6 @@ export const auth = (state = initialState, action) => {
       };
 
     case UPDATE_TOKEN_REQUEST:
-      console.log("request upd token", action.payload);
       return {
         ...state,
         loading: true,

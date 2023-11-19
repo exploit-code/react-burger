@@ -124,7 +124,6 @@ export const getUser = (props) => (dispatch) => {
 };
 
 export const updateUser = (props) => (dispatch) => {
-  console.log(props)
   dispatch({ type: UPDATE_USER_REQUEST });
   request("auth/user", {
     method: "PATCH",
