@@ -3,18 +3,19 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import { NavLink, Link } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, updateUser } from "../../services/actions/auth";
+import { getUser, updateUser, updateToken } from "../../services/actions/auth";
 import { logout } from "../../services/actions/auth";
 import { useEffect } from "react";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { loading, refreshToken, user, accessToken } = useSelector((store) => store.auth);
+  const { loading, refreshToken, user, accessToken, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ name: user.name, email: user.email, password: "" });
 
   useEffect(() => {
-    dispatch(getUser(accessToken));
-  }, [accessToken, dispatch]);
+    if (error) dispatch(updateToken(refreshToken));
+    else dispatch(getUser(accessToken));
+  }, [accessToken, dispatch, refreshToken, error]);
 
   const handleRegicterClick = () => {
     dispatch(updateUser(value));
@@ -23,6 +24,10 @@ export const Profile = () => {
   const handleLogoutClick = (e) => {
     e.preventDefault();
     dispatch(logout(refreshToken));
+  };
+
+  const handleCancelClick = () => {
+    setValue({ name: user.name, email: user.email, password: "" });
   };
 
   return (
@@ -50,12 +55,12 @@ export const Profile = () => {
 
       <form className={styles.profile__form} onSubmit={(e) => e.preventDefault()}>
         <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.name} name={"name"} placeholder="Имя" isIcon={true} error={false} />
-        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"login"} placeholder="Логин" isIcon={true} />
+        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} placeholder="Логин" isIcon={true} />
         <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} icon="EditIcon" />
         <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
           Сохранить
         </Button>
-        <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
+        <Button htmlType="button" type="primary" size="medium" onClick={handleCancelClick} disabled={loading ? true : false}>
           Отмена
         </Button>
       </form>

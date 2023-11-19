@@ -20,9 +20,9 @@ export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST";
 export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
 export const RESET_PASSWORD_ERROR = "RESET_PASSWORD_ERROR";
 
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
-export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
+export const UPDATE_TOKEN_REQUEST = "UPDATE_TOKEN_REQUEST";
+export const UPDATE_TOKEN_SUCCESS = "UPDATE_TOKEN_SUCCESS";
+export const UPDATE_TOKEN_ERROR = "UPDATE_TOKEN_ERROR";
 
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
@@ -109,21 +109,6 @@ export const logout = (props) => (dispatch) => {
     });
 };
 
-export const refreshToken = (props) => (dispatch) => {
-  dispatch({ type: REFRESH_TOKEN_REQUEST });
-  request("auth/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
-  })
-    .then((res) => {
-      dispatch({ type: REFRESH_TOKEN_SUCCESS, payload: res });
-    })
-    .catch(() => {
-      dispatch({ type: REFRESH_TOKEN_ERROR });
-    });
-};
-
 export const getUser = (props) => (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
   request("auth/user", {
@@ -150,5 +135,20 @@ export const updateUser = (props) => (dispatch) => {
     })
     .catch(() => {
       dispatch({ type: UPDATE_USER_ERROR });
+    });
+};
+
+export const updateToken = (props) => (dispatch) => {
+  dispatch({ type: UPDATE_TOKEN_REQUEST });
+  request("auth/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify({ token: props }),
+  })
+    .then((res) => {
+      dispatch({ type: UPDATE_TOKEN_SUCCESS, payload: res });
+    })
+    .catch(() => {
+      dispatch({ type: UPDATE_TOKEN_ERROR });
     });
 };

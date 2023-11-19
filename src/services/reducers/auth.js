@@ -14,9 +14,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_ERROR,
-  REFRESH_TOKEN_REQUEST,
-  REFRESH_TOKEN_SUCCESS,
-  REFRESH_TOKEN_ERROR,
+  UPDATE_TOKEN_REQUEST,
+  UPDATE_TOKEN_SUCCESS,
+  UPDATE_TOKEN_ERROR,
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_ERROR,
@@ -126,18 +126,20 @@ export const auth = (state = initialState, action) => {
         loading: false,
       };
 
-    case REFRESH_TOKEN_REQUEST:
+    case UPDATE_TOKEN_REQUEST:
+      console.log("request upd token", action.payload)
       return {
         ...state,
         loading: true,
       };
-    case REFRESH_TOKEN_SUCCESS:
+    case UPDATE_TOKEN_SUCCESS:
+      console.log("success upd token", action.payload)
       return {
         ...state,
         loading: false,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
       };
-    case REFRESH_TOKEN_ERROR:
+    case UPDATE_TOKEN_ERROR:
       return {
         ...state,
         error: true,
@@ -150,7 +152,6 @@ export const auth = (state = initialState, action) => {
         loading: true,
       };
     case GET_USER_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         loading: false,
