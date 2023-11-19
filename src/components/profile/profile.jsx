@@ -3,14 +3,18 @@ import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer
 import { NavLink, Link } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../services/actions/auth";
+import { getUser, updateUser } from "../../services/actions/auth";
 import { logout } from "../../services/actions/auth";
+import { useEffect } from "react";
 
 export const Profile = () => {
   const dispatch = useDispatch();
+  const { loading, refreshToken, user, accessToken } = useSelector((store) => store.auth);
+  const { value, setValue, handleChange } = useFormData({ name: user.name, email: user.email, password: "" });
 
-  const { value, setValue, handleChange } = useFormData({ name: "", email: "", password: "" });
-  const { loading, refreshToken } = useSelector((store) => store.auth);
+  useEffect(() => {
+    dispatch(getUser(accessToken));
+  }, [accessToken, dispatch]);
 
   const handleRegicterClick = () => {
     dispatch(updateUser(value));
@@ -50,6 +54,9 @@ export const Profile = () => {
         <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} icon="EditIcon" />
         <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
           Сохранить
+        </Button>
+        <Button htmlType="button" type="primary" size="medium" onClick={handleRegicterClick} disabled={loading ? true : false}>
+          Отмена
         </Button>
       </form>
     </article>

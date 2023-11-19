@@ -17,6 +17,9 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_ERROR,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_ERROR,
 } from "../actions/auth";
 
 const initialState = {
@@ -135,6 +138,25 @@ export const auth = (state = initialState, action) => {
         accessToken: action.payload.accessToken.split("Bearer ")[1],
       };
     case REFRESH_TOKEN_ERROR:
+      return {
+        ...state,
+        error: true,
+        loading: false,
+      };
+
+    case GET_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_USER_SUCCESS:
+      console.log(action.payload)
+      return {
+        ...state,
+        loading: false,
+        user: action.payload.user,
+      };
+    case GET_USER_ERROR:
       return {
         ...state,
         error: true,

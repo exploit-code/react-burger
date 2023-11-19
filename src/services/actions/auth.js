@@ -128,8 +128,7 @@ export const getUser = (props) => (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
   request("auth/user", {
     method: "GET",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props}` },
   })
     .then((res) => {
       dispatch({ type: GET_USER_SUCCESS, payload: res });
