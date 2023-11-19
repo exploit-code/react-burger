@@ -22,6 +22,7 @@ import {
 const initialState = {
   user: null,
   accessToken: null,
+  refreshToken: null,
   loading: false,
   error: false,
   reset: false,
@@ -40,6 +41,7 @@ export const auth = (state = initialState, action) => {
         user: action.payload.user,
         loading: false,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
+        refreshToken: action.payload.refreshToken,
       };
     case REGISTER_ERROR:
       return {
@@ -74,6 +76,7 @@ export const auth = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
+        refreshToken: action.payload.refreshToken,
         loading: false,
         reset: false,
       };

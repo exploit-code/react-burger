@@ -1,5 +1,4 @@
 import { request } from "../../utils/api";
-import { setCookie, deleteCookie } from "../../utils/cookie";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -42,7 +41,6 @@ export const register = (props) => (dispatch) => {
   })
     .then((res) => {
       dispatch({ type: REGISTER_SUCCESS, payload: res });
-      setCookie("refreshToken", res.refreshToken);
     })
     .catch(() => {
       dispatch({ type: REGISTER_ERROR });
@@ -60,7 +58,6 @@ export const login = (props) => (dispatch) => {
   })
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res });
-      setCookie("refreshToken", res.refreshToken);
     })
     .catch(() => {
       dispatch({ type: LOGIN_ERROR });
@@ -106,7 +103,6 @@ export const logout = (props) => (dispatch) => {
   })
     .then((res) => {
       dispatch({ type: LOGOUT_SUCCESS, payload: res });
-      deleteCookie("refreshToken");
     })
     .catch(() => {
       dispatch({ type: LOGOUT_ERROR });
@@ -122,7 +118,6 @@ export const refreshToken = (props) => (dispatch) => {
   })
     .then((res) => {
       dispatch({ type: REFRESH_TOKEN_SUCCESS, payload: res });
-      setCookie("refreshToken", res.refreshToken);
     })
     .catch(() => {
       dispatch({ type: REFRESH_TOKEN_ERROR });

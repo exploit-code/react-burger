@@ -5,13 +5,12 @@ import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../services/actions/auth";
 import { logout } from "../../services/actions/auth";
-import { getCookie } from "../../utils/cookie";
 
 export const Profile = () => {
   const dispatch = useDispatch();
 
   const { value, setValue, handleChange } = useFormData({ name: "", email: "", password: "" });
-  const { loading } = useSelector((store) => store.auth);
+  const { loading, refreshToken } = useSelector((store) => store.auth);
 
   const handleRegicterClick = () => {
     dispatch(updateUser(value));
@@ -19,7 +18,7 @@ export const Profile = () => {
 
   const handleLogoutClick = (e) => {
     e.preventDefault();
-    dispatch(logout(getCookie("refreshToken")));
+    dispatch(logout(refreshToken));
   };
 
   return (
