@@ -135,7 +135,6 @@ export const auth = (state = initialState, action) => {
         loading: true,
       };
     case UPDATE_TOKEN_SUCCESS:
-      console.log("success upd token", action.payload);
       return {
         ...state,
         loading: false,
