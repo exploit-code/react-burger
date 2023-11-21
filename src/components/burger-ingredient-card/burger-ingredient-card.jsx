@@ -5,14 +5,19 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/prop-types";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
+import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
+import { useNavigate } from "react-router-dom";
+import { openModal } from "../../services/actions/modal";
 
-const BurgerIngredientCard = ({ ingredient, openModal }) => {
+const BurgerIngredientCard = ({ ingredient }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleIngredientClick = () => {
-    openModal(true);
-    dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
+    dispatch(setCurrentIngredient(ingredient));
+    dispatch(openModal());
+    navigate(`/ingredients/${ingredient._id}`);
   };
 
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
@@ -43,7 +48,6 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  openModal: PropTypes.func.isRequired,
 };
 
 export default memo(BurgerIngredientCard);

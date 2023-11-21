@@ -14,7 +14,7 @@ export const currentIngredient = (state = initialState, action) => {
     case CLEAR_CURRENT_INGREDIENT:
       return {
         ...state,
-        ingredient: action.payload,
+        ingredient: null,
       };
     default:
       return state;

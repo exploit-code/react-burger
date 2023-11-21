@@ -6,7 +6,7 @@ import { ingredientType } from "../../utils/prop-types";
 
 const IngredientDetails = ({ currentIngredient }) => {
   return (
-    <section className={cn(styles.ingredient_details)}>
+    <section className={cn(styles.ingredient_details)} style={{ margin: "0 auto" }}>
       <div className={styles.ingredient_details__image_box}>
         <img className={styles.ingredient_details__image} src={currentIngredient.image_large} alt={currentIngredient.name} />
       </div>
