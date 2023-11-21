@@ -16,12 +16,12 @@ export const SiteBar = () => {
     <nav className={styles.sitebar}>
       <ul className={styles.sitebar__list}>
         <li>
-          <NavLink className={styles.sitebar__link} to={"/profile"}>
+          <NavLink className={styles.sitebar__link} to={"/profile"} end>
             {({ isActive }) => <span className={isActive ? "text text_type_main-medium" : "text text_type_main-medium text_color_inactive"}>Профиль</span>}
           </NavLink>
         </li>
         <li>
-          <NavLink className={styles.sitebar__link} to={"/profile/orders"}>
+          <NavLink className={styles.sitebar__link} to={"/profile/orders"} end>
             {({ isActive }) => <span className={isActive ? "text text_type_main-medium" : "text text_type_main-medium text_color_inactive"}>История заказов</span>}
           </NavLink>
         </li>

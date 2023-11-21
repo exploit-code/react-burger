@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 import { AuthLayout } from "../../pages/auth-layout/auth-layout";
 import { IngredientPage } from "../../pages/ingredient/ingredient";
+import { ProfileOrdersPage } from "../../pages/profile-orders/profile-orders";
 
 const App = () => {
   const { accessToken } = useSelector((store) => store.auth);
@@ -19,12 +20,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/" element={<AuthLayout />}>
-          <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} isAuthenticated={!accessToken} path={"/profile"} />} />
+          <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} isAuthenticated={!accessToken} path={"/"} />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
           <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={accessToken} path={"/login"} />} />
+          <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} isAuthenticated={accessToken} path={"/login"} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
