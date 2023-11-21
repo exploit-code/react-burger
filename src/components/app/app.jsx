@@ -9,6 +9,7 @@ import { NotFoundPage } from "../../pages/not-found/not-found";
 import { useSelector } from "react-redux";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 import { AuthLayout } from "../../pages/auth-layout/auth-layout";
+import { IngredientPage } from "../../pages/ingredient/ingredient";
 
 const App = () => {
   const { accessToken } = useSelector((store) => store.auth);
@@ -22,10 +23,10 @@ const App = () => {
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="register" element={<RegisterPage />} />
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
+          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={accessToken} path={"/login"} />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={accessToken} path={"/login"} />} />
-        <Route path="*" element={<NotFoundPage />} />
-        {/* <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} isAuthenticated={accessToken} path={"/login"} />} /> */}
       </Routes>
     </Router>
   );

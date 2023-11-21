@@ -1,0 +1,27 @@
+.sitebar {
+  display: flex;
+  flex-direction: column;
+  gap: 88px;
+  width: 100%;
+  max-width: 320px;
+  margin-right: 60px;
+
+  &__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    & li {
+      display: flex;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: var(--text-primary-color);
+  }
+}

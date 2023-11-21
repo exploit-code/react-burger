@@ -1,14 +1,11 @@
-import styles from "./profile.module.scss";
-import AppHeader from "../../components/app-header/app-header";
 import { Profile } from "../../components/profile/profile";
+import { SiteBar } from "../../components/sidebar/sidebar";
 
 export const ProfilePage = () => {
   return (
     <>
-      <AppHeader />
-      <main className={styles.main}>
-        <Profile />
-      </main>
+      <SiteBar />
+      <Profile />
     </>
   );
 };
