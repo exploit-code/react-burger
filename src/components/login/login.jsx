@@ -1,28 +1,20 @@
 import styles from "./login.module.scss";
 import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/auth";
-import { useEffect } from "react";
 
 export const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { value, handleChange } = useFormData({ email: "", password: "" });
-  const { loading, accessToken } = useSelector((store) => store.auth);
+  const { loading } = useSelector((store) => store.auth);
 
   const handleLoginClick = () => {
     dispatch(login(value));
   };
 
-  useEffect(() => {
-    if (accessToken) navigate("/profile");
-  }, [accessToken, navigate]);
-
-  return accessToken ? (
-    <Navigate to="/" replace />
-  ) : (
+  return (
     <div className={styles.login}>
       <form className={styles.login__form}>
         <h2 className="text text_type_main-medium">Вход</h2>
