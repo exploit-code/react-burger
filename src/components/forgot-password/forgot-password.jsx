@@ -4,27 +4,25 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPassword } from "../../services/actions/auth";
-import { useEffect } from "react";
+import { useEnterKeySubmit } from "../../hooks/useEnterKeySubmit";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, accessToken, reset } = useSelector((store) => store.auth);
+  const { loading, accessToken, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({ email: "" });
 
-  const handleForgotPasswordClick = async () => {
+  const handleForgotPasswordSubmit = async () => {
+    if (!value.email) return;
     try {
       await dispatch(forgotPassword(value));
+      await navigate("/reset-password");
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    if (reset) {
-      navigate("/reset-password");
-    }
-  }, [reset, navigate]);
+  const handleKeyDown = useEnterKeySubmit(handleForgotPasswordSubmit);
 
   return accessToken ? (
     <Navigate to="/" replace />
@@ -32,10 +30,11 @@ export const ForgotPassword = () => {
     <div className={styles.forgotPassword}>
       <form className={styles.forgotPassword__form} onSubmit={(e) => e.preventDefault()}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} isIcon={false} placeholder={"Укажите e-mail"} />
-        <Button htmlType="button" type="primary" size="medium" onClick={handleForgotPasswordClick} disabled={loading ? true : false}>
+        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} isIcon={false} placeholder={"Укажите e-mail"} onKeyDown={handleKeyDown} />
+        <Button htmlType="button" type="primary" size="medium" onClick={handleForgotPasswordSubmit} disabled={loading}>
           Восстановить
         </Button>
+        {error && <p className="text text_type_main-default">{error}</p>}
       </form>
       <div className={styles.forgotPassword__box}>
         <div className={styles.forgotPassword__jumpto}>

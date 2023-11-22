@@ -20,13 +20,13 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/" element={<AuthLayout />}>
-          <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} isAuthenticated={!accessToken} path={"/"} />} />
+          <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} property={!accessToken} path={"/"} />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="reset-password" element={<ResetPasswordPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="/ingredients/:id" element={<IngredientPage />} />
-          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} isAuthenticated={accessToken} path={"/login"} />} />
-          <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} isAuthenticated={accessToken} path={"/login"} />} />
+          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} property={accessToken} path={"/login"} />} />
+          <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} property={accessToken} path={"/login"} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

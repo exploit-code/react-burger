@@ -4,23 +4,23 @@ import { Link } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/auth";
+import { useEnterKeySubmit } from "../../hooks/useEnterKeySubmit";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const { value, handleChange } = useFormData({ email: "", password: "" });
-  const { loading } = useSelector((store) => store.auth);
+  const { loading} = useSelector((store) => store.auth);
 
-  const handleLoginClick = () => {
-    dispatch(login(value));
-  };
+  const handleLoginSubmit = () => dispatch(login(value));
+  const handleKeyDown = useEnterKeySubmit(handleLoginSubmit);
 
   return (
     <div className={styles.login}>
-      <form className={styles.login__form}>
+      <form className={styles.login__form} onSubmit={handleLoginSubmit}>
         <h2 className="text text_type_main-medium">Вход</h2>
-        <EmailInput onChange={handleChange} value={value.email} name={"email"} isIcon={false} />
-        <PasswordInput onChange={handleChange} value={value.password} name={"password"} extraClass="mb-2" />
-        <Button htmlType="button" type="primary" size="medium" disabled={loading} onClick={handleLoginClick}>
+        <EmailInput onChange={handleChange} value={value.email} name={"email"} isIcon={false} onKeyDown={handleKeyDown} />
+        <PasswordInput onChange={handleChange} value={value.password} name={"password"} extraClass="mb-2" onKeyDown={handleKeyDown} />
+        <Button htmlType="button" type="primary" size="medium" disabled={loading} onClick={handleLoginSubmit} onKeyDown={handleKeyDown}>
           Войти
         </Button>
       </form>
