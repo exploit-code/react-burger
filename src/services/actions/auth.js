@@ -49,7 +49,7 @@ export const register = (props) => (dispatch) => {
 
 export const login = (props) => (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
-  request("auth/login", {
+  return request("auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
@@ -66,7 +66,7 @@ export const login = (props) => (dispatch) => {
 
 export const forgotPassword = (props) => (dispatch) => {
   dispatch({ type: FORGOT_PASSWORD_REQUEST });
-  request("password-reset", {
+  return request("password-reset", {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify(props),
@@ -81,7 +81,7 @@ export const forgotPassword = (props) => (dispatch) => {
 
 export const resetPassword = (props) => (dispatch) => {
   dispatch({ type: RESET_PASSWORD_REQUEST });
-  request("password-reset/reset", {
+  return request("password-reset/reset", {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify(props),

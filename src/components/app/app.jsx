@@ -9,27 +9,30 @@ import { NotFoundPage } from "../../pages/not-found/not-found";
 import { useSelector } from "react-redux";
 import { ProtectedRouteElement } from "../protected-route-element/protected-route-element";
 import { AuthLayout } from "../../pages/auth-layout/auth-layout";
-import { IngredientPage } from "../../pages/ingredient/ingredient";
 import { ProfileOrdersPage } from "../../pages/profile-orders/profile-orders";
+import AppHeader from "../app-header/app-header";
 
 const App = () => {
-  const { accessToken } = useSelector((store) => store.auth);
+  const { accessToken, reset } = useSelector((store) => store.auth);
 
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/" element={<AuthLayout />}>
-          <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} property={!accessToken} path={"/"} />} />
-          <Route path="forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="reset-password" element={<ResetPasswordPage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="/ingredients/:id" element={<IngredientPage />} />
-          <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} property={accessToken} path={"/login"} />} />
-          <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} property={accessToken} path={"/login"} />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+      <>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route element={<AuthLayout />}>
+            <Route path="login" element={<ProtectedRouteElement element={<LoginPage />} property={!accessToken} path={"/"} />} />
+            <Route path="forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="reset-password" element={<ProtectedRouteElement element={<ResetPasswordPage />} property={reset} path={"/forgot-password"} />} />
+            <Route path="register" element={<RegisterPage />} />
+            {/* <Route path="/ingredients/:id" element={<IngredientPage />} /> */}
+            <Route path="/profile" element={<ProtectedRouteElement element={<ProfilePage />} property={accessToken} path={"/login"} />} />
+            <Route path="/profile/orders" element={<ProtectedRouteElement element={<ProfileOrdersPage />} property={accessToken} path={"/login"} />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </>
     </Router>
   );
 };

@@ -9,16 +9,14 @@ const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
-  const { accessToken } = useSelector((store) => store.auth);
   const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
+  const { accessToken } = useSelector((store) => store.auth);
 
   const handleOrderClick = () => {
-    if (!accessToken) {
-      navigate("/login");
-    } else {
+    if (accessToken) {
       openModal();
       dispatch(getOrderNumber(ingredientsID));
-    }
+    } else navigate("/login");
   };
 
   const ingredientsPrice = ingredients.reduce((total, ingredient) => total + ingredient.price, 0);
@@ -31,7 +29,7 @@ const Checkout = ({ openModal }) => {
         <span className="text text_type_digits-medium">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={bun && ingredients.length ? false : true}>
+      <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick} disabled={!(ingredients.length && bun)}>
         Оформить заказ
       </Button>
     </div>

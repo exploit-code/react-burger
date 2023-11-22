@@ -1,25 +1,17 @@
 import styles from "./close-button.module.scss";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { closeModal } from "../../services/actions/modal";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { clearCurrentIngredient } from "../../services/actions/ingredient-details";
+import PropTypes from "prop-types";
 
-const CloseButton = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleClickModalButton = () => {
-    dispatch(closeModal());
-    dispatch(clearCurrentIngredient());
-    navigate("/");
-  };
-
+const CloseButton = ({ closeModal }) => {
   return (
-    <button className={styles.close_button} onClick={handleClickModalButton}>
+    <button className={styles.close_button} onClick={closeModal}>
       <CloseIcon type="primary" />
     </button>
   );
+};
+
+CloseButton.propTypes = {
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default CloseButton;

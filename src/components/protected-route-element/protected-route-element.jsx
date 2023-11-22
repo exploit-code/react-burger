@@ -7,6 +7,6 @@ export const ProtectedRouteElement = ({ element, property, path }) => {
 
 ProtectedRouteElement.propTypes = {
   element: PropTypes.element.isRequired,
-  property: PropTypes.string.isRequired,
+  property: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   path: PropTypes.string.isRequired,
 };

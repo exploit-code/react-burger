@@ -7,17 +7,13 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
-import { useNavigate } from "react-router-dom";
-import { openModal } from "../../services/actions/modal";
 
-const BurgerIngredientCard = ({ ingredient }) => {
+const BurgerIngredientCard = ({ ingredient, openModal }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleIngredientClick = () => {
     dispatch(setCurrentIngredient(ingredient));
-    dispatch(openModal());
-    navigate(`/ingredients/${ingredient._id}`);
+    openModal(true);
   };
 
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
@@ -48,6 +44,7 @@ const BurgerIngredientCard = ({ ingredient }) => {
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
+  openModal: PropTypes.func.isRequired,
 };
 
 export default memo(BurgerIngredientCard);
