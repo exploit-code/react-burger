@@ -1,12 +1,18 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-export const ProtectedRouteElement = ({ element, property, path }) => {
-  return property ? element : <Navigate to={path} replace />;
+export const ProtectedRouteElement = ({ children, anonymous = false }) => {
+  const { accessToken } = useSelector((store) => store.auth);
+  const location = useLocation();
+  const from = location.state?.from || "/";
+
+  if (anonymous && accessToken) return <Navigate to={from} />;
+  if (!anonymous && !accessToken) return <Navigate to="/login" state={{ from: location }} />;
+  return children;
 };
 
 ProtectedRouteElement.propTypes = {
-  element: PropTypes.element.isRequired,
-  property: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-  path: PropTypes.string.isRequired,
+  children: PropTypes.element,
+  anonymous: PropTypes.bool.isRequired,
 };

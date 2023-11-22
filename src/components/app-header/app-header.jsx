@@ -3,7 +3,7 @@ import cn from "classnames";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, NavLink } from "react-router-dom";
 
-const AppHeader = () => {
+export const AppHeader = () => {
   return (
     <header className={cn(styles.app_header, "pt-4 pb-4")}>
       <nav className={styles.app_header__list}>
@@ -41,5 +41,3 @@ const AppHeader = () => {
     </header>
   );
 };
-
-export default AppHeader;
