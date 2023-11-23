@@ -7,10 +7,10 @@ import { DndProvider } from "react-dnd";
 export const MainPage = () => {
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className={styles.main_page}>
+      <section className={styles.main_page}>
         <BurgerIngredients />
         <BurgerConstructor />
-      </div>
+      </section>
     </DndProvider>
   );
 };

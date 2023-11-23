@@ -3,8 +3,8 @@ import { ForgotPassword } from "../../components/forgot-password/forgot-password
 
 export const ForgotPasswordPage = () => {
   return (
-    <article className={styles.forgot_password_page}>
+    <section className={styles.forgot_password_page}>
       <ForgotPassword />
-    </article>
+    </section>
   );
 };

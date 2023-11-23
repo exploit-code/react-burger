@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
 
-export const BurgerIngredientCard = memo(({ ingredient, openModal }) => {
+export const BurgerIngredientCard = memo(({ ingredient }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -47,5 +47,4 @@ export const BurgerIngredientCard = memo(({ ingredient, openModal }) => {
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  openModal: PropTypes.func.isRequired,
 };

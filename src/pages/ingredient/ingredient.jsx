@@ -10,10 +10,10 @@ export const IngredientPage = () => {
   const [viewIngredient] = data.filter((el) => el._id === id);
 
   return viewIngredient ? (
-    <div className={styles.ingredient_page}>
+    <section className={styles.ingredient_page}>
       <h2 class="text text_type_main-large">Детали ингредиента</h2>
       <IngredientDetails currentIngredient={viewIngredient} />
-    </div>
+    </section>
   ) : (
     <NotFoundPage />
   );

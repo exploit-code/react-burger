@@ -3,8 +3,8 @@ import { Register } from "../../components/register/register";
 
 export const RegisterPage = () => {
   return (
-    <article className={styles.register_page}>
+    <section className={styles.register_page}>
       <Register />
-    </article>
+    </section>
   );
 };

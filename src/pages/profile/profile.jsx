@@ -5,9 +5,9 @@ import { SiteBar } from "../../components/sidebar/sidebar";
 
 export const ProfilePage = () => {
   return (
-    <article className={cn(styles.profile, "container")}>
+    <section className={cn(styles.profile, "container")}>
       <SiteBar />
       <Profile />
-    </article>
+    </section>
   );
 };
