@@ -2,9 +2,9 @@ import styles from "./order-details.module.scss";
 import cn from "classnames";
 import orderDetailsImage from "../../images/order-popup-image.svg";
 import { useSelector } from "react-redux";
-import Loader from "../loader/loader";
+import { Loader } from "../loader/loader";
 
-const OrderDetails = () => {
+export const OrderDetails = () => {
   const { order, loading, error } = useSelector((store) => store.order);
   return (
     <>
@@ -22,5 +22,3 @@ const OrderDetails = () => {
     </>
   );
 };
-
-export default OrderDetails;

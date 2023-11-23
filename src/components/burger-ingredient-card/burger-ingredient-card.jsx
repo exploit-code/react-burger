@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
 
-const BurgerIngredientCard = ({ ingredient, openModal }) => {
+export const BurgerIngredientCard = memo(({ ingredient, openModal }) => {
   const dispatch = useDispatch();
 
   const handleIngredientClick = () => {
@@ -40,11 +40,9 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
       </div>
     </li>
   );
-};
+});
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
   openModal: PropTypes.func.isRequired,
 };
-
-export default memo(BurgerIngredientCard);

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
 
-const Checkout = ({ openModal }) => {
+export const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
@@ -39,5 +39,3 @@ const Checkout = ({ openModal }) => {
 Checkout.propTypes = {
   openModal: PropTypes.func.isRequired,
 };
-
-export default Checkout;

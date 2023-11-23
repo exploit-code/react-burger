@@ -6,7 +6,7 @@ import { REMOVE_INGREDIENT, MOVE_INGREDIENT } from "../../services/actions/burge
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 
-const BurgerConstructorCard = ({ ingredient, index }) => {
+export const BurgerConstructorCard = ({ ingredient, index }) => {
   const dispatch = useDispatch();
   const removeIngredient = (ingredient) => {
     dispatch({ type: REMOVE_INGREDIENT, payload: ingredient._id });
@@ -40,5 +40,3 @@ BurgerConstructorCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
   index: PropTypes.number.isRequired,
 };
-
-export default BurgerConstructorCard;

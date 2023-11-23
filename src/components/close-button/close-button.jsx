@@ -2,7 +2,7 @@ import styles from "./close-button.module.scss";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import PropTypes from "prop-types";
 
-const CloseButton = ({ closeModal }) => {
+export const CloseButton = ({ closeModal }) => {
   return (
     <button className={styles.close_button} onClick={closeModal}>
       <CloseIcon type="primary" />
@@ -13,5 +13,3 @@ const CloseButton = ({ closeModal }) => {
 CloseButton.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };
-
-export default CloseButton;

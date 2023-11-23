@@ -11,7 +11,7 @@ import { AuthLayout } from "../../pages/auth-layout/auth-layout";
 import { ProfileOrdersPage } from "../../pages/profile-orders/profile-orders";
 import { AppHeader } from "../app-header/app-header";
 
-const App = () => {
+export const App = () => {
   return (
     <Router>
       <>
@@ -33,5 +33,3 @@ const App = () => {
     </Router>
   );
 };
-
-export default App;

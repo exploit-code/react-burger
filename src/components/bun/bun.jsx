@@ -2,7 +2,7 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import styles from "./bun.module.scss";
 import PropTypes from "prop-types";
 
-const Bun = ({ type, isLocked, text, price, thumbnail }) => {
+export const Bun = ({ type, isLocked, text, price, thumbnail }) => {
   return (
     <div className={styles.bun}>
       <ConstructorElement type={type} isLocked={isLocked} text={text} price={price} thumbnail={thumbnail} />
@@ -17,5 +17,3 @@ Bun.propTypes = {
   price: PropTypes.number,
   thumbnail: PropTypes.string,
 };
-
-export default Bun;

@@ -1,12 +1,12 @@
-import ModalOverlay from "../modal-overlay/modal-overlay";
-import { createPortal } from "react-dom";
 import styles from "./modal.module.scss";
-import CloseButton from "../close-button/close-button";
 import cn from "classnames";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import { ModalOverlay } from "../modal-overlay/modal-overlay";
+import { createPortal } from "react-dom";
+import { CloseButton } from "../close-button/close-button";
 
-const Modal = ({ title = "", children, closeModal }) => {
+export const Modal = ({ title = "", children, closeModal }) => {
   const portal = document.getElementById("portal");
 
   useEffect(() => {
@@ -36,5 +36,3 @@ Modal.propTypes = {
   children: PropTypes.element.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
-
-export default Modal;

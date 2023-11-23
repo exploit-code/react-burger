@@ -2,16 +2,16 @@ import styles from "./burger-ingredients.module.scss";
 import { useState, useRef, useMemo, useEffect } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
+import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../hooks/useModal";
-import Loader from "../loader/loader";
+import { Loader } from "../loader/loader";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import { Modal } from "../modal/modal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
-const BurgerIngredients = () => {
+export const BurgerIngredients = memo(() => {
   const dispatch = useDispatch();
   const { isModalOpen, openModal, closeModal } = useModal();
   const { ingredient } = useSelector((store) => store.currentIngredient);
@@ -127,6 +127,4 @@ const BurgerIngredients = () => {
       )}
     </>
   );
-};
-
-export default memo(BurgerIngredients);
+});

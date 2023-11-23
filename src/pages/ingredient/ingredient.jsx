@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Modal from "../../components/modal/modal";
-import IngredientDetails from "../../components/ingredient-details/ingredient-details";
+import {IngredientDetails} from "../../components/ingredient-details/ingredient-details";
 import { useParams } from "react-router-dom";
 
 export const IngredientPage = () => {
