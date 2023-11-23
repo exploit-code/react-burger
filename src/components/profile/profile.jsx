@@ -4,6 +4,7 @@ import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, updateUser, updateToken } from "../../services/actions/auth";
 import { useEffect, useState } from "react";
+import { Loader } from "../loader/loader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,9 @@ export const Profile = () => {
     else dispatch(getUser(accessToken));
   }, [accessToken, dispatch, refreshToken, error]);
 
-  return (
+  return loading || error ? (
+    <Loader text={loading ? "loading" : "error"} />
+  ) : (
     <form className={styles.profile} onSubmit={handleUpdateUserSubmit}>
       <Input type={"text"} onChange={(e) => handleChange(e, setValue)} value={value.name} name={"name"} placeholder="Имя" error={false} icon={"EditIcon"} />
       <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} placeholder="Логин" isIcon={true} />

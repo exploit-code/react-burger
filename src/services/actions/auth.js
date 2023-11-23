@@ -111,7 +111,7 @@ export const logout = (props) => (dispatch) => {
 
 export const getUser = (props) => (dispatch) => {
   dispatch({ type: GET_USER_REQUEST });
-  request("auth/user", {
+  return request("auth/user", {
     method: "GET",
     headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props}` },
   })
@@ -140,7 +140,7 @@ export const updateUser = (props) => (dispatch) => {
 
 export const updateToken = (props) => (dispatch) => {
   dispatch({ type: UPDATE_TOKEN_REQUEST });
-  request("auth/token", {
+  return request("auth/token", {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify({ token: props }),

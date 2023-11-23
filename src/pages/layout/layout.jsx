@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import styles from "./auth-layout.module.scss";
+import styles from "./layout.module.scss";
 
-export const AuthLayout = () => {
+export const Layout = () => {
   return (
     <main className={styles.main}>
       <Outlet />

@@ -4,19 +4,33 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
+import { getUser, updateToken } from "../../services/actions/auth";
 
 export const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
   const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
-  const { accessToken } = useSelector((store) => store.auth);
+  const { refreshToken, accessToken } = useSelector((store) => store.auth);
 
   const handleOrderClick = () => {
     if (accessToken) {
-      openModal();
-      dispatch(getOrderNumber(ingredientsID));
-    } else navigate("/login");
+      dispatch(getUser(accessToken))
+        .then(() => {
+          openModal();
+          dispatch(getOrderNumber(ingredientsID));
+        })
+        .catch(() => {
+          dispatch(updateToken(refreshToken))
+            .then(() => dispatch(getUser(accessToken)))
+            .then(() => {
+              openModal();
+              dispatch(getOrderNumber(ingredientsID));
+            });
+        });
+    } else {
+      navigate("/login");
+    }
   };
 
   const ingredientsPrice = ingredients.reduce((total, ingredient) => total + ingredient.price, 0);

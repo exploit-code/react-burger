@@ -6,11 +6,11 @@ import { DndProvider } from "react-dnd";
 
 export const MainPage = () => {
   return (
-    <main className={styles.main}>
-      <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={HTML5Backend}>
+      <div className={styles.main_page}>
         <BurgerIngredients />
         <BurgerConstructor />
-      </DndProvider>
-    </main>
+      </div>
+    </DndProvider>
   );
 };
