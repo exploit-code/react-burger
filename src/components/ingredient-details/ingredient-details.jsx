@@ -1,20 +1,23 @@
 import cn from "classnames";
 import styles from "./ingredient-details.module.scss";
 import { IngredientParams } from "../ingredient-params/ingredient-params";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/prop-types";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { NotFoundPage } from "../../pages/not-found/not-found";
 
-export const IngredientDetails = ({ currentIngredient }) => {
-  return (
+export const IngredientDetails = () => {
+  const { id } = useParams();
+  const { data } = useSelector((store) => store.ingredients);
+  const [viewIngredient] = data.filter((el) => el._id === id);
+
+  return viewIngredient ? (
     <section className={cn(styles.ingredient_details)}>
       <div className={styles.ingredient_details__image_box}>
-        <img className={styles.ingredient_details__image} src={currentIngredient.image_large} alt={currentIngredient.name} />
+        <img className={styles.ingredient_details__image} src={viewIngredient.image_large} alt={viewIngredient.name} />
       </div>
-      <IngredientParams currentIngredient={currentIngredient} />
+      <IngredientParams currentIngredient={viewIngredient} />
     </section>
+  ) : (
+    <NotFoundPage />
   );
-};
-
-IngredientDetails.propTypes = {
-  currentIngredient: PropTypes.shape(ingredientType),
 };

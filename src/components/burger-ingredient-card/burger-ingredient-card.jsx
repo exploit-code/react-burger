@@ -4,16 +4,19 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/prop-types";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
 
 export const BurgerIngredientCard = memo(({ ingredient, openModal }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleIngredientClick = () => {
     dispatch(setCurrentIngredient(ingredient));
-    openModal(true);
+    navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   };
 
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
@@ -26,7 +29,7 @@ export const BurgerIngredientCard = memo(({ ingredient, openModal }) => {
   });
 
   return (
-    <li className={styles.burger_ingredient_card} onClick={handleIngredientClick} ref={ingredientDragRef}>
+    <li className={styles.burger_ingredient_card} ref={ingredientDragRef} onClick={handleIngredientClick}>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}>
         <img className={styles.burger_ingredient_card__image} src={ingredient.image_large} alt={ingredient.name} />
         <Counter count={count} size="default" extraClass="m-1" />
