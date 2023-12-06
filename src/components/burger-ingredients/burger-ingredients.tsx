@@ -5,27 +5,34 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../hooks/useModal";
 import { Loader } from "../loader/loader";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { Modal } from "../modal/modal";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
+import { IIngredient } from "../../utils/types";
+import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
   const dispatch = useDispatch();
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const { ingredient } = useSelector((store) => store.currentIngredient);
-  const { loading, error, data } = useSelector((store) => store.ingredients);
-  const bunItems = useMemo(() => data.filter((filterItem) => filterItem.type === "bun"), [data]);
-  const sauceItems = useMemo(() => data.filter((filterItem) => filterItem.type === "sauce"), [data]);
-  const mainItems = useMemo(() => data.filter((filterItem) => filterItem.type === "main"), [data]);
-  const bunBoxRef = useRef(null);
-  const sauceBoxRef = useRef(null);
-  const mainBoxRef = useRef(null);
-  const ingredientsBoxRef = useRef(null);
+  const { loading, error, data }: any = useSelector((store: any) => store.ingredients);
 
-  const scrollToElement = (ref) => {
-    if (ref.current) {
+  const bunItems: IIngredient[] = useMemo(
+    () => data.filter((filterItem: IIngredient) => filterItem.type === "bun"),
+    [data]
+  );
+  const sauceItems: IIngredient[] = useMemo(
+    () => data.filter((filterItem: IIngredient) => filterItem.type === "sauce"),
+    [data]
+  );
+  const mainItems: IIngredient[] = useMemo(
+    () => data.filter((filterItem: IIngredient) => filterItem.type === "main"),
+    [data]
+  );
+  const bunBoxRef = useRef<HTMLDivElement>(null);
+  const sauceBoxRef = useRef<HTMLDivElement>(null);
+  const mainBoxRef = useRef<HTMLDivElement>(null);
+  const ingredientsBoxRef = useRef<HTMLDivElement>(null);
+
+  const scrollToElement = (ref: RefObject<HTMLDivElement>) => {
+    if (ref && ref.current) {
       ref.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -36,18 +43,24 @@ export const BurgerIngredients = memo(() => {
   const [current, setCurrent] = useState("bun");
 
   const ingredientsScroll = () => {
-    const bunBox = Math.round(bunBoxRef.current.getBoundingClientRect().y);
-    const sauceBox = Math.round(sauceBoxRef.current.getBoundingClientRect().y);
-    const mainBox = Math.round(mainBoxRef.current.getBoundingClientRect().y);
-    const pos = Math.round(ingredientsBoxRef.current.getBoundingClientRect().y);
+    if (
+      bunBoxRef.current &&
+      sauceBoxRef.current &&
+      mainBoxRef.current &&
+      ingredientsBoxRef.current
+    ) {
+      const bunBox = Math.round(bunBoxRef.current.getBoundingClientRect().y);
+      const sauceBox = Math.round(sauceBoxRef.current.getBoundingClientRect().y);
+      const mainBox = Math.round(mainBoxRef.current.getBoundingClientRect().y);
+      const pos = Math.round(ingredientsBoxRef.current.getBoundingClientRect().y);
 
-    if (bunBox && sauceBox && mainBox) {
       if (pos >= bunBox && pos < sauceBox) setCurrent("bun");
       else if (pos >= sauceBox && pos < mainBox) setCurrent("sauce");
       else if (pos >= mainBox) setCurrent("main");
     }
   };
 
+  //@ts-ignore: in the next sprint
   useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   return (
@@ -91,38 +104,36 @@ export const BurgerIngredients = memo(() => {
               </Tab>
             </div>
           </div>
-          <div className={styles.ingredients__body} onScroll={ingredientsScroll} ref={ingredientsBoxRef}>
+          <div
+            className={styles.ingredients__body}
+            onScroll={ingredientsScroll}
+            ref={ingredientsBoxRef}
+          >
             <div className={styles.ingredients__group} ref={bunBoxRef}>
               <h2 className="text text_type_main-medium">Булки</h2>
               <ul className={styles.ingredients__list}>
-                {bunItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
+                {bunItems.map((item: IIngredient) => (
+                  <BurgerIngredientCard ingredient={item} key={item._id} />
                 ))}
               </ul>
             </div>
             <div className={styles.ingredients__group} ref={sauceBoxRef}>
               <h2 className="text text_type_main-medium">Соусы</h2>
               <ul className={styles.ingredients__list}>
-                {sauceItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
+                {sauceItems.map((item: IIngredient) => (
+                  <BurgerIngredientCard ingredient={item} key={item._id} />
                 ))}
               </ul>
             </div>
             <div className={styles.ingredients__group} ref={mainBoxRef}>
               <h2 className="text text_type_main-medium">Начинки</h2>
               <ul className={styles.ingredients__list}>
-                {mainItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
+                {mainItems.map((item: IIngredient) => (
+                  <BurgerIngredientCard ingredient={item} key={item._id} />
                 ))}
               </ul>
             </div>
           </div>
-
-          {isModalOpen && (
-            <Modal title={"Детали ингредиента"} closeModal={closeModal}>
-              <IngredientDetails currentIngredient={ingredient} />
-            </Modal>
-          )}
         </section>
       )}
     </>

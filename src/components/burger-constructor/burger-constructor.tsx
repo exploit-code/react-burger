@@ -9,10 +9,11 @@ import { useDrop } from "react-dnd";
 import { addIngridientAction } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../hooks/useModal";
+import { IConstructorIngredient } from "../../utils/types";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const [{ isHover }, ingredientsRef] = useDrop({
@@ -29,19 +30,39 @@ export const BurgerConstructor = () => {
 
   return (
     <section className={cn(styles.burger_constructor)}>
-      <div className={cn(styles.burger_constructor__combine)} ref={ingredientsRef} style={{ borderColor }}>
+      <div
+        className={cn(styles.burger_constructor__combine)}
+        ref={ingredientsRef}
+        style={{ borderColor }}
+      >
         <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_top)}>
-          {bun && <Bun type={"top"} isLocked={true} text={"Краторная булка N-200i (верх)"} price={bun.price} thumbnail={bun.image} />}
+          {bun && (
+            <Bun
+              type={"top"}
+              isLocked={true}
+              text={bun.name}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
+          )}
         </div>
 
         <ul className={cn(styles.burger_constructor__ingredients)}>
-          {ingredients.map((item, index) => (
+          {ingredients.map((item: IConstructorIngredient, index: number) => (
             <BurgerConstructorCard ingredient={item} key={item.uuid} index={index} />
           ))}
         </ul>
 
         <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_bottom)}>
-          {bun && <Bun type={"bottom"} isLocked={true} text={"Краторная булка N-200i (низ)"} price={bun.price} thumbnail={bun.image} />}
+          {bun && (
+            <Bun
+              type={"bottom"}
+              isLocked={true}
+              text={bun.name}
+              price={bun.price}
+              thumbnail={bun.image}
+            />
+          )}
         </div>
       </div>
 

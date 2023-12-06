@@ -1,6 +1,11 @@
 import styles from "./app-header.module.scss";
 import cn from "classnames";
-import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  Logo,
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, NavLink } from "react-router-dom";
 
 export const AppHeader = () => {
@@ -11,7 +16,15 @@ export const AppHeader = () => {
           {({ isActive }) => (
             <>
               <BurgerIcon type={isActive ? "primary" : "secondary"} />
-              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Конструктор</span>
+              <span
+                className={
+                  isActive
+                    ? "text text_type_main-default"
+                    : "text text_type_main-default text_color_inactive"
+                }
+              >
+                Конструктор
+              </span>
             </>
           )}
         </NavLink>
@@ -20,7 +33,15 @@ export const AppHeader = () => {
           {({ isActive }) => (
             <>
               <ListIcon type={isActive ? "primary" : "secondary"} />
-              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Лента заказов</span>
+              <span
+                className={
+                  isActive
+                    ? "text text_type_main-default"
+                    : "text text_type_main-default text_color_inactive"
+                }
+              >
+                Лента заказов
+              </span>
             </>
           )}
         </NavLink>
@@ -33,7 +54,15 @@ export const AppHeader = () => {
           {({ isActive }) => (
             <>
               <ProfileIcon type={isActive ? "primary" : "secondary"} />
-              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Личный кабинет</span>
+              <span
+                className={
+                  isActive
+                    ? "text text_type_main-default"
+                    : "text text_type_main-default text_color_inactive"
+                }
+              >
+                Личный кабинет
+              </span>
             </>
           )}
         </NavLink>

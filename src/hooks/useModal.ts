@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
+import { IUseModal } from "../utils/types";
 
-export const useModal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export const useModal = (): IUseModal => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const openModal = useCallback(() => {
     setIsModalOpen(true);
