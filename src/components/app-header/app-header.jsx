@@ -1,29 +1,43 @@
 import styles from "./app-header.module.scss";
 import cn from "classnames";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import HeaderMenuItem from "../header-menu-item/header-menu-item";
+import { Link, NavLink } from "react-router-dom";
 
-const AppHeader = () => {
+export const AppHeader = () => {
   return (
     <header className={cn(styles.app_header, "pt-4 pb-4")}>
-      <div className={styles.app_header__content}>
-        <nav>
-          <ul className={styles.app_header__list}>
-            <HeaderMenuItem icon={<BurgerIcon type="primary" />} text="Конструктор" active={true} />
-            <HeaderMenuItem icon={<ListIcon type="secondary" />} text="Лента заказов" active={false} />
-          </ul>
-        </nav>
-        <div className={styles.app_header__logo}>
+      <nav className={styles.app_header__list}>
+        <NavLink className={styles.app_header__link} to={"/"}>
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Конструктор</span>
+            </>
+          )}
+        </NavLink>
+
+        <NavLink className={styles.app_header__link} to={"/order-feed"}>
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Лента заказов</span>
+            </>
+          )}
+        </NavLink>
+
+        <Link className={styles.app_header__logo} to={"/"}>
           <Logo />
-        </div>
-        <nav>
-          <ul className={styles.app_header__list}>
-            <HeaderMenuItem icon={<ProfileIcon type="secondary" />} text="Личный кабинет" active={false} />
-          </ul>
-        </nav>
-      </div>
+        </Link>
+
+        <NavLink className={styles.app_header__link} to={"/profile"}>
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? "primary" : "secondary"} />
+              <span className={isActive ? "text text_type_main-default" : "text text_type_main-default text_color_inactive"}>Личный кабинет</span>
+            </>
+          )}
+        </NavLink>
+      </nav>
     </header>
   );
 };
-
-export default AppHeader;

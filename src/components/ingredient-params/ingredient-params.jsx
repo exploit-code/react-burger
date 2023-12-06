@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/prop-types";
 import cn from "classnames";
 
-const IngredientParams = ({ currentIngredient }) => {
+export const IngredientParams = ({ currentIngredient }) => {
   const nutrientLabels = [
     { label: "Калории,ккал", value: currentIngredient.calories, id: 1 },
     { label: "Белки, г", value: currentIngredient.proteins, id: 2 },
@@ -30,5 +30,3 @@ const IngredientParams = ({ currentIngredient }) => {
 IngredientParams.propTypes = {
   currentIngredient: PropTypes.shape(ingredientType).isRequired,
 };
-
-export default IngredientParams;

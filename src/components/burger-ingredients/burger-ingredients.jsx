@@ -2,29 +2,23 @@ import styles from "./burger-ingredients.module.scss";
 import { useState, useRef, useMemo, useEffect } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientCard from "../burger-ingredient-card/burger-ingredient-card";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
-import { useModal } from "../../hooks/useModal";
+import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../loader/loader";
-import { CLEAR_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
+import { useModal } from "../../hooks/useModal";
+import { Loader } from "../loader/loader";
 import { getIngredients } from "../../services/actions/burger-ingredients";
+import { Modal } from "../modal/modal";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
-const BurgerIngredients = () => {
+export const BurgerIngredients = memo(() => {
   const dispatch = useDispatch();
-  const { loading, error, data } = useSelector((store) => store.ingredients);
-  const currentIngredient = useSelector((store) => store.currentIngredient.ingredient);
-
-  useEffect(() => dispatch(getIngredients()), [dispatch]);
-
   const { isModalOpen, openModal, closeModal } = useModal();
-
+  const { ingredient } = useSelector((store) => store.currentIngredient);
+  const { loading, error, data } = useSelector((store) => store.ingredients);
   const bunItems = useMemo(() => data.filter((filterItem) => filterItem.type === "bun"), [data]);
   const sauceItems = useMemo(() => data.filter((filterItem) => filterItem.type === "sauce"), [data]);
   const mainItems = useMemo(() => data.filter((filterItem) => filterItem.type === "main"), [data]);
-
   const bunBoxRef = useRef(null);
   const sauceBoxRef = useRef(null);
   const mainBoxRef = useRef(null);
@@ -38,10 +32,6 @@ const BurgerIngredients = () => {
       });
     }
   };
-
-  useEffect(() => {
-    if (!isModalOpen && currentIngredient !== null) dispatch({ type: CLEAR_CURRENT_INGREDIENT, payload: null });
-  }, [isModalOpen, currentIngredient, dispatch]);
 
   const [current, setCurrent] = useState("bun");
 
@@ -57,6 +47,8 @@ const BurgerIngredients = () => {
       else if (pos >= mainBox) setCurrent("main");
     }
   };
+
+  useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   return (
     <>
@@ -104,7 +96,7 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Булки</h2>
               <ul className={styles.ingredients__list}>
                 {bunItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
                 ))}
               </ul>
             </div>
@@ -112,7 +104,7 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Соусы</h2>
               <ul className={styles.ingredients__list}>
                 {sauceItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
                 ))}
               </ul>
             </div>
@@ -120,7 +112,7 @@ const BurgerIngredients = () => {
               <h2 className="text text_type_main-medium">Начинки</h2>
               <ul className={styles.ingredients__list}>
                 {mainItems.map((item) => (
-                  <BurgerIngredientCard ingredient={item} openModal={openModal} key={item._id} />
+                  <BurgerIngredientCard ingredient={item} key={item._id} openModal={openModal} />
                 ))}
               </ul>
             </div>
@@ -128,13 +120,11 @@ const BurgerIngredients = () => {
 
           {isModalOpen && (
             <Modal title={"Детали ингредиента"} closeModal={closeModal}>
-              <IngredientDetails currentIngredient={currentIngredient} />
+              <IngredientDetails currentIngredient={ingredient} />
             </Modal>
           )}
         </section>
       )}
     </>
   );
-};
-
-export default memo(BurgerIngredients);
+});

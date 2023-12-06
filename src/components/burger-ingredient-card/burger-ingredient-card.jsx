@@ -4,15 +4,19 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import PropTypes from "prop-types";
 import { ingredientType } from "../../utils/prop-types";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_CURRENT_INGREDIENT } from "../../services/actions/ingredient-details";
+import { useSelector, useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { setCurrentIngredient } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
 
-const BurgerIngredientCard = ({ ingredient, openModal }) => {
+export const BurgerIngredientCard = memo(({ ingredient }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleIngredientClick = () => {
-    openModal(true);
-    dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
+    dispatch(setCurrentIngredient(ingredient));
+    navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   };
 
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
@@ -25,7 +29,7 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
   });
 
   return (
-    <li className={styles.burger_ingredient_card} onClick={handleIngredientClick} ref={ingredientDragRef}>
+    <li className={styles.burger_ingredient_card} ref={ingredientDragRef} onClick={handleIngredientClick}>
       <div className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}>
         <img className={styles.burger_ingredient_card__image} src={ingredient.image_large} alt={ingredient.name} />
         <Counter count={count} size="default" extraClass="m-1" />
@@ -39,11 +43,8 @@ const BurgerIngredientCard = ({ ingredient, openModal }) => {
       </div>
     </li>
   );
-};
+});
 
 BurgerIngredientCard.propTypes = {
   ingredient: PropTypes.shape(ingredientType).isRequired,
-  openModal: PropTypes.func.isRequired,
 };
-
-export default memo(BurgerIngredientCard);

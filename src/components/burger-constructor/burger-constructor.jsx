@@ -1,20 +1,19 @@
 import styles from "./burger-constructor.module.scss";
 import cn from "classnames";
-import BurgerConstructorCard from "../burger-constructor-card/burger-constructor-card";
-import OrderDetails from "../order-details/order-details";
-import Modal from "../modal/modal";
-import { useModal } from "../../hooks/useModal";
-import Bun from "../bun/bun";
-import Checkout from "../checkout/checkout";
+import { BurgerConstructorCard } from "../burger-constructor-card/burger-constructor-card";
+import { OrderDetails } from "../order-details/order-details";
+import { Modal } from "../modal/modal";
+import { Bun } from "../bun/bun";
+import { Checkout } from "../checkout/checkout";
 import { useDrop } from "react-dnd";
 import { addIngridientAction } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
+import { useModal } from "../../hooks/useModal";
 
-const BurgerConstructor = () => {
-  const { isModalOpen, openModal, closeModal } = useModal();
-
+export const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const [{ isHover }, ingredientsRef] = useDrop({
     accept: "ingredients",
@@ -56,5 +55,3 @@ const BurgerConstructor = () => {
     </section>
   );
 };
-
-export default BurgerConstructor;

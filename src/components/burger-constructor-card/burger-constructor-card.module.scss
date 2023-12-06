@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: 24px 1fr;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
+  gap: 16px;
+  cursor: grab;
+
+  &:active {
+    cursor: grabbing;
+  }
 }

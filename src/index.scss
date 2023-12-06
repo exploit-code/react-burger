@@ -3,7 +3,7 @@
   --vh50: 50vh;
   --header-height: 88px;
   --burger-ingredients-head: 195px;
-  --popup-overlay-bg: rgba(0, 0, 0, .6);
+  --popup-overlay-bg: rgba(0, 0, 0, 0.6);
 }
 
 #root {
@@ -11,4 +11,15 @@
   grid-template-rows: max-content 1fr;
   height: 100vh;
   overflow: hidden;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--colors-interface-accent);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
 }

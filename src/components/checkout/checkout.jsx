@@ -3,15 +3,20 @@ import styles from "./checkout.module.scss";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from "../../services/actions/order-details";
+import { useNavigate } from "react-router-dom";
 
-const Checkout = ({ openModal }) => {
+export const Checkout = ({ openModal }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
   const ingredientsID = { ingredients: ingredients.map((item) => item._id) };
+  const { accessToken } = useSelector((store) => store.auth);
 
   const handleOrderClick = () => {
-    openModal();
-    dispatch(getOrderNumber(ingredientsID));
+    if (accessToken) {
+      dispatch(getOrderNumber(ingredientsID));
+      openModal();
+    } else navigate("/login");
   };
 
   const ingredientsPrice = ingredients.reduce((total, ingredient) => total + ingredient.price, 0);
@@ -34,5 +39,3 @@ const Checkout = ({ openModal }) => {
 Checkout.propTypes = {
   openModal: PropTypes.func.isRequired,
 };
-
-export default Checkout;
