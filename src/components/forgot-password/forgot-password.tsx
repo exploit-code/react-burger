@@ -8,11 +8,12 @@ import { forgotPassword } from "../../services/actions/auth";
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((store) => store.auth);
-  const { value, setValue, handleChange } = useFormData({ email: "" });
+  const { loading }: any = useSelector((store: any) => store.auth);
+  const { value, handleChange } = useFormData({ email: "" });
 
-  const handleForgotPasswordSubmit = (e) => {
+  const handleForgotPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //@ts-ignore: next sprint
     dispatch(forgotPassword(value)).then(() => navigate("/reset-password"));
   };
 
@@ -20,7 +21,13 @@ export const ForgotPassword = () => {
     <div className={styles.forgotPassword}>
       <form className={styles.forgotPassword__form} onSubmit={handleForgotPasswordSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <EmailInput onChange={(e) => handleChange(e, setValue)} value={value.email} name={"email"} isIcon={false} placeholder={"Укажите e-mail"} />
+        <EmailInput
+          onChange={(e) => handleChange(e)}
+          value={value.email || ""}
+          name={"email"}
+          isIcon={false}
+          placeholder={"Укажите e-mail"}
+        />
         <Button htmlType="submit" type="primary" size="medium" disabled={loading}>
           Восстановить
         </Button>

@@ -17,7 +17,13 @@ export interface IConstructorIngredient extends IIngredient {
   uuid: string;
 }
 
-export interface IBunProps {
+export interface IConstructorDraggedItem<T> {
+  type: string;
+  ingredient: T;
+  index: number;
+}
+
+export interface IBun {
   type: "top" | "bottom";
   isLocked: boolean;
   text: string;
@@ -25,29 +31,26 @@ export interface IBunProps {
   thumbnail: string;
 }
 
-export interface IIngredientCardProps {
-  ingredient: IIngredient;
-}
-
-export interface IConstructorIngredientCardProps {
-  ingredient: IIngredient;
-  index: number;
-}
-
 export interface IUseModal {
-  isModalOpen?: boolean;
-  openModal?: () => void;
-  closeModal?: () => void;
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 }
 
-export interface ICheckoutProps extends Omit<IUseModal, "isModalOpen" | "closeModal"> {}
-export interface ICloseButtonProps extends Omit<IUseModal, "isModalOpen" | "openModal"> {}
+export interface IUseFormData {
+  name?: string;
+  email?: string;
+  password?: string;
+}
 
-export interface IModalProps extends Omit<IUseModal, "isModalOpen" | "openModal"> {
+export interface IUseFormDataReturn {
+  value: IUseFormData;
+  setValue: React.Dispatch<React.SetStateAction<IUseFormData>>;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IModal {
   title?: string;
   children: React.ReactNode;
-}
-
-export interface IModalOverlayProps extends Omit<IUseModal, "isModalOpen" | "openModal"> {
-  children: React.ReactNode;
+  closeModal: IUseModal["closeModal"];
 }

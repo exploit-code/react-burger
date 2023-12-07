@@ -3,9 +3,9 @@ import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
-import { IConstructorIngredient, ICheckoutProps } from "../../utils/types";
+import { IConstructorIngredient, IUseModal } from "../../utils/types";
 
-export const Checkout = ({ openModal }: ICheckoutProps) => {
+export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
@@ -15,8 +15,8 @@ export const Checkout = ({ openModal }: ICheckoutProps) => {
   const { accessToken }: any = useSelector((store: any) => store.auth);
 
   const handleOrderClick = () => {
-    if (accessToken && openModal && ingredients && bun) {
-      //@ts-ignore: in the next sprint
+    if (accessToken && ingredients && bun) {
+      //@ts-ignore: next sprint
       dispatch(getOrderNumber(ingredientsID));
       openModal();
     } else navigate("/login");

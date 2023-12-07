@@ -1,22 +1,11 @@
-import { useState, ChangeEvent } from "react";
+import { useState } from "react";
+import { IUseFormData, IUseFormDataReturn } from "../utils/types";
 
-interface FormData {
-  [key: string]: string;
-}
+export const useFormData = (props: IUseFormData): IUseFormDataReturn => {
+  const [value, setValue] = useState<IUseFormData>(props);
 
-interface UseFormDataProps {
-  [key: string]: string;
-}
-
-interface UseFormDataReturn {
-  value: FormData;
-  setValue: React.Dispatch<React.SetStateAction<FormData>>;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const useFormData = (props: UseFormDataProps): UseFormDataReturn => {
-  const [value, setValue] = useState<FormData>(props);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue({ ...value, [e.target.name]: e.target.value });
+
   return { value, setValue, handleChange };
 };

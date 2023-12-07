@@ -1,8 +1,8 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./bun.module.scss";
-import { IBunProps } from "../../utils/types";
+import { IBun } from "../../utils/types";
 
-export const Bun = ({ type, isLocked, text, price, thumbnail }: IBunProps) => {
+export const Bun = ({ type, isLocked, text, price, thumbnail }: IBun) => {
   return (
     <div className={styles.bun}>
       <ConstructorElement

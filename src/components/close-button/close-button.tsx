@@ -1,8 +1,8 @@
 import styles from "./close-button.module.scss";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ICloseButtonProps } from "../../utils/types";
+import { IUseModal } from "../../utils/types";
 
-export const CloseButton = ({ closeModal }: ICloseButtonProps) => {
+export const CloseButton = ({ closeModal }: { closeModal: IUseModal["closeModal"] }) => {
   return (
     <button className={styles.close_button} onClick={closeModal}>
       <CloseIcon type="primary" />

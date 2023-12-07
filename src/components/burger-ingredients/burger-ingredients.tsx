@@ -60,7 +60,7 @@ export const BurgerIngredients = memo(() => {
     }
   };
 
-  //@ts-ignore: in the next sprint
+  //@ts-ignore: next sprint
   useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   return (
