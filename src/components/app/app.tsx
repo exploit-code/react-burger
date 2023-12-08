@@ -18,7 +18,6 @@ export const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   let background = location.state && location.state.background;
-
   const closeModal = () => navigate(-1);
 
   return (
