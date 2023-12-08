@@ -8,11 +8,13 @@ import { resetPassword } from "../../services/actions/auth";
 export const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading, reset } = useSelector((store) => store.auth);
-  const { value, setValue, handleChange } = useFormData({ password: "", token: "" });
+  const { loading, reset }: any = useSelector((store: any) => store.auth);
+  const { value, handleChange } = useFormData({ password: "", token: "" });
 
-  const handleResetPasswordSubmit = (e) => {
+  const handleResetPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    //@ts-ignore: next sprint
     dispatch(resetPassword(value)).then(() => navigate("/login"));
   };
 
@@ -20,11 +22,17 @@ export const ResetPassword = () => {
     <div className={styles.resetPassword}>
       <form className={styles.resetPassword__form} onSubmit={handleResetPasswordSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-        <PasswordInput onChange={(e) => handleChange(e, setValue)} value={value.password} name={"password"} extraClass="mb-2" placeholder={"Введите новый пароль"} />
+        <PasswordInput
+          onChange={(e) => handleChange(e)}
+          value={value.password || ""}
+          name={"password"}
+          extraClass="mb-2"
+          placeholder={"Введите новый пароль"}
+        />
         <Input
           type={"text"}
-          onChange={(e) => handleChange(e, setValue)}
-          value={value.token}
+          onChange={(e) => handleChange(e)}
+          value={value.token || ""}
           placeholder={"Введите код из письма"}
           name={"token"}
           size={"default"}

@@ -1,9 +1,12 @@
 import styles from "./ingredient-params.module.scss";
-import PropTypes from "prop-types";
-import { ingredientType } from "../../utils/prop-types";
 import cn from "classnames";
+import { IIngredient, INutrientLabels } from "../../utils/types";
 
-export const IngredientParams = ({ currentIngredient }) => {
+export const IngredientParams = <T extends IIngredient>({
+  currentIngredient,
+}: {
+  currentIngredient: T;
+}) => {
   const nutrientLabels = [
     { label: "Калории,ккал", value: currentIngredient.calories, id: 1 },
     { label: "Белки, г", value: currentIngredient.proteins, id: 2 },
@@ -13,10 +16,12 @@ export const IngredientParams = ({ currentIngredient }) => {
 
   return (
     <div className={styles.ingredient_params}>
-      <h4 className={cn(styles.ingredient_params__title, "text text_type_main-medium")}>{currentIngredient.name}</h4>
+      <h4 className={cn(styles.ingredient_params__title, "text text_type_main-medium")}>
+        {currentIngredient.name}
+      </h4>
 
       <div className={styles.ingredient_params__box}>
-        {nutrientLabels.map((item) => (
+        {nutrientLabels.map((item: INutrientLabels) => (
           <div className={styles.ingredient_params__item} key={item.id}>
             <h5 className="text text_type_main-default text_color_inactive">{item.label}</h5>
             <span className="text text_type_digits-default text_color_inactive">{item.value}</span>
@@ -25,8 +30,4 @@ export const IngredientParams = ({ currentIngredient }) => {
       </div>
     </div>
   );
-};
-
-IngredientParams.propTypes = {
-  currentIngredient: PropTypes.shape(ingredientType).isRequired,
 };

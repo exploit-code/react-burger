@@ -41,6 +41,7 @@ export interface IUseFormData {
   name?: string;
   email?: string;
   password?: string;
+  token?: string;
 }
 
 export interface IUseFormDataReturn {
@@ -53,4 +54,14 @@ export interface IModal {
   title?: string;
   children: React.ReactNode;
   closeModal: IUseModal["closeModal"];
+}
+
+export interface INutrientLabels {
+  label: string;
+  value: number;
+  id: number;
+}
+export interface IProtectedRoute {
+  children: JSX.Element;
+  anonymous: boolean;
 }
