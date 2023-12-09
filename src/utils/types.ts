@@ -65,3 +65,20 @@ export interface IProtectedRoute {
   children: JSX.Element;
   anonymous: boolean;
 }
+
+export interface IRequestOptions {
+  method: string;
+  headers: Record<string, string>;
+  body: string;
+}
+
+export interface IResponseData {
+  success: boolean;
+  message?: string;
+  user?: {
+    email: string;
+    name: string;
+  };
+  accessToken?: string;
+  refreshToken?: string;
+}

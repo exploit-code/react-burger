@@ -7,7 +7,7 @@ import { CloseButton } from "../close-button/close-button";
 import { IModal } from "../../utils/types";
 
 export const Modal = ({ title = "", children, closeModal }: IModal) => {
-  const portal = document.getElementById("portal");
+  const portal = document.getElementById("portal") as HTMLElement;
 
   useEffect(() => {
     const escFunction = (e: KeyboardEvent) => {
