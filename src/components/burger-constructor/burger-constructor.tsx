@@ -5,7 +5,7 @@ import { OrderDetails } from "../order-details/order-details";
 import { Modal } from "../modal/modal";
 import { Bun } from "../bun/bun";
 import { Checkout } from "../checkout/checkout";
-import { useDrop } from "react-dnd";
+import { useDrop, DropTargetMonitor } from "react-dnd";
 import { addIngridientAction } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../hooks/useModal";
@@ -18,10 +18,10 @@ export const BurgerConstructor = () => {
 
   const [{ isHover }, ingredientsRef] = useDrop({
     accept: "ingredients",
-    collect: (monitor) => ({
+    collect: (monitor: DropTargetMonitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(ingredient) {
+    drop(ingredient: IConstructorIngredient) {
       dispatch(addIngridientAction(ingredient));
     },
   });

@@ -22,9 +22,13 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
     item: { type: "ingredient", ingredient, index },
   });
 
-  const [, constructorIngredientDropRef] = useDrop<IConstructorDraggedItem<T>>({
+  const [, constructorIngredientDropRef] = useDrop<
+    IConstructorDraggedItem<T>,
+    void,
+    { isHover: boolean }
+  >({
     accept: "moveIngredients",
-    hover(draggedItem) {
+    hover(draggedItem: IConstructorDraggedItem<T> | undefined) {
       if (!draggedItem || draggedItem.index === index) {
         return;
       }

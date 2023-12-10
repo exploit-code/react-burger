@@ -2,12 +2,8 @@ import styles from "./ingredient-params.module.scss";
 import cn from "classnames";
 import { IIngredient, INutrientLabels } from "../../utils/types";
 
-export const IngredientParams = <T extends IIngredient>({
-  currentIngredient,
-}: {
-  currentIngredient: T;
-}) => {
-  const nutrientLabels = [
+export const IngredientParams = ({ currentIngredient }: { currentIngredient: IIngredient }) => {
+  const nutrientLabels: INutrientLabels[] = [
     { label: "Калории,ккал", value: currentIngredient.calories, id: 1 },
     { label: "Белки, г", value: currentIngredient.proteins, id: 2 },
     { label: "Жиры, г", value: currentIngredient.fat, id: 3 },

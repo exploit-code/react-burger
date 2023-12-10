@@ -9,7 +9,7 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
-  const ingredientsID = {
+  const ingredientsID: { ingredients: string[] } = {
     ingredients: ingredients.map((item: IConstructorIngredient): string => item._id),
   };
   const { accessToken }: any = useSelector((store: any) => store.auth);
@@ -22,12 +22,12 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
     } else navigate("/login");
   };
 
-  const ingredientsPrice = ingredients.reduce(
+  const ingredientsPrice: number = ingredients.reduce(
     (acc: number, ingredient: IConstructorIngredient): number => acc + ingredient.price,
     0
   );
-  const bunPrice = bun ? bun.price : 0;
-  const totalPrice = ingredientsPrice + bunPrice * 2;
+  const bunPrice: number = bun ? bun.price : 0;
+  const totalPrice: number = ingredientsPrice + bunPrice * 2;
 
   return (
     <div className={styles.checkout}>

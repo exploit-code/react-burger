@@ -40,7 +40,7 @@ export const BurgerIngredients = memo(() => {
     }
   };
 
-  const [current, setCurrent] = useState("bun");
+  const [current, setCurrent] = useState<"bun" | "sauce" | "main">("bun");
 
   const ingredientsScroll = () => {
     if (
