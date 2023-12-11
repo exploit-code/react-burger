@@ -1,4 +1,24 @@
+import { AnyAction, Dispatch } from "redux";
 import { request } from "../../utils/api";
+import {
+  IRequestOptions,
+  ILoginRequest,
+  ILoginResponse,
+  IRegisterRequest,
+  IRegisterResponse,
+  IForgotPasswordRequest,
+  IForgotPasswordResponse,
+  IResetPasswordRequest,
+  IResetPasswordResponse,
+  ILogoutRequest,
+  ILogoutResponse,
+  IGetUserRequest,
+  IGetUserResponse,
+  IUpdateUserRequest,
+  IUpdateUserResponse,
+  IUpdateTokenRequest,
+  IUpdateTokenResponse,
+} from "../../utils/types";
 
 export const REGISTER_REQUEST = "REGISTER_REQUEST";
 export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
@@ -32,13 +52,16 @@ export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
 
-export const register = (props) => (dispatch) => {
+export const register = (props: IRegisterRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: REGISTER_REQUEST });
-  request("auth/register", {
+
+  const options: IRequestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify(props),
-  })
+  };
+
+  request<IRegisterResponse>("auth/register", options)
     .then((res) => {
       dispatch({ type: REGISTER_SUCCESS, payload: res });
     })
@@ -47,15 +70,18 @@ export const register = (props) => (dispatch) => {
     });
 };
 
-export const login = (props) => (dispatch) => {
+export const login = (props: ILoginRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: LOGIN_REQUEST });
-  return request("auth/login", {
+
+  const options: IRequestOptions = {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(props),
-  })
+  };
+
+  return request<ILoginResponse>("auth/login", options)
     .then((res) => {
       dispatch({ type: LOGIN_SUCCESS, payload: res });
     })
@@ -64,28 +90,35 @@ export const login = (props) => (dispatch) => {
     });
 };
 
-export const forgotPassword = (props) => (dispatch) => {
-  dispatch({ type: FORGOT_PASSWORD_REQUEST });
-  return request("password-reset", {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
-  })
-    .then(() => {
-      dispatch({ type: FORGOT_PASSWORD_SUCCESS });
-    })
-    .catch(() => {
-      dispatch({ type: FORGOT_PASSWORD_ERROR });
-    });
-};
+export const forgotPassword =
+  (props: IForgotPasswordRequest) => (dispatch: Dispatch<AnyAction>) => {
+    dispatch({ type: FORGOT_PASSWORD_REQUEST });
 
-export const resetPassword = (props) => (dispatch) => {
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(props),
+    };
+
+    return request<IForgotPasswordResponse>("password-reset", options)
+      .then(() => {
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS });
+      })
+      .catch(() => {
+        dispatch({ type: FORGOT_PASSWORD_ERROR });
+      });
+  };
+
+export const resetPassword = (props: IResetPasswordRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: RESET_PASSWORD_REQUEST });
-  return request("password-reset/reset", {
+
+  const options: IRequestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify(props),
-  })
+  };
+
+  return request<IResetPasswordResponse>("password-reset/reset", options)
     .then(() => {
       dispatch({ type: RESET_PASSWORD_SUCCESS });
     })
@@ -94,13 +127,16 @@ export const resetPassword = (props) => (dispatch) => {
     });
 };
 
-export const logout = (props) => (dispatch) => {
+export const logout = (props: ILogoutRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: LOGOUT_REQUEST });
-  request("auth/logout", {
+
+  const options: IRequestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify({ token: props }),
-  })
+  };
+
+  request<ILogoutResponse>("auth/logout", options)
     .then((res) => {
       dispatch({ type: LOGOUT_SUCCESS, payload: res });
     })
@@ -109,12 +145,15 @@ export const logout = (props) => (dispatch) => {
     });
 };
 
-export const getUser = (props) => (dispatch) => {
+export const getUser = (props: IGetUserRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: GET_USER_REQUEST });
-  return request("auth/user", {
+
+  const options = {
     method: "GET",
     headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props}` },
-  })
+  };
+
+  return request<IGetUserResponse>("auth/user", options)
     .then((res) => {
       dispatch({ type: GET_USER_SUCCESS, payload: res });
     })
@@ -123,13 +162,19 @@ export const getUser = (props) => (dispatch) => {
     });
 };
 
-export const updateUser = (props) => (dispatch) => {
+export const updateUser = (props: IUpdateUserRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: UPDATE_USER_REQUEST });
-  request("auth/user", {
+
+  const options: IRequestOptions = {
     method: "PATCH",
-    headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props.accessToken}` },
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: `Bearer ${props.accessToken}`,
+    },
     body: JSON.stringify(props.user),
-  })
+  };
+
+  request<IUpdateUserResponse>("auth/user", options)
     .then((res) => {
       dispatch({ type: UPDATE_USER_SUCCESS, payload: res });
     })
@@ -138,13 +183,16 @@ export const updateUser = (props) => (dispatch) => {
     });
 };
 
-export const updateToken = (props) => (dispatch) => {
+export const updateToken = (props: IUpdateTokenRequest) => (dispatch: Dispatch<AnyAction>) => {
   dispatch({ type: UPDATE_TOKEN_REQUEST });
-  return request("auth/token", {
+
+  const options: IRequestOptions = {
     method: "POST",
     headers: { "Content-Type": "application/json;charset=utf-8" },
     body: JSON.stringify({ token: props }),
-  })
+  };
+
+  return request<IUpdateTokenResponse>("auth/token", options)
     .then((res) => {
       dispatch({ type: UPDATE_TOKEN_SUCCESS, payload: res });
     })
