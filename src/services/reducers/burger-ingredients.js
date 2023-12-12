@@ -18,7 +18,7 @@ export const ingredients = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.payload,
+        data: action.payload.data,
         error: false,
       };
     case GET_INGREDIENTS_ERROR:

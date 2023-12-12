@@ -17,7 +17,7 @@ export const order = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        order: action.payload,
+        order: action.payload.order.number,
       };
     case GET_ORDER_ERROR:
       return {
