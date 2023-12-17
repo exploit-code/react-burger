@@ -1,4 +1,4 @@
-import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../actions/order-details";
+import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
 
 const initialState = {
   order: null,
@@ -13,12 +13,14 @@ export const order = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case GET_ORDER_SUCCESS:
       return {
         ...state,
         loading: false,
         order: action.payload.order.number,
       };
+
     case GET_ORDER_ERROR:
       return {
         ...state,
@@ -26,6 +28,7 @@ export const order = (state = initialState, action) => {
         loading: false,
         error: true,
       };
+
     default:
       return state;
   }

@@ -1,9 +1,12 @@
 import styles from "./burger-constructor-card.module.scss";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { REMOVE_INGREDIENT, MOVE_INGREDIENT } from "../../services/actions/burger-constructor";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/types";
+import {
+  removeIngridientAction,
+  moveAllIngridientsAction,
+} from "../../services/actions/burger-constructor";
 
 export const BurgerConstructorCard = <T extends IConstructorIngredient>({
   ingredient,
@@ -14,7 +17,7 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
 }) => {
   const dispatch = useDispatch();
   const removeIngredient = (ingredient: IConstructorIngredient) => {
-    dispatch({ type: REMOVE_INGREDIENT, payload: ingredient._id });
+    dispatch(removeIngridientAction(ingredient));
   };
 
   const [, constructorIngredientDragRef] = useDrag({
@@ -29,13 +32,10 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
   >({
     accept: "moveIngredients",
     hover(draggedItem: IConstructorDraggedItem<T> | undefined) {
-      if (!draggedItem || draggedItem.index === index) {
-        return;
-      }
-      dispatch({
-        type: MOVE_INGREDIENT,
-        payload: { fromIndex: draggedItem.index, toIndex: index },
-      });
+      if (!draggedItem || draggedItem.index === index) return;
+
+      dispatch(moveAllIngridientsAction({ fromIndex: draggedItem.index, toIndex: index }));
+
       draggedItem.index = index;
     },
   });

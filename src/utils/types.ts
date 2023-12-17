@@ -153,3 +153,16 @@ export interface IUpdateTokenResponse extends ICheckSuccess {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IGetOrderNumberRequest extends ICheckSuccess {
+  name: string;
+  order: {
+    number: number;
+  };
+  success: boolean;
+}
+
+export interface IMoveIngredient {
+  fromIndex: number;
+  toIndex: number;
+}

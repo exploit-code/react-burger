@@ -1,4 +1,9 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, REMOVE_ALL_INGREDIENT, MOVE_INGREDIENT } from "../actions/burger-constructor";
+import {
+  ADD_INGREDIENT,
+  REMOVE_INGREDIENT,
+  REMOVE_ALL_INGREDIENTS,
+  MOVE_INGREDIENT,
+} from "../constants";
 
 const initialState = {
   bun: null,
@@ -19,8 +24,11 @@ export const constructorIngredients = (state = initialState, action) => {
           ingredients: [...state.ingredients, action.payload],
         };
       }
+
     case REMOVE_INGREDIENT:
-      const removedElementIndex = state.ingredients.findIndex((item) => item._id === action.payload);
+      const removedElementIndex = state.ingredients.findIndex(
+        (item) => item._id === action.payload._id
+      );
       if (removedElementIndex === -1) {
         return state;
       }
@@ -30,12 +38,14 @@ export const constructorIngredients = (state = initialState, action) => {
         ...state,
         ingredients: updIngredients,
       };
-    case REMOVE_ALL_INGREDIENT:
+
+    case REMOVE_ALL_INGREDIENTS:
       return {
         ...state,
         bun: null,
         ingredients: [],
       };
+
     case MOVE_INGREDIENT:
       const { fromIndex, toIndex } = action.payload;
       const movedIngredient = state.ingredients[fromIndex];
@@ -46,6 +56,7 @@ export const constructorIngredients = (state = initialState, action) => {
         ...state,
         ingredients: updatedIngredients,
       };
+
     default:
       return state;
   }

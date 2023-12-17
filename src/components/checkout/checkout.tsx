@@ -1,7 +1,7 @@
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderNumber } from "../../services/actions/order-details";
+import { getOrderNumberThunk } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
 import { IConstructorIngredient, IUseModal } from "../../utils/types";
 
@@ -17,7 +17,7 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
   const handleOrderClick = () => {
     if (accessToken && ingredients && bun) {
       //@ts-ignore: next sprint
-      dispatch(getOrderNumber(ingredientsID));
+      dispatch(getOrderNumberThunk(ingredientsID));
       openModal();
     } else navigate("/login");
   };
