@@ -4,13 +4,23 @@ import {
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
 } from "../constants";
+import { IConstructorIngredient } from "../../utils/types";
+import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
 
-const initialState = {
+export interface IStateConstructorIngredients {
+  readonly bun: IConstructorIngredient | null;
+  readonly ingredients: IConstructorIngredient[];
+}
+
+const initialState: IStateConstructorIngredients = {
   bun: null,
   ingredients: [],
 };
 
-export const constructorIngredients = (state = initialState, action) => {
+export const constructorIngredients = (
+  state = initialState,
+  action: TBurgerConstructorUnionActions
+): IStateConstructorIngredients => {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.payload.type === "bun") {

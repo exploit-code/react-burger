@@ -26,6 +26,12 @@ export interface IMoveIngridientAction {
   readonly payload: IMoveIngredient;
 }
 
+export type TBurgerConstructorUnionActions =
+  | IAddIngridientAction
+  | IRemoveIngridientAction
+  | IRemoveAllIngridientAction
+  | IMoveIngridientAction;
+
 export const addIngridientAction = (payload: IIngredient): IAddIngridientAction => {
   return {
     type: ADD_INGREDIENT,
