@@ -26,7 +26,7 @@ export interface IMoveIngridientAction {
   readonly payload: IMoveIngredient;
 }
 
-export type TBurgerConstructorUnionActions =
+export type TBurgerConstructorUnionAction =
   | IAddIngridientAction
   | IRemoveIngridientAction
   | IRemoveAllIngridientAction

@@ -76,6 +76,10 @@ export interface ICheckSuccess {
   success: boolean;
 }
 
+export interface IGetIngredientsResponce extends ICheckSuccess {
+  data: IIngredient[];
+}
+
 export interface ILoginRequest {
   email: string;
   password: string;

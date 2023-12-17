@@ -1,12 +1,27 @@
-import { GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_ERROR } from "../actions/burger-ingredients";
+import {
+  GET_INGREDIENTS_REQUEST,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_ERROR,
+} from "../constants";
+import { TBurgerIngredientsUnionAction } from "../actions/burger-ingredients";
+import { IIngredient } from "../../utils/types";
 
-const initialState = {
+export interface IStateIngredients {
+  readonly data: IIngredient[];
+  readonly loading: boolean;
+  readonly error: boolean;
+}
+
+const initialState: IStateIngredients = {
   data: [],
   loading: false,
   error: false,
 };
 
-export const ingredients = (state = initialState, action) => {
+export const ingredients = (
+  state = initialState,
+  action: TBurgerIngredientsUnionAction
+): IStateIngredients => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST:
       return {
@@ -14,6 +29,7 @@ export const ingredients = (state = initialState, action) => {
         loading: true,
         error: false,
       };
+
     case GET_INGREDIENTS_SUCCESS:
       return {
         ...state,
@@ -21,6 +37,7 @@ export const ingredients = (state = initialState, action) => {
         data: action.payload.data,
         error: false,
       };
+
     case GET_INGREDIENTS_ERROR:
       return {
         ...state,
@@ -28,6 +45,7 @@ export const ingredients = (state = initialState, action) => {
         error: true,
         data: [],
       };
+
     default:
       return state;
   }
