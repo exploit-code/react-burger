@@ -18,7 +18,7 @@ import {
   IUpdateTokenRequest,
   IUpdateTokenResponse,
 } from "../../utils/types";
-import { TAppThunk, TAppDispatch } from "../configureStore";
+import { AppThunk, AppDispatch } from "../types";
 import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -248,7 +248,7 @@ const updateTokenErrorAction = (): IUpdateTokenErrorAction => ({
   type: UPDATE_TOKEN_ERROR,
 });
 
-export const registerThunk: TAppThunk = (props: IRegisterRequest) => (dispatch: TAppDispatch) => {
+export const registerThunk: AppThunk = (props: IRegisterRequest) => (dispatch: AppDispatch) => {
   dispatch(registerRequestAction());
 
   const options: IRequestOptions = {
@@ -266,7 +266,7 @@ export const registerThunk: TAppThunk = (props: IRegisterRequest) => (dispatch: 
   });
 };
 
-export const loginThunk: TAppThunk = (props: ILoginRequest) => (dispatch: TAppDispatch) => {
+export const loginThunk: AppThunk = (props: ILoginRequest) => (dispatch: AppDispatch) => {
   dispatch(loginRequestAction());
 
   const options: IRequestOptions = {
@@ -286,8 +286,8 @@ export const loginThunk: TAppThunk = (props: ILoginRequest) => (dispatch: TAppDi
   });
 };
 
-export const forgotPasswordThunk: TAppThunk =
-  (props: IForgotPasswordRequest) => (dispatch: TAppDispatch) => {
+export const forgotPasswordThunk: AppThunk =
+  (props: IForgotPasswordRequest) => (dispatch: AppDispatch) => {
     dispatch(forgotPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -305,8 +305,8 @@ export const forgotPasswordThunk: TAppThunk =
     });
   };
 
-export const resetPasswordThunk: TAppThunk =
-  (props: IResetPasswordRequest) => (dispatch: TAppDispatch) => {
+export const resetPasswordThunk: AppThunk =
+  (props: IResetPasswordRequest) => (dispatch: AppDispatch) => {
     dispatch(resetPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -324,7 +324,7 @@ export const resetPasswordThunk: TAppThunk =
     });
   };
 
-export const logoutThunk: TAppThunk = (props: ILogoutRequest) => (dispatch: TAppDispatch) => {
+export const logoutThunk: AppThunk = (props: ILogoutRequest) => (dispatch: AppDispatch) => {
   dispatch(logoutRequestAction());
 
   const options: IRequestOptions = {
@@ -342,7 +342,7 @@ export const logoutThunk: TAppThunk = (props: ILogoutRequest) => (dispatch: TApp
   });
 };
 
-export const getUserThunk: TAppThunk = (props: IGetUserRequest) => (dispatch: TAppDispatch) => {
+export const getUserThunk: AppThunk = (props: IGetUserRequest) => (dispatch: AppDispatch) => {
   dispatch(getUserRequestAction());
 
   const options = {
@@ -359,8 +359,8 @@ export const getUserThunk: TAppThunk = (props: IGetUserRequest) => (dispatch: TA
   });
 };
 
-export const updateUserThunk: TAppThunk =
-  (props: IUpdateUserRequest) => (dispatch: TAppDispatch) => {
+export const updateUserThunk: AppThunk =
+  (props: IUpdateUserRequest) => (dispatch: AppDispatch) => {
     dispatch(updateUserRequestAction());
 
     const options: IRequestOptions = {
@@ -381,8 +381,8 @@ export const updateUserThunk: TAppThunk =
     });
   };
 
-export const updateTokenThunk: TAppThunk =
-  (props: IUpdateTokenRequest) => (dispatch: TAppDispatch) => {
+export const updateTokenThunk: AppThunk =
+  (props: IUpdateTokenRequest) => (dispatch: AppDispatch) => {
     dispatch(updateTokenRequestAction());
 
     const options: IRequestOptions = {

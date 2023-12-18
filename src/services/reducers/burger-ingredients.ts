@@ -7,7 +7,7 @@ import { TBurgerIngredientsUnionAction } from "../actions/burger-ingredients";
 import { IIngredient } from "../../utils/types";
 
 export interface IStateIngredients {
-  readonly data: IIngredient[];
+  readonly data: IIngredient[] | [];
   readonly loading: boolean;
   readonly error: boolean;
 }

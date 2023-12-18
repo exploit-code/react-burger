@@ -2,7 +2,7 @@ import { request } from "../../utils/api";
 import { removeAllIngridientsAction } from "./burger-constructor";
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
 import { IGetOrderNumberRequest } from "../../utils/types";
-import { TAppThunk, TAppDispatch } from "../configureStore";
+import { AppThunk, AppDispatch } from "../types";
 
 interface IGetOrderRequestAction {
   readonly type: typeof GET_ORDER_REQUEST;
@@ -31,8 +31,8 @@ const getOrderSuccessAction = (res: IGetOrderNumberRequest): IGetOrderSuccessAct
 
 const getOrderErrorAction = (): IGetOrderErrorAction => ({ type: GET_ORDER_ERROR });
 
-export const getOrderNumberThunk: TAppThunk =
-  (ingredientsID: string[]) => (dispatch: TAppDispatch) => {
+export const getOrderNumberThunk: AppThunk =
+  (ingredientsID: string[]) => (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
     request<IGetOrderNumberRequest>("orders", {
       method: "POST",

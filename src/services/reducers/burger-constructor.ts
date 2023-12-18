@@ -9,7 +9,7 @@ import { TBurgerConstructorUnionAction } from "../actions/burger-constructor";
 
 export interface IStateConstructorIngredients {
   readonly bun: IConstructorIngredient | null;
-  readonly ingredients: IConstructorIngredient[];
+  readonly ingredients: IConstructorIngredient[] | [];
 }
 
 const initialState: IStateConstructorIngredients = {

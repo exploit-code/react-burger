@@ -1,6 +1,6 @@
 import { IIngredient } from "../../utils/types";
 import { SET_CURRENT_INGREDIENT } from "../constants";
-import { TAppThunk, TAppDispatch } from "../configureStore";
+import { AppThunk, AppDispatch } from "../types";
 
 interface ISetCurrentIngredientAction {
   readonly type: typeof SET_CURRENT_INGREDIENT;
@@ -14,7 +14,7 @@ const setCurrentIngredientAction = (ingredient: IIngredient): ISetCurrentIngredi
   payload: ingredient,
 });
 
-export const setCurrentIngredientThunk: TAppThunk =
-  (ingredient: IIngredient) => (dispatch: TAppDispatch) => {
+export const setCurrentIngredientThunk: AppThunk =
+  (ingredient: IIngredient) => (dispatch: AppDispatch) => {
     dispatch(setCurrentIngredientAction(ingredient));
   };
