@@ -1,7 +1,7 @@
 import cn from "classnames";
 import styles from "./ingredient-details.module.scss";
 import { IngredientParams } from "../ingredient-params/ingredient-params";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ import { IIngredient } from "../../utils/types";
 
 export const IngredientDetails = () => {
   const { id } = useParams<string>();
-  const { data }: any = useSelector((store: any) => store.ingredients);
+  const { data } = useSelector((store) => store.ingredients);
   const viewIngredient: IIngredient | undefined = useMemo(
     () => data.find((el: IIngredient) => el._id === id),
     [data, id]

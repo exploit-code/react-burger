@@ -7,15 +7,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { registerThunk } from "../../services/actions/auth";
 
 export const Register = () => {
   const dispatch = useDispatch();
   const { value, handleChange } = useFormData({ name: "", email: "", password: "" });
-  const { accessToken, loading }: any = useSelector((store: any) => store.auth);
+  const { accessToken, loading } = useSelector((store) => store.auth);
 
-  //@ts-ignore: next sprint
+  //@ts-ignore
   const handleRegisterSubmit = () => dispatch(registerThunk(value));
 
   return accessToken ? (

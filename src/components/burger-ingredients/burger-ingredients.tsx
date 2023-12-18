@@ -4,7 +4,7 @@ import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
 import { getIngredientsThunk } from "../../services/actions/burger-ingredients";
 import { IIngredient } from "../../utils/types";
@@ -12,7 +12,7 @@ import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
   const dispatch = useDispatch();
-  const { loading, error, data }: any = useSelector((store: any) => store.ingredients);
+  const { loading, error, data } = useSelector((store) => store.ingredients);
 
   const bunItems: IIngredient[] = useMemo(
     () => data.filter((filterItem: IIngredient) => filterItem.type === "bun"),
@@ -60,8 +60,10 @@ export const BurgerIngredients = memo(() => {
     }
   };
 
-  //@ts-ignore: next sprint
-  useEffect(() => dispatch(getIngredientsThunk()), [dispatch]);
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(getIngredientsThunk());
+  }, [dispatch]);
 
   return (
     <>

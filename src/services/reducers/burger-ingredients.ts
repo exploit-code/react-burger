@@ -3,7 +3,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
 } from "../constants";
-import { TBurgerIngredientsUnionAction } from "../actions/burger-ingredients";
+import { TBurgerIngredientsUnionActions } from "../actions/burger-ingredients";
 import { IIngredient } from "../../utils/types";
 
 export interface IStateIngredients {
@@ -20,7 +20,7 @@ const initialState: IStateIngredients = {
 
 export const ingredients = (
   state = initialState,
-  action: TBurgerIngredientsUnionAction
+  action: TBurgerIngredientsUnionActions
 ): IStateIngredients => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST:

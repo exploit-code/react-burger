@@ -24,7 +24,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
 } from "../constants";
-import { TAuthUnionAction } from "../actions/auth";
+import { TAuthUnionActions } from "../actions/auth";
 import { IUser } from "../../utils/types";
 
 interface IAuthState {
@@ -45,7 +45,7 @@ const initialState: IAuthState = {
   reset: false,
 };
 
-export const auth = (state = initialState, action: TAuthUnionAction) => {
+export const auth = (state = initialState, action: TAuthUnionActions) => {
   switch (action.type) {
     case REGISTER_REQUEST:
       return {

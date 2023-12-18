@@ -20,7 +20,7 @@ export interface IGetIngredientsErrorAction {
   readonly type: typeof GET_INGREDIENTS_ERROR;
 }
 
-export type TBurgerIngredientsUnionAction =
+export type TBurgerIngredientsUnionActions =
   | IGetIngredientsRequestAction
   | IGetIngredientsSuccessAction
   | IGetIngredientsErrorAction;
@@ -40,7 +40,7 @@ export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
   type: GET_INGREDIENTS_ERROR,
 });
 
-export const getIngredientsThunk: AppThunk = () => (dispatch: AppDispatch) => {
+export const getIngredientsThunk = (): AppThunk => (dispatch: AppDispatch) => {
   dispatch(getIngredientsRequestAction());
   request<IGetIngredientsResponce>("ingredients").then((res) => {
     if (res && res.success) {

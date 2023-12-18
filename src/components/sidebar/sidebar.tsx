@@ -1,16 +1,16 @@
 import { NavLink, Link } from "react-router-dom";
 import styles from "./sitebar.module.scss";
 import { logoutThunk } from "../../services/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 
 export const SiteBar = () => {
   const dispatch = useDispatch();
-  const { refreshToken }: any = useSelector((store: any) => store.auth);
+  const { refreshToken } = useSelector((store) => store.auth);
 
   const handleLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
-    //@ts-ignore: next sprint
+    //@ts-ignore
     dispatch(logoutThunk(refreshToken));
   };
 

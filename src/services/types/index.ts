@@ -1,25 +1,23 @@
 import { ThunkAction } from "redux-thunk";
-import { Action, ActionCreator } from "redux";
 
-import { TAuthUnionAction } from "../actions/auth";
-import { TBurgerConstructorUnionAction } from "../actions/burger-constructor";
-import { TBurgerIngredientsUnionAction } from "../actions/burger-ingredients";
-import { TIngredientDetailsUnionAction } from "../actions/ingredient-details";
-import { TOrderDetailsUnionAction } from "../actions/order-details";
+import { TAuthUnionActions } from "../actions/auth";
+import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
+import { TBurgerIngredientsUnionActions } from "../actions/burger-ingredients";
+import { TIngredientDetailsUnionActions } from "../actions/ingredient-details";
+import { TOrderDetailsUnionActions } from "../actions/order-details";
 
 import { store } from "../configureStore";
 
 export type RootState = ReturnType<typeof store.getState>;
 
 type TApplicationActions =
-  | TAuthUnionAction
-  | TBurgerConstructorUnionAction
-  | TBurgerIngredientsUnionAction
-  | TIngredientDetailsUnionAction
-  | TOrderDetailsUnionAction;
+  | TAuthUnionActions
+  | TBurgerConstructorUnionActions
+  | TBurgerIngredientsUnionActions
+  | TIngredientDetailsUnionActions
+  | TOrderDetailsUnionActions;
 
-export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, RootState, TApplicationActions>
->;
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, TApplicationActions>;
 
 export type AppDispatch = typeof store.dispatch;

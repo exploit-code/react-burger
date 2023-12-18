@@ -7,13 +7,13 @@ import { Bun } from "../bun/bun";
 import { Checkout } from "../checkout/checkout";
 import { useDrop, DropTargetMonitor } from "react-dnd";
 import { addIngridientAction } from "../../services/actions/burger-constructor";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks/index";
 import { useModal } from "../../hooks/useModal";
 import { IConstructorIngredient } from "../../utils/types";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
+  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const [{ isHover }, ingredientsRef] = useDrop({

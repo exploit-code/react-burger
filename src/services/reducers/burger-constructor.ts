@@ -5,7 +5,7 @@ import {
   MOVE_INGREDIENT,
 } from "../constants";
 import { IConstructorIngredient } from "../../utils/types";
-import { TBurgerConstructorUnionAction } from "../actions/burger-constructor";
+import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
 
 export interface IStateConstructorIngredients {
   readonly bun: IConstructorIngredient | null;
@@ -19,7 +19,7 @@ const initialState: IStateConstructorIngredients = {
 
 export const constructorIngredients = (
   state = initialState,
-  action: TBurgerConstructorUnionAction
+  action: TBurgerConstructorUnionActions
 ): IStateConstructorIngredients => {
   switch (action.type) {
     case ADD_INGREDIENT:

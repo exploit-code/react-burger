@@ -6,18 +6,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { loginThunk } from "../../services/actions/auth";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { value, handleChange } = useFormData({ email: "", password: "" });
-  const { loading }: any = useSelector((store: any) => store.auth);
+  const { loading } = useSelector((store) => store.auth);
 
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore: next sprint
+    //@ts-ignore
     dispatch(loginThunk(value)).then(() => navigate("/"));
   };
 

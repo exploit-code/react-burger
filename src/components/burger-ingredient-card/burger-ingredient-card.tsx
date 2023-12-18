@@ -2,25 +2,25 @@ import styles from "./burger-ingredient-card.module.scss";
 import cn from "classnames";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import { memo } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setCurrentIngredientThunk } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
-import { IIngredient, IConstructorIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/types";
 
 export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredient }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
-  const allConstructorIngredients: IConstructorIngredient[] = [...ingredients, bun];
+  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const allConstructorIngredients = [...ingredients, bun];
   const count: number = allConstructorIngredients.filter(
-    (item: IConstructorIngredient) => item?._id === ingredient._id
+    (item) => item?._id === ingredient._id
   ).length;
 
   const handleIngredientClick = () => {
-    //@ts-ignore: next sprint
+    //@ts-ignore
     dispatch(setCurrentIngredientThunk(ingredient));
     navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   };

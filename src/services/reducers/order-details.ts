@@ -1,5 +1,5 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
-import { TOrderDetailsUnionAction } from "../actions/order-details";
+import { TOrderDetailsUnionActions } from "../actions/order-details";
 
 export interface IStateOrderDetails {
   readonly order: number | null;
@@ -15,7 +15,7 @@ const initialState: IStateOrderDetails = {
 
 export const order = (
   state = initialState,
-  action: TOrderDetailsUnionAction
+  action: TOrderDetailsUnionActions
 ): IStateOrderDetails => {
   switch (action.type) {
     case GET_ORDER_REQUEST:

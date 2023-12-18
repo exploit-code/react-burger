@@ -1,5 +1,5 @@
 import { SET_CURRENT_INGREDIENT } from "../constants";
-import { TIngredientDetailsUnionAction } from "../actions/ingredient-details";
+import { TIngredientDetailsUnionActions } from "../actions/ingredient-details";
 import { IIngredient } from "../../utils/types";
 
 interface IStateCurrentIngredient {
@@ -10,7 +10,7 @@ const initialState: IStateCurrentIngredient = {
   ingredient: null,
 };
 
-export const currentIngredient = (state = initialState, action: TIngredientDetailsUnionAction) => {
+export const currentIngredient = (state = initialState, action: TIngredientDetailsUnionActions) => {
   switch (action.type) {
     case SET_CURRENT_INGREDIENT:
       return {

@@ -248,46 +248,51 @@ const updateTokenErrorAction = (): IUpdateTokenErrorAction => ({
   type: UPDATE_TOKEN_ERROR,
 });
 
-export const registerThunk: AppThunk = (props: IRegisterRequest) => (dispatch: AppDispatch) => {
-  dispatch(registerRequestAction());
+export const registerThunk =
+  (props: IRegisterRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch(registerRequestAction());
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(props),
+    };
+
+    request<IRegisterResponse>("auth/register", options).then((res) => {
+      if (res && res.success) {
+        dispatch(registerSuccessAction(res));
+      } else {
+        dispatch(registerErrorAction());
+      }
+    });
   };
 
-  request<IRegisterResponse>("auth/register", options).then((res) => {
-    if (res && res.success) {
-      dispatch(registerSuccessAction(res));
-    } else {
-      dispatch(registerErrorAction());
-    }
-  });
-};
+export const loginThunk =
+  (props: ILoginRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch(loginRequestAction());
 
-export const loginThunk: AppThunk = (props: ILoginRequest) => (dispatch: AppDispatch) => {
-  dispatch(loginRequestAction());
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(props),
+    };
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(props),
+    return request<ILoginResponse>("auth/login", options).then((res) => {
+      if (res && res.success) {
+        dispatch(loginSuccessAction(res));
+      } else {
+        dispatch(loginErrorAction());
+      }
+    });
   };
 
-  return request<ILoginResponse>("auth/login", options).then((res) => {
-    if (res && res.success) {
-      dispatch(loginSuccessAction(res));
-    } else {
-      dispatch(loginErrorAction());
-    }
-  });
-};
-
-export const forgotPasswordThunk: AppThunk =
-  (props: IForgotPasswordRequest) => (dispatch: AppDispatch) => {
+export const forgotPasswordThunk =
+  (props: IForgotPasswordRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
     dispatch(forgotPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -305,8 +310,9 @@ export const forgotPasswordThunk: AppThunk =
     });
   };
 
-export const resetPasswordThunk: AppThunk =
-  (props: IResetPasswordRequest) => (dispatch: AppDispatch) => {
+export const resetPasswordThunk =
+  (props: IResetPasswordRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
     dispatch(resetPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -324,43 +330,51 @@ export const resetPasswordThunk: AppThunk =
     });
   };
 
-export const logoutThunk: AppThunk = (props: ILogoutRequest) => (dispatch: AppDispatch) => {
-  dispatch(logoutRequestAction());
+export const logoutThunk =
+  (props: ILogoutRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch(logoutRequestAction());
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify({ token: props }),
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({ token: props }),
+    };
+
+    request<ILogoutResponse>("auth/logout", options).then((res) => {
+      if (res && res.success) {
+        dispatch(logoutSuccessAction(res));
+      } else {
+        dispatch(logoutErrorAction());
+      }
+    });
   };
 
-  request<ILogoutResponse>("auth/logout", options).then((res) => {
-    if (res && res.success) {
-      dispatch(logoutSuccessAction(res));
-    } else {
-      dispatch(logoutErrorAction());
-    }
-  });
-};
+export const getUserThunk =
+  (props: IGetUserRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
+    dispatch(getUserRequestAction());
 
-export const getUserThunk: AppThunk = (props: IGetUserRequest) => (dispatch: AppDispatch) => {
-  dispatch(getUserRequestAction());
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${props}`,
+      },
+    };
 
-  const options = {
-    method: "GET",
-    headers: { "Content-Type": "application/json;charset=utf-8", Authorization: `Bearer ${props}` },
+    return request<IGetUserResponse>("auth/user", options).then((res) => {
+      if (res && res.success) {
+        dispatch(getUserSuccessAction(res));
+      } else {
+        dispatch(getUserErrorAction());
+      }
+    });
   };
 
-  return request<IGetUserResponse>("auth/user", options).then((res) => {
-    if (res && res.success) {
-      dispatch(getUserSuccessAction(res));
-    } else {
-      dispatch(getUserErrorAction());
-    }
-  });
-};
-
-export const updateUserThunk: AppThunk =
-  (props: IUpdateUserRequest) => (dispatch: AppDispatch) => {
+export const updateUserThunk =
+  (props: IUpdateUserRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
     dispatch(updateUserRequestAction());
 
     const options: IRequestOptions = {
@@ -381,8 +395,9 @@ export const updateUserThunk: AppThunk =
     });
   };
 
-export const updateTokenThunk: AppThunk =
-  (props: IUpdateTokenRequest) => (dispatch: AppDispatch) => {
+export const updateTokenThunk =
+  (props: IUpdateTokenRequest): AppThunk =>
+  (dispatch: AppDispatch) => {
     dispatch(updateTokenRequestAction());
 
     const options: IRequestOptions = {
@@ -400,7 +415,7 @@ export const updateTokenThunk: AppThunk =
     });
   };
 
-export type TAuthUnionAction =
+export type TAuthUnionActions =
   | IRegisterRequestAction
   | IRegisterSuccessAction
   | IRegisterErrorAction

@@ -17,7 +17,7 @@ interface IGetOrderErrorAction {
   readonly type: typeof GET_ORDER_ERROR;
 }
 
-export type TOrderDetailsUnionAction =
+export type TOrderDetailsUnionActions =
   | IGetOrderRequestAction
   | IGetOrderSuccessAction
   | IGetOrderErrorAction;
@@ -31,8 +31,9 @@ const getOrderSuccessAction = (res: IGetOrderNumberRequest): IGetOrderSuccessAct
 
 const getOrderErrorAction = (): IGetOrderErrorAction => ({ type: GET_ORDER_ERROR });
 
-export const getOrderNumberThunk: AppThunk =
-  (ingredientsID: string[]) => (dispatch: AppDispatch) => {
+export const getOrderNumberThunk =
+  (ingredientsID: string[]): AppThunk =>
+  (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
     request<IGetOrderNumberRequest>("orders", {
       method: "POST",

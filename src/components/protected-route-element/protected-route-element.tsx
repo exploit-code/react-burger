@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { IProtectedRoute } from "../../utils/types";
 
 export const ProtectedRouteElement = ({ children, anonymous = false }: IProtectedRoute) => {
-  const { accessToken }: any = useSelector((store: any) => store.auth);
+  const { accessToken } = useSelector((store) => store.auth);
   const location = useLocation();
   const from = location.state?.from || "/";
 
