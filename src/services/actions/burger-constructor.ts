@@ -7,21 +7,21 @@ import {
   MOVE_INGREDIENT,
 } from "../constants";
 
-export interface IAddIngridientAction {
+interface IAddIngridientAction {
   readonly type: typeof ADD_INGREDIENT;
   readonly payload: IConstructorIngredient;
 }
 
-export interface IRemoveIngridientAction {
+interface IRemoveIngridientAction {
   readonly type: typeof REMOVE_INGREDIENT;
   readonly payload: IIngredient;
 }
 
-export interface IRemoveAllIngridientAction {
+interface IRemoveAllIngridientAction {
   readonly type: typeof REMOVE_ALL_INGREDIENTS;
 }
 
-export interface IMoveIngridientAction {
+interface IMoveIngridientAction {
   readonly type: typeof MOVE_INGREDIENT;
   readonly payload: IMoveIngredient;
 }

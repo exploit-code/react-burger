@@ -1,14 +1,34 @@
-import { AnyAction, Dispatch } from "redux";
 import { IIngredient } from "../../utils/types";
+import { SET_CURRENT_INGREDIENT, CLEAR_CURRENT_INGREDIENT } from "../constants";
 
-export const SET_CURRENT_INGREDIENT = "SET_CURRENT_INGREDIENT";
-export const CLEAR_CURRENT_INGREDIENT = "CLEAR_CURRENT_INGREDIENT";
+interface ISetCurrentIngredientAction {
+  readonly type: typeof SET_CURRENT_INGREDIENT;
+  readonly payload: IIngredient;
+}
 
-export const setCurrentIngredient =
-  (ingredient: IIngredient) => (dispatch: Dispatch<AnyAction>) => {
-    dispatch({ type: SET_CURRENT_INGREDIENT, payload: ingredient });
-  };
+interface IClearCurrentIngredientAction {
+  readonly type: typeof CLEAR_CURRENT_INGREDIENT;
+}
 
-export const clearCurrentIngredient = () => (dispatch: Dispatch<AnyAction>) => {
-  dispatch({ type: CLEAR_CURRENT_INGREDIENT });
+export type IIngredientDetailsUnionAction =
+  | ISetCurrentIngredientAction
+  | IClearCurrentIngredientAction;
+
+const setCurrentIngredientAction = (
+  ingredient: IIngredient
+): ISetCurrentIngredientAction => ({
+  type: SET_CURRENT_INGREDIENT,
+  payload: ingredient,
+});
+
+const clearCurrentIngredientAction = (): IClearCurrentIngredientAction => ({
+  type: CLEAR_CURRENT_INGREDIENT,
+});
+
+export const setCurrentIngredient = (ingredient: IIngredient) => (dispatch: any) => {
+  dispatch(setCurrentIngredientAction(ingredient));
+};
+
+export const clearCurrentIngredient = () => (dispatch: any) => {
+  dispatch(clearCurrentIngredientAction());
 };

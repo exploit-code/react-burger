@@ -16,6 +16,11 @@ interface IGetOrderErrorAction {
   readonly type: typeof GET_ORDER_ERROR;
 }
 
+export type TOrderDetailsUnionAction =
+  | IGetOrderRequestAction
+  | IGetOrderSuccessAction
+  | IGetOrderErrorAction;
+
 const getOrderRequestAction = (): IGetOrderRequestAction => ({ type: GET_ORDER_REQUEST });
 
 const getOrderSuccessAction = (res: IGetOrderNumberRequest): IGetOrderSuccessAction => ({

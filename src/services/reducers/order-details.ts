@@ -1,12 +1,22 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
+import { TOrderDetailsUnionAction } from "../actions/order-details";
 
-const initialState = {
+export interface IStateOrderDetails {
+  readonly order: number | null;
+  readonly loading: boolean;
+  readonly error: boolean;
+}
+
+const initialState: IStateOrderDetails = {
   order: null,
   loading: false,
   error: false,
 };
 
-export const order = (state = initialState, action) => {
+export const order = (
+  state = initialState,
+  action: TOrderDetailsUnionAction
+): IStateOrderDetails => {
   switch (action.type) {
     case GET_ORDER_REQUEST:
       return {
