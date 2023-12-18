@@ -3,7 +3,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword } from "../../services/actions/auth";
+import { resetPasswordThunk } from "../../services/actions/auth";
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export const ResetPassword = () => {
     e.preventDefault();
 
     //@ts-ignore: next sprint
-    dispatch(resetPassword(value)).then(() => navigate("/login"));
+    dispatch(resetPasswordThunk(value)).then(() => navigate("/login"));
   };
 
   return reset ? (

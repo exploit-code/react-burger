@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import styles from "./sitebar.module.scss";
-import { logout } from "../../services/actions/auth";
+import { logoutThunk } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 export const SiteBar = () => {
@@ -11,7 +11,7 @@ export const SiteBar = () => {
     e.preventDefault();
 
     //@ts-ignore: next sprint
-    dispatch(logout(refreshToken));
+    dispatch(logoutThunk(refreshToken));
   };
 
   return (

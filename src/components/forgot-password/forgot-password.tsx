@@ -3,7 +3,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword } from "../../services/actions/auth";
+import { forgotPasswordThunk } from "../../services/actions/auth";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const ForgotPassword = () => {
   const handleForgotPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //@ts-ignore: next sprint
-    dispatch(forgotPassword(value)).then(() => navigate("/reset-password"));
+    dispatch(forgotPasswordThunk(value)).then(() => navigate("/reset-password"));
   };
 
   return (

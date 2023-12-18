@@ -170,3 +170,8 @@ export interface IMoveIngredient {
   fromIndex: number;
   toIndex: number;
 }
+
+export interface IUser {
+  name: string;
+  email: string;
+}

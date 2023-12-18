@@ -7,7 +7,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../services/actions/auth";
+import { loginThunk } from "../../services/actions/auth";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const Login = () => {
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //@ts-ignore: next sprint
-    dispatch(login(value)).then(() => navigate("/"));
+    dispatch(loginThunk(value)).then(() => navigate("/"));
   };
 
   return (

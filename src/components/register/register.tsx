@@ -8,7 +8,7 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../services/actions/auth";
+import { registerThunk } from "../../services/actions/auth";
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const Register = () => {
   const { accessToken, loading }: any = useSelector((store: any) => store.auth);
 
   //@ts-ignore: next sprint
-  const handleRegisterSubmit = () => dispatch(register(value));
+  const handleRegisterSubmit = () => dispatch(registerThunk(value));
 
   return accessToken ? (
     <Navigate to="/" replace />
