@@ -5,6 +5,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
 } from "../constants";
+import { TAppThunk, TAppDispatch } from "../configureStore";
 
 export interface IGetIngredientsRequestAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
@@ -39,7 +40,7 @@ export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
   type: GET_INGREDIENTS_ERROR,
 });
 
-export const getIngredients = () => (dispatch: any) => {
+export const getIngredientsThunk: TAppThunk = () => (dispatch: TAppDispatch) => {
   dispatch(getIngredientsRequestAction());
   request<IGetIngredientsResponce>("ingredients").then((res) => {
     if (res && res.success) {

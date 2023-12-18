@@ -18,7 +18,7 @@ import {
   IUpdateTokenRequest,
   IUpdateTokenResponse,
 } from "../../utils/types";
-
+import { TAppThunk, TAppDispatch } from "../configureStore";
 import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -248,7 +248,7 @@ const updateTokenErrorAction = (): IUpdateTokenErrorAction => ({
   type: UPDATE_TOKEN_ERROR,
 });
 
-export const registerThunk = (props: IRegisterRequest) => (dispatch: any) => {
+export const registerThunk: TAppThunk = (props: IRegisterRequest) => (dispatch: TAppDispatch) => {
   dispatch(registerRequestAction());
 
   const options: IRequestOptions = {
@@ -266,7 +266,7 @@ export const registerThunk = (props: IRegisterRequest) => (dispatch: any) => {
   });
 };
 
-export const loginThunk = (props: ILoginRequest) => (dispatch: any) => {
+export const loginThunk: TAppThunk = (props: ILoginRequest) => (dispatch: TAppDispatch) => {
   dispatch(loginRequestAction());
 
   const options: IRequestOptions = {
@@ -286,43 +286,45 @@ export const loginThunk = (props: ILoginRequest) => (dispatch: any) => {
   });
 };
 
-export const forgotPasswordThunk = (props: IForgotPasswordRequest) => (dispatch: any) => {
-  dispatch(forgotPasswordRequestAction());
+export const forgotPasswordThunk: TAppThunk =
+  (props: IForgotPasswordRequest) => (dispatch: TAppDispatch) => {
+    dispatch(forgotPasswordRequestAction());
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(props),
+    };
+
+    return request<IForgotPasswordResponse>("password-reset", options).then((res) => {
+      if (res && res.success) {
+        dispatch(forgotPasswordSuccessAction(res));
+      } else {
+        dispatch(forgotPasswordErrorAction());
+      }
+    });
   };
 
-  return request<IForgotPasswordResponse>("password-reset", options).then((res) => {
-    if (res && res.success) {
-      dispatch(forgotPasswordSuccessAction(res));
-    } else {
-      dispatch(forgotPasswordErrorAction);
-    }
-  });
-};
+export const resetPasswordThunk: TAppThunk =
+  (props: IResetPasswordRequest) => (dispatch: TAppDispatch) => {
+    dispatch(resetPasswordRequestAction());
 
-export const resetPasswordThunk = (props: IResetPasswordRequest) => (dispatch: any) => {
-  dispatch(resetPasswordRequestAction());
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(props),
+    };
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify(props),
+    return request<IResetPasswordResponse>("password-reset/reset", options).then((res) => {
+      if (res && res.message) {
+        dispatch(resetPasswordSuccessAction(res));
+      } else {
+        dispatch(resetPasswordErrorAction());
+      }
+    });
   };
 
-  return request<IResetPasswordResponse>("password-reset/reset", options).then((res) => {
-    if (res && res.message) {
-      dispatch(resetPasswordSuccessAction(res));
-    } else {
-      dispatch(resetPasswordErrorAction());
-    }
-  });
-};
-
-export const logoutThunk = (props: ILogoutRequest) => (dispatch: any) => {
+export const logoutThunk: TAppThunk = (props: ILogoutRequest) => (dispatch: TAppDispatch) => {
   dispatch(logoutRequestAction());
 
   const options: IRequestOptions = {
@@ -335,12 +337,12 @@ export const logoutThunk = (props: ILogoutRequest) => (dispatch: any) => {
     if (res && res.success) {
       dispatch(logoutSuccessAction(res));
     } else {
-      dispatch(logoutErrorAction);
+      dispatch(logoutErrorAction());
     }
   });
 };
 
-export const getUserThunk = (props: IGetUserRequest) => (dispatch: any) => {
+export const getUserThunk: TAppThunk = (props: IGetUserRequest) => (dispatch: TAppDispatch) => {
   dispatch(getUserRequestAction());
 
   const options = {
@@ -352,49 +354,51 @@ export const getUserThunk = (props: IGetUserRequest) => (dispatch: any) => {
     if (res && res.success) {
       dispatch(getUserSuccessAction(res));
     } else {
-      dispatch(getUserErrorAction);
+      dispatch(getUserErrorAction());
     }
   });
 };
 
-export const updateUserThunk = (props: IUpdateUserRequest) => (dispatch: any) => {
-  dispatch(updateUserRequestAction());
+export const updateUserThunk: TAppThunk =
+  (props: IUpdateUserRequest) => (dispatch: TAppDispatch) => {
+    dispatch(updateUserRequestAction());
 
-  const options: IRequestOptions = {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-      Authorization: `Bearer ${props.accessToken}`,
-    },
-    body: JSON.stringify(props.user),
+    const options: IRequestOptions = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${props.accessToken}`,
+      },
+      body: JSON.stringify(props.user),
+    };
+
+    request<IUpdateUserResponse>("auth/user", options).then((res) => {
+      if (res && res.success) {
+        dispatch(updateUserSuccessAction(res));
+      } else {
+        dispatch(updateUserErrorAction());
+      }
+    });
   };
 
-  request<IUpdateUserResponse>("auth/user", options).then((res) => {
-    if (res && res.success) {
-      dispatch(updateUserSuccessAction(res));
-    } else {
-      dispatch(updateUserErrorAction());
-    }
-  });
-};
+export const updateTokenThunk: TAppThunk =
+  (props: IUpdateTokenRequest) => (dispatch: TAppDispatch) => {
+    dispatch(updateTokenRequestAction());
 
-export const updateTokenThunk = (props: IUpdateTokenRequest) => (dispatch: any) => {
-  dispatch(updateTokenRequestAction());
+    const options: IRequestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify({ token: props }),
+    };
 
-  const options: IRequestOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json;charset=utf-8" },
-    body: JSON.stringify({ token: props }),
+    return request<IUpdateTokenResponse>("auth/token", options).then((res) => {
+      if (res && res.success) {
+        dispatch(updateTokenSuccessAction(res));
+      } else {
+        dispatch(updateTokenErrorAction());
+      }
+    });
   };
-
-  return request<IUpdateTokenResponse>("auth/token", options).then((res) => {
-    if (res && res.success) {
-      dispatch(updateTokenSuccessAction(res));
-    } else {
-      dispatch(updateTokenErrorAction());
-    }
-  });
-};
 
 export type TAuthUnionAction =
   | IRegisterRequestAction

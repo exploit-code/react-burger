@@ -6,7 +6,7 @@ import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredien
 import { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Loader } from "../loader/loader";
-import { getIngredients } from "../../services/actions/burger-ingredients";
+import { getIngredientsThunk } from "../../services/actions/burger-ingredients";
 import { IIngredient } from "../../utils/types";
 import { RefObject } from "react";
 
@@ -61,7 +61,7 @@ export const BurgerIngredients = memo(() => {
   };
 
   //@ts-ignore: next sprint
-  useEffect(() => dispatch(getIngredients()), [dispatch]);
+  useEffect(() => dispatch(getIngredientsThunk()), [dispatch]);
 
   return (
     <>
