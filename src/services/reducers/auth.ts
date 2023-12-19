@@ -28,18 +28,21 @@ import { TAuthUnionActions } from "../actions/auth";
 import { IUser } from "../../utils/common-types";
 
 interface IAuthState {
-  readonly user: null | IUser;
-  readonly accessToken: null | string;
-  readonly refreshToken: null | string;
+  readonly user: IUser;
+  readonly accessToken: string;
+  readonly refreshToken: string;
   readonly loading: boolean;
   readonly error: boolean;
   readonly reset: boolean;
 }
 
 const initialState: IAuthState = {
-  user: null,
-  accessToken: null,
-  refreshToken: null,
+  user: {
+    name: "",
+    email: "",
+  },
+  accessToken: "",
+  refreshToken: "",
   loading: false,
   error: false,
   reset: false,
@@ -106,8 +109,8 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
     case LOGIN_ERROR:
       return {
         ...state,
-        error: true,
         loading: false,
+        error: true,
       };
 
     case FORGOT_PASSWORD_REQUEST:
@@ -188,8 +191,8 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
     case GET_USER_ERROR:
       return {
         ...state,
-        error: true,
         loading: false,
+        error: true,
       };
 
     case UPDATE_USER_REQUEST:

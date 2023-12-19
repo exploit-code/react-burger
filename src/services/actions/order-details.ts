@@ -1,7 +1,7 @@
 import { request } from "../../utils/api";
 import { removeAllIngridientsAction } from "./burger-constructor";
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
-import { IGetOrderNumberRequest } from "../../utils/common-types";
+import { IGetOrderNumberRequest, IIngredientID } from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
 
 interface IGetOrderRequestAction {
@@ -32,7 +32,7 @@ const getOrderSuccessAction = (res: IGetOrderNumberRequest): IGetOrderSuccessAct
 const getOrderErrorAction = (): IGetOrderErrorAction => ({ type: GET_ORDER_ERROR });
 
 export const getOrderNumberThunk =
-  (ingredientsID: string[]): AppThunk =>
+  (ingredientsID: IIngredientID): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
     request<IGetOrderNumberRequest>("orders", {

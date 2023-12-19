@@ -3,20 +3,19 @@ import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { getOrderNumberThunk } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
-import { IConstructorIngredient, IUseModal } from "../../utils/common-types";
+import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/common-types";
 
 export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
-  const ingredientsID: { ingredients: string[] } = {
+  const ingredientsID: IIngredientID = {
     ingredients: ingredients.map((item: IConstructorIngredient): string => item._id),
   };
   const { accessToken } = useSelector((store) => store.auth);
 
   const handleOrderClick = () => {
     if (accessToken && ingredients && bun) {
-      //@ts-ignore
       dispatch(getOrderNumberThunk(ingredientsID));
       openModal();
     } else navigate("/login");

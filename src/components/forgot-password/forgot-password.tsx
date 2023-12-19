@@ -4,18 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { forgotPasswordThunk } from "../../services/actions/auth";
+import { useEffect } from "react";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((store) => store.auth);
-  const { value, handleChange } = useFormData({ email: "" });
+  const { loading, reset } = useSelector((store) => store.auth);
+  const { value, handleChange } = useFormData({});
 
   const handleForgotPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(forgotPasswordThunk(value)).then(() => navigate("/reset-password"));
+    dispatch(forgotPasswordThunk({ email: value.email }));
   };
+
+  useEffect(() => {
+    if (reset) navigate("/reset-password");
+  }, [reset, navigate]);
 
   return (
     <div className={styles.forgotPassword}>

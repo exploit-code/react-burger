@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { IUseFormData, IUseFormDataReturn } from "../utils/common-types";
+
+export interface IUseFormData {
+  [key: string]: string;
+}
+
+export interface IUseFormDataReturn {
+  value: IUseFormData;
+  setValue: React.Dispatch<React.SetStateAction<IUseFormData>>;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
 export const useFormData = (props: IUseFormData): IUseFormDataReturn => {
   const [value, setValue] = useState<IUseFormData>(props);

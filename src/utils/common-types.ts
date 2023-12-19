@@ -37,19 +37,6 @@ export interface IUseModal {
   closeModal: () => void;
 }
 
-export interface IUseFormData {
-  name?: string;
-  email?: string;
-  password?: string;
-  token?: string;
-}
-
-export interface IUseFormDataReturn {
-  value: IUseFormData;
-  setValue: React.Dispatch<React.SetStateAction<IUseFormData>>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export interface IModal {
   title?: string;
   children: React.ReactNode;
@@ -138,14 +125,18 @@ export interface IGetUserRequest {
   token: string;
 }
 
-export interface IGetUserResponse extends ICheckSuccess {
-  user: {
-    email: string;
-    name: string;
-  };
+export interface IUser {
+  name: string;
+  email: string;
+  password?: string;
 }
 
-export interface IUpdateUserRequest extends IGetUserResponse {
+export interface IGetUserResponse extends ICheckSuccess {
+  user: IUser;
+}
+
+export interface IUpdateUserRequest {
+  user: IUser;
   accessToken: string;
 }
 
@@ -171,7 +162,6 @@ export interface IMoveIngredient {
   toIndex: number;
 }
 
-export interface IUser {
-  name: string;
-  email: string;
+export interface IIngredientID {
+  ingredients: IIngredient["_id"][];
 }

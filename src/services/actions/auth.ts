@@ -351,7 +351,7 @@ export const logoutThunk =
   };
 
 export const getUserThunk =
-  (props: IGetUserRequest): AppThunk =>
+  ({ token }: IGetUserRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getUserRequestAction());
 
@@ -359,7 +359,7 @@ export const getUserThunk =
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${props}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -368,6 +368,7 @@ export const getUserThunk =
         dispatch(getUserSuccessAction(res));
       } else {
         dispatch(getUserErrorAction());
+        console.log("err getUserThunk", res);
       }
     });
   };

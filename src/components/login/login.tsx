@@ -8,36 +8,40 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { loginThunk } from "../../services/actions/auth";
+import { useEffect } from "react";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { value, handleChange } = useFormData({ email: "", password: "" });
-  const { loading } = useSelector((store) => store.auth);
+  const { value, handleChange } = useFormData({});
+  const { accessToken } = useSelector((store) => store.auth);
 
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(loginThunk(value)).then(() => navigate("/"));
+    dispatch(loginThunk({ email: value.email, password: value.password }));
   };
+
+  useEffect(() => {
+    if (accessToken) navigate("/");
+  }, [accessToken, navigate]);
 
   return (
     <div className={styles.login}>
       <form className={styles.login__form} onSubmit={handleLoginSubmit}>
         <h2 className="text text_type_main-medium">Вход</h2>
         <EmailInput
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           value={value.email || ""}
           name={"email"}
           isIcon={false}
         />
         <PasswordInput
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"
         />
-        <Button htmlType="submit" type="primary" size="medium" disabled={loading}>
+        <Button htmlType="submit" type="primary" size="medium">
           Войти
         </Button>
       </form>

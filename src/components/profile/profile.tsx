@@ -15,29 +15,35 @@ export const Profile = () => {
   const dispatch = useDispatch();
   const { loading, refreshToken, user, accessToken, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({
-    name: user?.name,
-    email: user?.email,
+    name: user.name,
+    email: user.email,
     password: "",
   });
   const [showButtons, setShowButtons] = useState<boolean>(false);
 
   const handleUpdateUserSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(updateUserThunk({ user: value, accessToken }));
+
+    dispatch(
+      updateUserThunk({
+        user: { email: value.email, name: value.name, password: value.password },
+        accessToken: accessToken,
+      })
+    );
+
+    value.password = "";
   };
-  const handleCancel = () => setValue({ name: user?.name, email: user?.email, password: "" });
+  const handleCancel = () => setValue({ name: user.name, email: user.email, password: "" });
 
   useEffect(() => {
-    if (user?.email !== value.email || user?.name !== value.name) setShowButtons(true);
+    if (user.email !== value.email || user.name !== value.name || value.password !== "")
+      setShowButtons(true);
     else setShowButtons(false);
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    //@ts-ignore
-    if (error) dispatch(updateTokenThunk(refreshToken));
-    //@ts-ignore
-    else dispatch(getUserThunk(accessToken));
+    if (error) dispatch(updateTokenThunk({ token: refreshToken }));
+    else dispatch(getUserThunk({ token: accessToken }));
   }, [accessToken, dispatch, refreshToken, error]);
 
   return loading || error ? (
@@ -47,7 +53,7 @@ export const Profile = () => {
       <Input
         type={"text"}
         onChange={(e) => handleChange(e)}
-        value={value.name || ""}
+        value={value.name}
         name={"name"}
         placeholder="Имя"
         error={false}
@@ -55,14 +61,14 @@ export const Profile = () => {
       />
       <EmailInput
         onChange={(e) => handleChange(e)}
-        value={value.email || ""}
+        value={value.email}
         name={"email"}
         placeholder="Логин"
         isIcon={true}
       />
       <PasswordInput
         onChange={(e) => handleChange(e)}
-        value={value.password || ""}
+        value={value.password}
         name={"password"}
         icon="EditIcon"
       />
