@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getUserThunk, updateUserThunk, updateTokenThunk } from "../../services/actions/auth";
+import { getUserThunk, updateUserThunk, refreshTokenThunk } from "../../services/actions/auth";
 import { useEffect, useState } from "react";
 import { Loader } from "../loader/loader";
 
@@ -42,7 +42,7 @@ export const Profile = () => {
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    if (error) dispatch(updateTokenThunk({ token: refreshToken }));
+    if (error) dispatch(refreshTokenThunk({ token: refreshToken }));
     else dispatch(getUserThunk({ token: accessToken }));
   }, [accessToken, dispatch, refreshToken, error]);
 

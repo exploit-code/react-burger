@@ -15,7 +15,8 @@ import {
   IGetUserResponse,
   IUpdateUserRequest,
   IUpdateUserResponse,
-  IUpdateTokenResponse,
+  IRefreshTokenRequest,
+  IRefreshTokenResponse,
 } from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
 import {
@@ -221,29 +222,29 @@ const updateUserErrorAction = (): IUpdateUserErrorAction => ({
   type: UPDATE_USER_ERROR,
 });
 
-interface IUpdateTokenRequestAction {
+interface IRefreshTokenRequestAction {
   readonly type: typeof UPDATE_TOKEN_REQUEST;
 }
 
-interface IUpdateTokenSuccessAction {
+interface IRefreshTokenSuccessAction {
   readonly type: typeof UPDATE_TOKEN_SUCCESS;
-  readonly payload: IUpdateTokenResponse;
+  readonly payload: IRefreshTokenResponse;
 }
 
-interface IUpdateTokenErrorAction {
+interface IRefreshTokenErrorAction {
   readonly type: typeof UPDATE_TOKEN_ERROR;
 }
 
-const updateTokenRequestAction = (): IUpdateTokenRequestAction => ({
+const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
   type: UPDATE_TOKEN_REQUEST,
 });
 
-const updateTokenSuccessAction = (res: IUpdateTokenResponse): IUpdateTokenSuccessAction => ({
+const refreshTokenSuccessAction = (res: IRefreshTokenResponse): IRefreshTokenSuccessAction => ({
   type: UPDATE_TOKEN_SUCCESS,
   payload: res,
 });
 
-const updateTokenErrorAction = (): IUpdateTokenErrorAction => ({
+const refreshTokenErrorAction = (): IRefreshTokenErrorAction => ({
   type: UPDATE_TOKEN_ERROR,
 });
 
@@ -394,23 +395,22 @@ export const updateUserThunk =
       });
   };
 
-export const updateTokenThunk =
-  ({ token }: IGetUserRequest): AppThunk =>
+export const refreshTokenThunk =
+  ({ token }: IRefreshTokenRequest): AppThunk =>
   (dispatch: AppDispatch) => {
-    dispatch(updateTokenRequestAction());
-
+    dispatch(refreshTokenRequestAction());
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(token),
+      body: JSON.stringify({ token: token }),
     };
 
-    return request<IUpdateTokenResponse>("auth/token", options)
+    return request<IRefreshTokenResponse>("auth/token", options)
       .then((res) => {
-        if (res && res.success) dispatch(updateTokenSuccessAction(res));
+        if (res && res.success) dispatch(refreshTokenSuccessAction(res));
       })
       .catch(() => {
-        dispatch(updateTokenErrorAction());
+        dispatch(refreshTokenErrorAction());
       });
   };
 
@@ -436,6 +436,6 @@ export type TAuthUnionActions =
   | IUpdateUserRequestAction
   | IUpdateUserSuccessAction
   | IUpdateUserErrorAction
-  | IUpdateTokenRequestAction
-  | IUpdateTokenSuccessAction
-  | IUpdateTokenErrorAction;
+  | IRefreshTokenRequestAction
+  | IRefreshTokenSuccessAction
+  | IRefreshTokenErrorAction;

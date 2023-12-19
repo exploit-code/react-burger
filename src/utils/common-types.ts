@@ -125,6 +125,10 @@ export interface IGetUserRequest {
   token: string;
 }
 
+export interface IRefreshTokenRequest {
+  token: string;
+}
+
 export interface IUser {
   name: string;
   email: string;
@@ -142,7 +146,7 @@ export interface IUpdateUserRequest {
 
 export interface IUpdateUserResponse extends ICheckSuccess, IGetUserResponse {}
 
-export interface IUpdateTokenResponse extends ICheckSuccess {
+export interface IRefreshTokenResponse extends ICheckSuccess {
   accessToken: string;
   refreshToken: string;
 }
