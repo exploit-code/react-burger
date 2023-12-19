@@ -1,11 +1,11 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
-import { TAuthUnionActions } from "../actions/auth";
-import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
-import { TBurgerIngredientsUnionActions } from "../actions/burger-ingredients";
-import { TIngredientDetailsUnionActions } from "../actions/ingredient-details";
-import { TOrderDetailsUnionActions } from "../actions/order-details";
+import { TAuthUnionActions } from "./auth";
+import { TBurgerConstructorUnionActions } from "./burger-constructor";
+import { TBurgerIngredientsUnionActions } from "./burger-ingredients";
+import { TIngredientDetailsUnionActions } from "./ingredient-details";
+import { TOrderDetailsUnionActions } from "./order-details";
 
-import { store } from "../configureStore";
+import { store } from "../store";
 
 export type RootState = ReturnType<typeof store.getState>;
 

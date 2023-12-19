@@ -5,7 +5,7 @@ import {
   MOVE_INGREDIENT,
 } from "../constants";
 import { IConstructorIngredient } from "../../utils/common-types";
-import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
+import { TBurgerConstructorUnionActions } from "../types/burger-constructor";
 
 export interface IStateConstructorIngredients {
   readonly bun: IConstructorIngredient | null;

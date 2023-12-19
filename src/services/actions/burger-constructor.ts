@@ -1,36 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
-import { IIngredient, IMoveIngredient, IConstructorIngredient } from "../../utils/common-types";
+import { IIngredient, IMoveIngredient } from "../../utils/common-types";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
 } from "../constants";
-
-interface IAddIngridientAction {
-  readonly type: typeof ADD_INGREDIENT;
-  readonly payload: IConstructorIngredient;
-}
-
-interface IRemoveIngridientAction {
-  readonly type: typeof REMOVE_INGREDIENT;
-  readonly payload: IIngredient;
-}
-
-interface IRemoveAllIngridientAction {
-  readonly type: typeof REMOVE_ALL_INGREDIENTS;
-}
-
-interface IMoveIngridientAction {
-  readonly type: typeof MOVE_INGREDIENT;
-  readonly payload: IMoveIngredient;
-}
-
-export type TBurgerConstructorUnionActions =
-  | IAddIngridientAction
-  | IRemoveIngridientAction
-  | IRemoveAllIngridientAction
-  | IMoveIngridientAction;
+import {
+  IAddIngridientAction,
+  IMoveIngridientAction,
+  IRemoveAllIngridientAction,
+  IRemoveIngridientAction,
+} from "../types/burger-constructor";
 
 export const addIngridientAction = (payload: IIngredient): IAddIngridientAction => {
   return {
@@ -57,7 +38,7 @@ export const removeAllIngridientsAction = (): IRemoveAllIngridientAction => {
   };
 };
 
-export const moveAllIngridientsAction = (payload: IMoveIngredient): IMoveIngridientAction => {
+export const moveIngridientsAction = (payload: IMoveIngredient): IMoveIngridientAction => {
   return {
     type: MOVE_INGREDIENT,
     payload: {

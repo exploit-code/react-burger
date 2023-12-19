@@ -6,7 +6,7 @@ import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredien
 import { memo } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
-import { getIngredientsThunk } from "../../services/actions/burger-ingredients";
+import { getIngredientsThunk } from "../../services/middleware/burger-ingredients";
 import { IIngredient } from "../../utils/common-types";
 import { RefObject } from "react";
 

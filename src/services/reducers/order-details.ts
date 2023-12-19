@@ -1,5 +1,5 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
-import { TOrderDetailsUnionActions } from "../actions/order-details";
+import { TOrderDetailsUnionActions } from "../types/order-details";
 
 export interface IStateOrderDetails {
   readonly order: number | null;

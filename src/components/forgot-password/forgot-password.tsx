@@ -3,7 +3,7 @@ import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-comp
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { forgotPasswordThunk } from "../../services/actions/auth";
+import { forgotPasswordThunk } from "../../services/middleware/auth";
 import { useEffect } from "react";
 
 export const ForgotPassword = () => {

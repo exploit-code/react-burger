@@ -5,7 +5,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/common-types";
 import {
   removeIngridientAction,
-  moveAllIngridientsAction,
+  moveIngridientsAction,
 } from "../../services/actions/burger-constructor";
 
 export const BurgerConstructorCard = <T extends IConstructorIngredient>({
@@ -34,7 +34,7 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
     hover(draggedItem: IConstructorDraggedItem<T> | undefined) {
       if (!draggedItem || draggedItem.index === index) return;
 
-      dispatch(moveAllIngridientsAction({ fromIndex: draggedItem.index, toIndex: index }));
+      dispatch(moveIngridientsAction({ fromIndex: draggedItem.index, toIndex: index }));
 
       draggedItem.index = index;
     },

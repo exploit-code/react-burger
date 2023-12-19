@@ -24,7 +24,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
 } from "../constants";
-import { TAuthUnionActions } from "../actions/auth";
+import { TAuthUnionActions } from "../types/auth";
 import { IUser } from "../../utils/common-types";
 
 interface IAuthState {

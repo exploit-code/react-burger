@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getUserThunk, updateUserThunk, refreshTokenThunk } from "../../services/actions/auth";
+import { getUserThunk, updateUserThunk, refreshTokenThunk } from "../../services/middleware/auth";
 import { useEffect, useState } from "react";
 import { Loader } from "../loader/loader";
 

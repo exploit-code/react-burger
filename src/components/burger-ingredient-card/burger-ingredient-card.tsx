@@ -4,7 +4,7 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import { memo } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setCurrentIngredientThunk } from "../../services/actions/ingredient-details";
+import { setCurrentIngredientThunk } from "../../services/middleware/ingredient-details";
 import { useDrag } from "react-dnd";
 import { IIngredient } from "../../utils/common-types";
 

@@ -1,24 +1,3 @@
-import { request } from "../../utils/api";
-import {
-  IRequestOptions,
-  ILoginRequest,
-  ILoginResponse,
-  IRegisterRequest,
-  IRegisterResponse,
-  IForgotPasswordRequest,
-  IForgotPasswordResponse,
-  IResetPasswordRequest,
-  IResetPasswordResponse,
-  ILogoutRequest,
-  ILogoutResponse,
-  IGetUserRequest,
-  IGetUserResponse,
-  IUpdateUserRequest,
-  IUpdateUserResponse,
-  IRefreshTokenRequest,
-  IRefreshTokenResponse,
-} from "../../utils/common-types";
-import { AppThunk, AppDispatch } from "../types";
 import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
@@ -45,397 +24,141 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
 } from "../constants";
+import {
+  IForgotPasswordErrorAction,
+  IForgotPasswordRequestAction,
+  IForgotPasswordSuccessAction,
+  IGetUserErrorAction,
+  IGetUserRequestAction,
+  IGetUserSuccessAction,
+  ILoginErrorAction,
+  ILoginRequestAction,
+  ILoginSuccessAction,
+  ILogoutErrorAction,
+  ILogoutRequestAction,
+  ILogoutSuccessAction,
+  IRefreshTokenErrorAction,
+  IRefreshTokenRequestAction,
+  IRefreshTokenSuccessAction,
+  IRegisterErrorAction,
+  IRegisterRequestAction,
+  IRegisterSuccessAction,
+  IResetPasswordErrorAction,
+  IResetPasswordRequestAction,
+  IResetPasswordSuccessAction,
+  IUpdateUserErrorAction,
+  IUpdateUserRequestAction,
+  IUpdateUserSuccessAction,
+} from "../types/auth";
+import {
+  IForgotPasswordResponse,
+  IGetUserResponse,
+  ILoginResponse,
+  ILogoutResponse,
+  IRefreshTokenResponse,
+  IRegisterResponse,
+  IResetPasswordResponse,
+  IUpdateUserResponse,
+} from "../../utils/common-types";
 
-interface IRegisterRequestAction {
-  readonly type: typeof REGISTER_REQUEST;
-}
+export const registerRequestAction = (): IRegisterRequestAction => ({ type: REGISTER_REQUEST });
 
-interface IRegisterSuccessAction {
-  readonly type: typeof REGISTER_SUCCESS;
-  readonly payload: IRegisterResponse;
-}
-
-interface IRegisterErrorAction {
-  readonly type: typeof REGISTER_ERROR;
-}
-
-const registerRequestAction = (): IRegisterRequestAction => ({ type: REGISTER_REQUEST });
-
-const registerSuccessAction = (res: IRegisterResponse): IRegisterSuccessAction => ({
+export const registerSuccessAction = (res: IRegisterResponse): IRegisterSuccessAction => ({
   type: REGISTER_SUCCESS,
   payload: res,
 });
 
-const registerErrorAction = (): IRegisterErrorAction => ({ type: REGISTER_ERROR });
+export const registerErrorAction = (): IRegisterErrorAction => ({ type: REGISTER_ERROR });
 
-interface ILoginRequestAction {
-  readonly type: typeof LOGIN_REQUEST;
-}
+export const loginRequestAction = (): ILoginRequestAction => ({ type: LOGIN_REQUEST });
 
-interface ILoginSuccessAction {
-  readonly type: typeof LOGIN_SUCCESS;
-  readonly payload: IRegisterResponse;
-}
-
-interface ILoginErrorAction {
-  readonly type: typeof LOGIN_ERROR;
-}
-
-const loginRequestAction = (): ILoginRequestAction => ({ type: LOGIN_REQUEST });
-
-const loginSuccessAction = (res: ILoginResponse): ILoginSuccessAction => ({
+export const loginSuccessAction = (res: ILoginResponse): ILoginSuccessAction => ({
   type: LOGIN_SUCCESS,
   payload: res,
 });
 
-const loginErrorAction = (): ILoginErrorAction => ({ type: LOGIN_ERROR });
+export const loginErrorAction = (): ILoginErrorAction => ({ type: LOGIN_ERROR });
 
-interface IForgotPasswordRequestAction {
-  readonly type: typeof FORGOT_PASSWORD_REQUEST;
-}
-
-interface IForgotPasswordSuccessAction {
-  readonly type: typeof FORGOT_PASSWORD_SUCCESS;
-  readonly payload: IForgotPasswordResponse;
-}
-
-interface IForgotPasswordErrorAction {
-  readonly type: typeof FORGOT_PASSWORD_ERROR;
-}
-
-const forgotPasswordRequestAction = (): IForgotPasswordRequestAction => ({
+export const forgotPasswordRequestAction = (): IForgotPasswordRequestAction => ({
   type: FORGOT_PASSWORD_REQUEST,
 });
 
-const forgotPasswordSuccessAction = (
+export const forgotPasswordSuccessAction = (
   res: IForgotPasswordResponse
 ): IForgotPasswordSuccessAction => ({
   type: FORGOT_PASSWORD_SUCCESS,
   payload: res,
 });
 
-const forgotPasswordErrorAction = (): IForgotPasswordErrorAction => ({
+export const forgotPasswordErrorAction = (): IForgotPasswordErrorAction => ({
   type: FORGOT_PASSWORD_ERROR,
 });
 
-interface IResetPasswordRequestAction {
-  readonly type: typeof RESET_PASSWORD_REQUEST;
-}
-
-interface IResetPasswordSuccessAction {
-  readonly type: typeof RESET_PASSWORD_SUCCESS;
-  readonly payload: IResetPasswordResponse;
-}
-
-interface IResetPasswordErrorAction {
-  readonly type: typeof RESET_PASSWORD_ERROR;
-}
-
-const resetPasswordRequestAction = (): IResetPasswordRequestAction => ({
+export const resetPasswordRequestAction = (): IResetPasswordRequestAction => ({
   type: RESET_PASSWORD_REQUEST,
 });
 
-const resetPasswordSuccessAction = (res: IResetPasswordResponse): IResetPasswordSuccessAction => ({
+export const resetPasswordSuccessAction = (
+  res: IResetPasswordResponse
+): IResetPasswordSuccessAction => ({
   type: RESET_PASSWORD_SUCCESS,
   payload: res,
 });
 
-const resetPasswordErrorAction = (): IResetPasswordErrorAction => ({
+export const resetPasswordErrorAction = (): IResetPasswordErrorAction => ({
   type: RESET_PASSWORD_ERROR,
 });
 
-interface ILogoutRequestAction {
-  readonly type: typeof LOGOUT_REQUEST;
-}
-
-interface ILogoutSuccessAction {
-  readonly type: typeof LOGOUT_SUCCESS;
-  readonly payload: IResetPasswordResponse;
-}
-
-interface ILogoutErrorAction {
-  readonly type: typeof LOGOUT_ERROR;
-}
-
-const logoutRequestAction = (): ILogoutRequestAction => ({
+export const logoutRequestAction = (): ILogoutRequestAction => ({
   type: LOGOUT_REQUEST,
 });
 
-const logoutSuccessAction = (res: ILogoutResponse): ILogoutSuccessAction => ({
+export const logoutSuccessAction = (res: ILogoutResponse): ILogoutSuccessAction => ({
   type: LOGOUT_SUCCESS,
   payload: res,
 });
 
-const logoutErrorAction = (): ILogoutErrorAction => ({
+export const logoutErrorAction = (): ILogoutErrorAction => ({
   type: LOGOUT_ERROR,
 });
 
-interface IGetUserRequestAction {
-  readonly type: typeof GET_USER_REQUEST;
-}
-
-interface IGetUserSuccessAction {
-  readonly type: typeof GET_USER_SUCCESS;
-  readonly payload: IGetUserResponse;
-}
-
-interface IGetUserErrorAction {
-  readonly type: typeof GET_USER_ERROR;
-}
-
-const getUserRequestAction = (): IGetUserRequestAction => ({
+export const getUserRequestAction = (): IGetUserRequestAction => ({
   type: GET_USER_REQUEST,
 });
 
-const getUserSuccessAction = (res: IGetUserResponse): IGetUserSuccessAction => ({
+export const getUserSuccessAction = (res: IGetUserResponse): IGetUserSuccessAction => ({
   type: GET_USER_SUCCESS,
   payload: res,
 });
 
-const getUserErrorAction = (): IGetUserErrorAction => ({
+export const getUserErrorAction = (): IGetUserErrorAction => ({
   type: GET_USER_ERROR,
 });
 
-interface IUpdateUserRequestAction {
-  readonly type: typeof UPDATE_USER_REQUEST;
-}
-
-interface IUpdateUserSuccessAction {
-  readonly type: typeof UPDATE_USER_SUCCESS;
-  readonly payload: IGetUserResponse;
-}
-
-interface IUpdateUserErrorAction {
-  readonly type: typeof UPDATE_USER_ERROR;
-}
-
-const updateUserRequestAction = (): IUpdateUserRequestAction => ({
+export const updateUserRequestAction = (): IUpdateUserRequestAction => ({
   type: UPDATE_USER_REQUEST,
 });
 
-const updateUserSuccessAction = (res: IUpdateUserResponse): IUpdateUserSuccessAction => ({
+export const updateUserSuccessAction = (res: IUpdateUserResponse): IUpdateUserSuccessAction => ({
   type: UPDATE_USER_SUCCESS,
   payload: res,
 });
 
-const updateUserErrorAction = (): IUpdateUserErrorAction => ({
+export const updateUserErrorAction = (): IUpdateUserErrorAction => ({
   type: UPDATE_USER_ERROR,
 });
 
-interface IRefreshTokenRequestAction {
-  readonly type: typeof UPDATE_TOKEN_REQUEST;
-}
-
-interface IRefreshTokenSuccessAction {
-  readonly type: typeof UPDATE_TOKEN_SUCCESS;
-  readonly payload: IRefreshTokenResponse;
-}
-
-interface IRefreshTokenErrorAction {
-  readonly type: typeof UPDATE_TOKEN_ERROR;
-}
-
-const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
+export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
   type: UPDATE_TOKEN_REQUEST,
 });
 
-const refreshTokenSuccessAction = (res: IRefreshTokenResponse): IRefreshTokenSuccessAction => ({
+export const refreshTokenSuccessAction = (
+  res: IRefreshTokenResponse
+): IRefreshTokenSuccessAction => ({
   type: UPDATE_TOKEN_SUCCESS,
   payload: res,
 });
 
-const refreshTokenErrorAction = (): IRefreshTokenErrorAction => ({
+export const refreshTokenErrorAction = (): IRefreshTokenErrorAction => ({
   type: UPDATE_TOKEN_ERROR,
 });
-
-export const registerThunk =
-  ({ email, name, password }: IRegisterRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(registerRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ email, name, password }),
-    };
-
-    request<IRegisterResponse>("auth/register", options)
-      .then((res) => {
-        dispatch(registerSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(registerErrorAction());
-      });
-  };
-
-export const loginThunk =
-  ({ email, password }: ILoginRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(loginRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({ email, password }),
-    };
-
-    return request<ILoginResponse>("auth/login", options)
-      .then((res) => {
-        dispatch(loginSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(loginErrorAction());
-      });
-  };
-
-export const forgotPasswordThunk =
-  ({ email }: IForgotPasswordRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(forgotPasswordRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ email }),
-    };
-
-    return request<IForgotPasswordResponse>("password-reset", options)
-      .then((res) => {
-        dispatch(forgotPasswordSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(forgotPasswordErrorAction());
-      });
-  };
-
-export const resetPasswordThunk =
-  ({ password, token }: IResetPasswordRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(resetPasswordRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ password, token }),
-    };
-
-    return request<IResetPasswordResponse>("password-reset/reset", options)
-      .then((res) => {
-        dispatch(resetPasswordSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(resetPasswordErrorAction());
-      });
-  };
-
-export const logoutThunk =
-  ({ token }: ILogoutRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(logoutRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: token }),
-    };
-
-    request<ILogoutResponse>("auth/logout", options)
-      .then((res) => {
-        dispatch(logoutSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(logoutErrorAction());
-      });
-  };
-
-export const getUserThunk =
-  ({ token }: IGetUserRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(getUserRequestAction());
-
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    return request<IGetUserResponse>("auth/user", options)
-      .then((res) => {
-        dispatch(getUserSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(getUserErrorAction());
-      });
-  };
-
-export const updateUserThunk =
-  ({ user, accessToken }: IUpdateUserRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(updateUserRequestAction());
-
-    const options: IRequestOptions = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify(user),
-    };
-
-    request<IUpdateUserResponse>("auth/user", options)
-      .then((res) => {
-        dispatch(updateUserSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(updateUserErrorAction());
-      });
-  };
-
-export const refreshTokenThunk =
-  ({ token }: IRefreshTokenRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(refreshTokenRequestAction());
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: token }),
-    };
-
-    return request<IRefreshTokenResponse>("auth/token", options)
-      .then((res) => {
-        if (res && res.success) dispatch(refreshTokenSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(refreshTokenErrorAction());
-      });
-  };
-
-export type TAuthUnionActions =
-  | IRegisterRequestAction
-  | IRegisterSuccessAction
-  | IRegisterErrorAction
-  | ILoginRequestAction
-  | ILoginSuccessAction
-  | ILoginErrorAction
-  | IForgotPasswordRequestAction
-  | IForgotPasswordSuccessAction
-  | IForgotPasswordErrorAction
-  | IResetPasswordRequestAction
-  | IResetPasswordSuccessAction
-  | IResetPasswordErrorAction
-  | ILogoutRequestAction
-  | ILogoutSuccessAction
-  | ILogoutErrorAction
-  | IGetUserRequestAction
-  | IGetUserSuccessAction
-  | IGetUserErrorAction
-  | IUpdateUserRequestAction
-  | IUpdateUserSuccessAction
-  | IUpdateUserErrorAction
-  | IRefreshTokenRequestAction
-  | IRefreshTokenSuccessAction
-  | IRefreshTokenErrorAction;

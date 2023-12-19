@@ -3,7 +3,7 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
 } from "../constants";
-import { TBurgerIngredientsUnionActions } from "../actions/burger-ingredients";
+import { TBurgerIngredientsUnionActions } from "../types/burger-ingredients";
 import { IIngredient } from "../../utils/common-types";
 
 export interface IStateIngredients {

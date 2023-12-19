@@ -1,7 +1,7 @@
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getOrderNumberThunk } from "../../services/actions/order-details";
+import { getOrderNumberThunk } from "../../services/middleware/order-details";
 import { useNavigate } from "react-router-dom";
 import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/common-types";
 

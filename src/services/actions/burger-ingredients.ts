@@ -1,29 +1,14 @@
-import { request } from "../../utils/api";
 import { IGetIngredientsResponce } from "../../utils/common-types";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
 } from "../constants";
-import { AppThunk, AppDispatch } from "../types";
-
-export interface IGetIngredientsRequestAction {
-  readonly type: typeof GET_INGREDIENTS_REQUEST;
-}
-
-export interface IGetIngredientsSuccessAction {
-  readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  readonly payload: IGetIngredientsResponce;
-}
-
-export interface IGetIngredientsErrorAction {
-  readonly type: typeof GET_INGREDIENTS_ERROR;
-}
-
-export type TBurgerIngredientsUnionActions =
-  | IGetIngredientsRequestAction
-  | IGetIngredientsSuccessAction
-  | IGetIngredientsErrorAction;
+import {
+  IGetIngredientsErrorAction,
+  IGetIngredientsRequestAction,
+  IGetIngredientsSuccessAction,
+} from "../types/burger-ingredients";
 
 export const getIngredientsRequestAction = (): IGetIngredientsRequestAction => ({
   type: GET_INGREDIENTS_REQUEST,
@@ -39,14 +24,3 @@ export const getIngredientsSuccessAction = (
 export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
   type: GET_INGREDIENTS_ERROR,
 });
-
-export const getIngredientsThunk = (): AppThunk => (dispatch: AppDispatch) => {
-  dispatch(getIngredientsRequestAction());
-  request<IGetIngredientsResponce>("ingredients")
-    .then((res) => {
-      dispatch(getIngredientsSuccessAction(res));
-    })
-    .catch(() => {
-      dispatch(getIngredientsErrorAction());
-    });
-};

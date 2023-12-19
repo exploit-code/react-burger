@@ -1,6 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import styles from "./sitebar.module.scss";
-import { logoutThunk } from "../../services/actions/auth";
+import { logoutThunk } from "../../services/middleware/auth";
 import { useDispatch, useSelector } from "../../services/hooks";
 
 export const SiteBar = () => {
