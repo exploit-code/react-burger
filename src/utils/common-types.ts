@@ -142,8 +142,6 @@ export interface IUpdateUserRequest {
 
 export interface IUpdateUserResponse extends ICheckSuccess, IGetUserResponse {}
 
-export interface IUpdateTokenRequest extends IGetUserRequest {}
-
 export interface IUpdateTokenResponse extends ICheckSuccess {
   accessToken: string;
   refreshToken: string;

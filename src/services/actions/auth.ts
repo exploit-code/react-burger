@@ -15,7 +15,6 @@ import {
   IGetUserResponse,
   IUpdateUserRequest,
   IUpdateUserResponse,
-  IUpdateTokenRequest,
   IUpdateTokenResponse,
 } from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
@@ -249,14 +248,14 @@ const updateTokenErrorAction = (): IUpdateTokenErrorAction => ({
 });
 
 export const registerThunk =
-  (props: IRegisterRequest): AppThunk =>
+  ({ email, name, password }: IRegisterRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(registerRequestAction());
 
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(props),
+      body: JSON.stringify({ email, name, password }),
     };
 
     request<IRegisterResponse>("auth/register", options)
@@ -269,7 +268,7 @@ export const registerThunk =
   };
 
 export const loginThunk =
-  (props: ILoginRequest): AppThunk =>
+  ({ email, password }: ILoginRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(loginRequestAction());
 
@@ -278,7 +277,7 @@ export const loginThunk =
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(props),
+      body: JSON.stringify({ email, password }),
     };
 
     return request<ILoginResponse>("auth/login", options)
@@ -291,14 +290,14 @@ export const loginThunk =
   };
 
 export const forgotPasswordThunk =
-  (props: IForgotPasswordRequest): AppThunk =>
+  ({ email }: IForgotPasswordRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(forgotPasswordRequestAction());
 
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(props),
+      body: JSON.stringify({ email }),
     };
 
     return request<IForgotPasswordResponse>("password-reset", options)
@@ -311,14 +310,14 @@ export const forgotPasswordThunk =
   };
 
 export const resetPasswordThunk =
-  (props: IResetPasswordRequest): AppThunk =>
+  ({ password, token }: IResetPasswordRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(resetPasswordRequestAction());
 
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify(props),
+      body: JSON.stringify({ password, token }),
     };
 
     return request<IResetPasswordResponse>("password-reset/reset", options)
@@ -373,7 +372,7 @@ export const getUserThunk =
   };
 
 export const updateUserThunk =
-  (props: IUpdateUserRequest): AppThunk =>
+  ({ user, accessToken }: IUpdateUserRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(updateUserRequestAction());
 
@@ -381,9 +380,9 @@ export const updateUserThunk =
       method: "PATCH",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${props.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(props.user),
+      body: JSON.stringify(user),
     };
 
     request<IUpdateUserResponse>("auth/user", options)
@@ -396,14 +395,14 @@ export const updateUserThunk =
   };
 
 export const updateTokenThunk =
-  (props: IUpdateTokenRequest): AppThunk =>
+  ({ token }: IGetUserRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(updateTokenRequestAction());
 
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: props }),
+      body: JSON.stringify(token),
     };
 
     return request<IUpdateTokenResponse>("auth/token", options)
