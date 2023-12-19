@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { createPortal } from "react-dom";
 import { CloseButton } from "../close-button/close-button";
-import { IModal } from "../../utils/types";
+import { IModal } from "../../utils/common-types";
 
 export const Modal = ({ title = "", children, closeModal }: IModal) => {
   const portal = document.getElementById("portal") as HTMLElement;

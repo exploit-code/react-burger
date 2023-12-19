@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IUseFormData, IUseFormDataReturn } from "../utils/types";
+import { IUseFormData, IUseFormDataReturn } from "../utils/common-types";
 
 export const useFormData = (props: IUseFormData): IUseFormDataReturn => {
   const [value, setValue] = useState<IUseFormData>(props);

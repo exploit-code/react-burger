@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setCurrentIngredientThunk } from "../../services/actions/ingredient-details";
 import { useDrag } from "react-dnd";
-import { IIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/common-types";
 
 export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredient }) => {
   const location = useLocation();
@@ -20,7 +20,6 @@ export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredi
   ).length;
 
   const handleIngredientClick = () => {
-    //@ts-ignore
     dispatch(setCurrentIngredientThunk(ingredient));
     navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   };

@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { IGetIngredientsResponce } from "../../utils/types";
+import { IGetIngredientsResponce } from "../../utils/common-types";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,

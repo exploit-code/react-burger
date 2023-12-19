@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { IUseModal } from "../utils/types";
+import { IUseModal } from "../utils/common-types";
 
 export const useModal = (): IUseModal => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

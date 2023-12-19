@@ -1,4 +1,4 @@
-import { IRequestOptions, ICheckSuccess } from "../utils/types";
+import { IRequestOptions, ICheckSuccess } from "./common-types";
 
 const BASE_URL = "https://norma.nomoreparties.space/api/";
 

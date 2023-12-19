@@ -4,7 +4,7 @@ import { IngredientDetails } from "../../components/ingredient-details/ingredien
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found/not-found";
 import { useMemo } from "react";
-import { IIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/common-types";
 
 export const IngredientPage = () => {
   const { id } = useParams<string>();

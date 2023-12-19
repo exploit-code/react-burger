@@ -1,5 +1,5 @@
 import styles from "./modal-overlay.module.scss";
-import { IUseModal } from "../../utils/types";
+import { IUseModal } from "../../utils/common-types";
 
 export const ModalOverlay = ({
   children,

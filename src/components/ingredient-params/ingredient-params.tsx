@@ -1,6 +1,6 @@
 import styles from "./ingredient-params.module.scss";
 import cn from "classnames";
-import { IIngredient, INutrientLabels } from "../../utils/types";
+import { IIngredient, INutrientLabels } from "../../utils/common-types";
 
 export const IngredientParams = ({ currentIngredient }: { currentIngredient: IIngredient }) => {
   const nutrientLabels: INutrientLabels[] = [

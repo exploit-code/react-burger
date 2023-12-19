@@ -17,7 +17,7 @@ import {
   IUpdateUserResponse,
   IUpdateTokenRequest,
   IUpdateTokenResponse,
-} from "../../utils/types";
+} from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
 import {
   REGISTER_REQUEST,

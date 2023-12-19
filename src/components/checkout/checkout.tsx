@@ -3,7 +3,7 @@ import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { getOrderNumberThunk } from "../../services/actions/order-details";
 import { useNavigate } from "react-router-dom";
-import { IConstructorIngredient, IUseModal } from "../../utils/types";
+import { IConstructorIngredient, IUseModal } from "../../utils/common-types";
 
 export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();

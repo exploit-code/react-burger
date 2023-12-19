@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "../../services/hooks";
-import { IProtectedRoute } from "../../utils/types";
+import { IProtectedRoute } from "../../utils/common-types";
 
 export const ProtectedRouteElement = ({ children, anonymous = false }: IProtectedRoute) => {
   const { accessToken } = useSelector((store) => store.auth);

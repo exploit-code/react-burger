@@ -7,7 +7,7 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
 import { getIngredientsThunk } from "../../services/actions/burger-ingredients";
-import { IIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/common-types";
 import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
@@ -61,7 +61,6 @@ export const BurgerIngredients = memo(() => {
   };
 
   useEffect(() => {
-    //@ts-ignore
     dispatch(getIngredientsThunk());
   }, [dispatch]);
 

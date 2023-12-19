@@ -4,7 +4,7 @@ import {
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
 } from "../constants";
-import { IConstructorIngredient } from "../../utils/types";
+import { IConstructorIngredient } from "../../utils/common-types";
 import { TBurgerConstructorUnionActions } from "../actions/burger-constructor";
 
 export interface IStateConstructorIngredients {

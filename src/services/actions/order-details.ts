@@ -1,7 +1,7 @@
 import { request } from "../../utils/api";
 import { removeAllIngridientsAction } from "./burger-constructor";
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
-import { IGetOrderNumberRequest } from "../../utils/types";
+import { IGetOrderNumberRequest } from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
 
 interface IGetOrderRequestAction {

@@ -25,7 +25,7 @@ import {
   UPDATE_USER_ERROR,
 } from "../constants";
 import { TAuthUnionActions } from "../actions/auth";
-import { IUser } from "../../utils/types";
+import { IUser } from "../../utils/common-types";
 
 interface IAuthState {
   readonly user: null | IUser;
