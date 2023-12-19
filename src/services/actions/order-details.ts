@@ -1,4 +1,4 @@
-import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
+import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants/order-details";
 import { IGetOrderNumberRequest } from "../../utils/common-types";
 import {
   IGetOrderRequestAction,

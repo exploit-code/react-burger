@@ -2,7 +2,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../constants";
+} from "../constants/burger-ingredients";
 import { TBurgerIngredientsUnionActions } from "../types/burger-ingredients";
 import { IIngredient } from "../../utils/common-types";
 

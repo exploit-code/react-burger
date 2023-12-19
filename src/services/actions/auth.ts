@@ -23,7 +23,7 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-} from "../constants";
+} from "../constants/auth";
 import {
   IForgotPasswordErrorAction,
   IForgotPasswordRequestAction,

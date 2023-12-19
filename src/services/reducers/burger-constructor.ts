@@ -3,7 +3,7 @@ import {
   REMOVE_INGREDIENT,
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
-} from "../constants";
+} from "../constants/burger-constructor";
 import { IConstructorIngredient } from "../../utils/common-types";
 import { TBurgerConstructorUnionActions } from "../types/burger-constructor";
 

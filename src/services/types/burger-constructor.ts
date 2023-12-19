@@ -4,7 +4,7 @@ import {
   REMOVE_INGREDIENT,
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
-} from "../constants";
+} from "../constants/burger-constructor";
 
 export interface IAddIngridientAction {
   readonly type: typeof ADD_INGREDIENT;

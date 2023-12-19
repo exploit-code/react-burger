@@ -3,7 +3,7 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../constants";
+} from "../constants/burger-ingredients";
 
 export interface IGetIngredientsRequestAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
