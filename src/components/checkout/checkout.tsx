@@ -21,9 +21,8 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
     } else navigate("/login");
   };
 
-  //@ts-ignore
   const ingredientsPrice = ingredients.reduce(
-    (acc: number, item: IConstructorIngredient) => acc + (item.price || 0),
+    (acc: number, item: IConstructorIngredient) => acc + item.price,
     0
   );
   const bunPrice: number = bun ? bun.price : 0;

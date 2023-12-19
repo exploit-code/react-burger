@@ -331,23 +331,23 @@ export const resetPasswordThunk =
   };
 
 export const logoutThunk =
-  (props: ILogoutRequest): AppThunk =>
+  ({ token }: ILogoutRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(logoutRequestAction());
 
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: props }),
+      body: JSON.stringify({ token: token }),
     };
 
-    request<ILogoutResponse>("auth/logout", options).then((res) => {
-      if (res && res.success) {
+    request<ILogoutResponse>("auth/logout", options)
+      .then((res) => {
         dispatch(logoutSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(logoutErrorAction());
-      }
-    });
+      });
   };
 
 export const getUserThunk =
@@ -365,11 +365,10 @@ export const getUserThunk =
 
     return request<IGetUserResponse>("auth/user", options)
       .then((res) => {
-        if (res && res.success) dispatch(getUserSuccessAction(res));
+        dispatch(getUserSuccessAction(res));
       })
-      .catch((error) => {
+      .catch(() => {
         dispatch(getUserErrorAction());
-        console.log("getUserThunk", error);
       });
   };
 

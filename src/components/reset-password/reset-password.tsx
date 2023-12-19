@@ -1,21 +1,21 @@
 import styles from "./reset-password.module.scss";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { resetPasswordThunk } from "../../services/actions/auth";
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { loading, reset } = useSelector((store) => store.auth);
   const { value, handleChange } = useFormData({ password: "", token: "" });
 
   const handleResetPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore
-    dispatch(resetPasswordThunk(value)).then(() => navigate("/login"));
+    dispatch(resetPasswordThunk({ password: value.password, token: value.token }));
   };
+
+  if (!reset) return <Navigate to={"/"} />;
 
   return reset ? (
     <div className={styles.resetPassword}>

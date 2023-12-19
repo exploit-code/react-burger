@@ -9,9 +9,7 @@ export const SiteBar = () => {
 
   const handleLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    //@ts-ignore
-    dispatch(logoutThunk(refreshToken));
+    dispatch(logoutThunk({ token: refreshToken }));
   };
 
   return (

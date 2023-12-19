@@ -4,15 +4,13 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { loginThunk } from "../../services/actions/auth";
-import { useEffect } from "react";
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { value, handleChange } = useFormData({});
   const { accessToken } = useSelector((store) => store.auth);
 
@@ -21,9 +19,7 @@ export const Login = () => {
     dispatch(loginThunk({ email: value.email, password: value.password }));
   };
 
-  useEffect(() => {
-    if (accessToken) navigate("/");
-  }, [accessToken, navigate]);
+  if (accessToken) return <Navigate to="/login" replace />;
 
   return (
     <div className={styles.login}>

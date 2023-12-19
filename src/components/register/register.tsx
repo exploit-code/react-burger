@@ -15,8 +15,8 @@ export const Register = () => {
   const { value, handleChange } = useFormData({ name: "", email: "", password: "" });
   const { accessToken, loading } = useSelector((store) => store.auth);
 
-  //@ts-ignore
-  const handleRegisterSubmit = () => dispatch(registerThunk(value));
+  const handleRegisterSubmit = () =>
+    dispatch(registerThunk({ email: value.email, name: value.name, password: value.password }));
 
   return accessToken ? (
     <Navigate to="/" replace />
