@@ -259,13 +259,13 @@ export const registerThunk =
       body: JSON.stringify(props),
     };
 
-    request<IRegisterResponse>("auth/register", options).then((res) => {
-      if (res && res.success) {
+    request<IRegisterResponse>("auth/register", options)
+      .then((res) => {
         dispatch(registerSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(registerErrorAction());
-      }
-    });
+      });
   };
 
 export const loginThunk =
@@ -281,13 +281,13 @@ export const loginThunk =
       body: JSON.stringify(props),
     };
 
-    return request<ILoginResponse>("auth/login", options).then((res) => {
-      if (res && res.success) {
+    return request<ILoginResponse>("auth/login", options)
+      .then((res) => {
         dispatch(loginSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(loginErrorAction());
-      }
-    });
+      });
   };
 
 export const forgotPasswordThunk =
@@ -301,13 +301,13 @@ export const forgotPasswordThunk =
       body: JSON.stringify(props),
     };
 
-    return request<IForgotPasswordResponse>("password-reset", options).then((res) => {
-      if (res && res.success) {
+    return request<IForgotPasswordResponse>("password-reset", options)
+      .then((res) => {
         dispatch(forgotPasswordSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(forgotPasswordErrorAction());
-      }
-    });
+      });
   };
 
 export const resetPasswordThunk =
@@ -321,13 +321,13 @@ export const resetPasswordThunk =
       body: JSON.stringify(props),
     };
 
-    return request<IResetPasswordResponse>("password-reset/reset", options).then((res) => {
-      if (res && res.message) {
+    return request<IResetPasswordResponse>("password-reset/reset", options)
+      .then((res) => {
         dispatch(resetPasswordSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(resetPasswordErrorAction());
-      }
-    });
+      });
   };
 
 export const logoutThunk =
@@ -363,14 +363,14 @@ export const getUserThunk =
       },
     };
 
-    return request<IGetUserResponse>("auth/user", options).then((res) => {
-      if (res && res.success) {
-        dispatch(getUserSuccessAction(res));
-      } else {
+    return request<IGetUserResponse>("auth/user", options)
+      .then((res) => {
+        if (res && res.success) dispatch(getUserSuccessAction(res));
+      })
+      .catch((error) => {
         dispatch(getUserErrorAction());
-        console.log("err getUserThunk", res);
-      }
-    });
+        console.log("getUserThunk", error);
+      });
   };
 
 export const updateUserThunk =
@@ -387,13 +387,13 @@ export const updateUserThunk =
       body: JSON.stringify(props.user),
     };
 
-    request<IUpdateUserResponse>("auth/user", options).then((res) => {
-      if (res && res.success) {
+    request<IUpdateUserResponse>("auth/user", options)
+      .then((res) => {
         dispatch(updateUserSuccessAction(res));
-      } else {
+      })
+      .catch(() => {
         dispatch(updateUserErrorAction());
-      }
-    });
+      });
   };
 
 export const updateTokenThunk =
@@ -407,13 +407,13 @@ export const updateTokenThunk =
       body: JSON.stringify({ token: props }),
     };
 
-    return request<IUpdateTokenResponse>("auth/token", options).then((res) => {
-      if (res && res.success) {
-        dispatch(updateTokenSuccessAction(res));
-      } else {
+    return request<IUpdateTokenResponse>("auth/token", options)
+      .then((res) => {
+        if (res && res.success) dispatch(updateTokenSuccessAction(res));
+      })
+      .catch(() => {
         dispatch(updateTokenErrorAction());
-      }
-    });
+      });
   };
 
 export type TAuthUnionActions =

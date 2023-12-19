@@ -1,7 +1,7 @@
 import { request } from "../../utils/api";
 import { removeAllIngridientsAction } from "./burger-constructor";
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants";
-import { IGetOrderNumberRequest, IIngredientID } from "../../utils/common-types";
+import { IGetOrderNumberRequest, IIngredientID, IRequestOptions } from "../../utils/common-types";
 import { AppThunk, AppDispatch } from "../types";
 
 interface IGetOrderRequestAction {
@@ -35,16 +35,19 @@ export const getOrderNumberThunk =
   (ingredientsID: IIngredientID): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
-    request<IGetOrderNumberRequest>("orders", {
+
+    const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
       body: JSON.stringify(ingredientsID),
-    }).then((res) => {
-      if (res && res.success) {
+    };
+
+    request<IGetOrderNumberRequest>("orders", options)
+      .then((res) => {
         dispatch(getOrderSuccessAction(res));
         dispatch(removeAllIngridientsAction());
-      } else {
+      })
+      .catch(() => {
         dispatch(getOrderErrorAction());
-      }
-    });
+      });
   };

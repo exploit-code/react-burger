@@ -42,11 +42,11 @@ export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
 
 export const getIngredientsThunk = (): AppThunk => (dispatch: AppDispatch) => {
   dispatch(getIngredientsRequestAction());
-  request<IGetIngredientsResponce>("ingredients").then((res) => {
-    if (res && res.success) {
+  request<IGetIngredientsResponce>("ingredients")
+    .then((res) => {
       dispatch(getIngredientsSuccessAction(res));
-    } else {
+    })
+    .catch(() => {
       dispatch(getIngredientsErrorAction());
-    }
-  });
+    });
 };
