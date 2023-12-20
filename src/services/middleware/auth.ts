@@ -50,6 +50,7 @@ export const registerThunk =
   ({ email, name, password }: IRegisterRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(registerRequestAction());
+    console.log("registerThunk request")
 
     const options: IRequestOptions = {
       method: "POST",
@@ -60,9 +61,12 @@ export const registerThunk =
     request<IRegisterResponse>("auth/register", options)
       .then((res) => {
         dispatch(registerSuccessAction(res));
+        console.log("registerThunk success")
+
       })
       .catch(() => {
         dispatch(registerErrorAction());
+        console.log("registerThunk error")
       });
   };
 

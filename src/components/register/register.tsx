@@ -15,8 +15,10 @@ export const Register = () => {
   const { value, handleChange } = useFormData({ name: "", email: "", password: "" });
   const { accessToken, loading } = useSelector((store) => store.auth);
 
-  const handleRegisterSubmit = () =>
+  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     dispatch(registerThunk({ email: value.email, name: value.name, password: value.password }));
+  };
 
   return accessToken ? (
     <Navigate to="/" replace />
@@ -27,20 +29,20 @@ export const Register = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.name || ""}
           name={"name"}
           size={"default"}
           extraClass="ml-1"
         />
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.email || ""}
           name={"email"}
           isIcon={false}
         />
         <PasswordInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"
