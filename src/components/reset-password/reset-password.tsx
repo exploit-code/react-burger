@@ -22,7 +22,7 @@ export const ResetPassword = () => {
       <form className={styles.resetPassword__form} onSubmit={handleResetPasswordSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <PasswordInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"
@@ -30,7 +30,7 @@ export const ResetPassword = () => {
         />
         <Input
           type={"text"}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.token || ""}
           placeholder={"Введите код из письма"}
           name={"token"}

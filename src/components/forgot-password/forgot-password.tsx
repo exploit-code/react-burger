@@ -26,7 +26,7 @@ export const ForgotPassword = () => {
       <form className={styles.forgotPassword__form} onSubmit={handleForgotPasswordSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.email || ""}
           name={"email"}
           isIcon={false}

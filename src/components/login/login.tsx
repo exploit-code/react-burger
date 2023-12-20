@@ -26,13 +26,13 @@ export const Login = () => {
       <form className={styles.login__form} onSubmit={handleLoginSubmit}>
         <h2 className="text text_type_main-medium">Вход</h2>
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.email || ""}
           name={"email"}
           isIcon={false}
         />
         <PasswordInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"
