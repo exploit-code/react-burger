@@ -1,0 +1,19 @@
+.feed_page {
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: calc(100vh - 88px);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+}

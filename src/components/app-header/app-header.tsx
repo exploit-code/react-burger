@@ -29,7 +29,7 @@ export const AppHeader = () => {
           )}
         </NavLink>
 
-        <NavLink className={styles.app_header__link} to={"/order-feed"}>
+        <NavLink className={styles.app_header__link} to={"/feed"}>
           {({ isActive }) => (
             <>
               <ListIcon type={isActive ? "primary" : "secondary"} />

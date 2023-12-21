@@ -1,3 +1,5 @@
+import { string } from "prop-types";
+
 export interface IIngredient {
   _id: string;
   name: string;
@@ -166,4 +168,19 @@ export interface IMoveIngredient {
 
 export interface IIngredientID {
   ingredients: IIngredient["_id"][];
+}
+
+export interface ISuccessfulOrders {
+  title: string;
+  quantity: string;
+}
+
+export interface IChildrenJSX {
+  children: JSX.Element;
+}
+
+export interface IOrdersProgressList {
+  title: string;
+  list: string[];
+  success: boolean;
 }

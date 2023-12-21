@@ -13,6 +13,7 @@ import { AppHeader } from "../app-header/app-header";
 import { IngredientPage } from "../../pages/ingredient/ingredient";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
+import { FeedPage } from "../../pages/feed/feed";
 
 export const App = () => {
   const location = useLocation();
@@ -51,6 +52,7 @@ export const App = () => {
             path="profile/orders"
             element={<ProtectedRouteElement children={<ProfileOrdersPage />} anonymous={false} />}
           />
+          <Route path="feed" element={<FeedPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

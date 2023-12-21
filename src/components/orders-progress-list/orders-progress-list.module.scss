@@ -1,0 +1,30 @@
+.orders_progress_list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 150px;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--text-inactive-color);
+    }
+  }
+
+  &__item {
+    &_success {
+      color: var(--colors-interface-success);
+    }
+  }
+}
