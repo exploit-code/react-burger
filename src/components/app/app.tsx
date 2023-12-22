@@ -54,6 +54,10 @@ export const App = () => {
             path="profile/orders"
             element={<ProtectedRouteElement children={<ProfileOrdersPage />} anonymous={false} />}
           />
+          <Route
+            path="profile/orders/:number"
+            element={<ProtectedRouteElement children={<FeedDetailsPage />} anonymous={false} />}
+          />
           <Route path="feed" element={<FeedPage />} />
           <Route path="feed/:number" element={<FeedDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
@@ -72,6 +76,14 @@ export const App = () => {
           />
           <Route
             path="/feed/:number"
+            element={
+              <Modal title={"#034535"} closeModal={closeModal}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
             element={
               <Modal title={"#034535"} closeModal={closeModal}>
                 <FeedDetails />

@@ -182,3 +182,8 @@ export interface IOrdersProgressList {
   list: string[];
   success: boolean;
 }
+
+export interface IFeedCard {
+  onClick: React.MouseEventHandler<HTMLLIElement>;
+  status?: "done" | "error" | "progress";
+}

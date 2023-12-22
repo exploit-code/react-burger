@@ -6,8 +6,15 @@ import { SiteBar } from "../../components/sidebar/sidebar";
 export const ProfilePage = () => {
   return (
     <section className={cn(styles.profile, "container")}>
-      <SiteBar />
-      <Profile />
+      <div className={styles.profile__sitebar}>
+        <SiteBar />
+        <p className={"text text_type_main-default text_color_inactive"}>
+          В этом разделе вы можете изменить свои персональные данные
+        </p>
+      </div>
+      <div className={styles.profile__profile}>
+        <Profile />
+      </div>
     </section>
   );
 };
