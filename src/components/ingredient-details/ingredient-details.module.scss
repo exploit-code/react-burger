@@ -1,9 +1,8 @@
-.ingredient_popup {
-  background-color: var(--background);
-  border-radius: 40px;
+.ingredient_details {
   width: 100%;
   max-width: 720px;
   box-sizing: border-box;
+  margin: 0 auto;
 
   &__head {
     display: flex;
@@ -11,17 +10,8 @@
     align-items: center;
   }
 
-  &__body {
-    max-width: 520px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
   &__image_box {
     display: flex;
-    padding: 0 20px;
     justify-content: center;
   }
 

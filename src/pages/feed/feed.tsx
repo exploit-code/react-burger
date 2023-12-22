@@ -2,7 +2,7 @@ import { OrdersProgress } from "../../components/orders-progress/orders-progress
 import { SuccessfulOrders } from "../../components/successful-orders/successful-orders";
 import styles from "./feed.module.scss";
 import { OrdersProgressList } from "../../components/orders-progress-list/orders-progress-list";
-import { OrderCard } from "../../components/order-card/order-card";
+import { FeedCard } from "../../components/feed-card/feed-card";
 
 export const FeedPage = () => {
   const cards: number[] = [1, 2, 3, 4, 5, 6];
@@ -24,7 +24,7 @@ export const FeedPage = () => {
       <div className={styles.feed_page__content}>
         <ul className={styles.feed_page__list}>
           {cards.map((index) => (
-            <OrderCard key={index} />
+            <FeedCard key={index} />
           ))}
         </ul>
         <div className={styles.feed_page__info}>

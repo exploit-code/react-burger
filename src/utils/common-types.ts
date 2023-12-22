@@ -1,5 +1,3 @@
-import { string } from "prop-types";
-
 export interface IIngredient {
   _id: string;
   name: string;

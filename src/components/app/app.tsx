@@ -14,6 +14,8 @@ import { IngredientPage } from "../../pages/ingredient/ingredient";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import { FeedPage } from "../../pages/feed/feed";
+import { FeedDetails } from "../feed-details/feed-details";
+import { FeedDetailsPage } from "../../pages/feed-details/feed-details";
 
 export const App = () => {
   const location = useLocation();
@@ -53,16 +55,30 @@ export const App = () => {
             element={<ProtectedRouteElement children={<ProfileOrdersPage />} anonymous={false} />}
           />
           <Route path="feed" element={<FeedPage />} />
+          <Route path="feed/:number" element={<FeedDetailsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
 
       {background && (
-        <Modal title={"Детали ингредиента"} closeModal={closeModal}>
-          <Routes>
-            <Route path="/ingredients/:id" element={<IngredientDetails />} />
-          </Routes>
-        </Modal>
+        <Routes>
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal title={"Детали ингредиента"} closeModal={closeModal}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal title={"#034535"} closeModal={closeModal}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
     </>
   );

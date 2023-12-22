@@ -1,5 +1,7 @@
 .group_preview {
   display: flex;
+  position: relative;
+  z-index: 0;
 
   &__item {
     border-radius: 50%;
@@ -12,10 +14,7 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-
-    background:
-      linear-gradient(#131316, #131316) padding-box,
-      linear-gradient(45deg, #801ab2, #4c4cff) border-box;
+    background: var(--gradient-and-bg-group-main);
     border: 2px solid transparent;
     border-radius: 50px;
 
@@ -27,10 +26,7 @@
       background-color: #1c1c21;
       display: inline-flex;
       gap: 1px;
-
-      background:
-        linear-gradient(#1c1c21, #1c1c21) padding-box,
-        linear-gradient(50deg, #801ab2, #4c4cff) border-box;
+      background: var(--gradient-and-bg-group-more);
     }
   }
 

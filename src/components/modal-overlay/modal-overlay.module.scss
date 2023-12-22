@@ -8,6 +8,7 @@
   background-color: var(--popup-overlay-bg);
   top: 0;
   left: 0;
+  z-index: 999;
 
   &_state_hidden {
     display: none;
