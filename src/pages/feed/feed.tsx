@@ -4,10 +4,23 @@ import styles from "./feed.module.scss";
 import { OrdersProgressList } from "../../components/orders-progress-list/orders-progress-list";
 import { FeedCard } from "../../components/feed-card/feed-card";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants/ws";
 
 export const FeedPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: WS_CONNECTION_START });
+
+    return () => {
+      dispatch({ type: WS_CONNECTION_CLOSED });
+    };
+  }, [dispatch]);
+
   const cards: number[] = [1, 2, 3, 4, 5, 6];
   const progressOrders: string[] = ["034538", "034541", "034542"];
   const successOrders: string[] = [

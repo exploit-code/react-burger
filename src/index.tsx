@@ -12,7 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
@@ -20,7 +20,7 @@ root.render(
         </Router>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
 
 reportWebVitals();

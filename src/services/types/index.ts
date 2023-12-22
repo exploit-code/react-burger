@@ -5,6 +5,7 @@ import { TBurgerConstructorUnionActions } from "./burger-constructor";
 import { TBurgerIngredientsUnionActions } from "./burger-ingredients";
 import { TIngredientDetailsUnionActions } from "./ingredient-details";
 import { TOrderDetailsUnionActions } from "./order-details";
+import { TWSUnionActions } from "./ws";
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -13,7 +14,8 @@ type TApplicationActions =
   | TBurgerConstructorUnionActions
   | TBurgerIngredientsUnionActions
   | TIngredientDetailsUnionActions
-  | TOrderDetailsUnionActions;
+  | TOrderDetailsUnionActions
+  | TWSUnionActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
