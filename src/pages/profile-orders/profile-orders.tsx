@@ -13,7 +13,7 @@ export const ProfileOrdersPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { accessToken } = useSelector((store) => store.auth);
-  const { orders, success } = useSelector((store) => store.ws.history);
+  const { orders, loading } = useSelector((store) => store.ws.data);
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { url: `?token=${accessToken}`, auth: true } });
@@ -36,12 +36,12 @@ export const ProfileOrdersPage = () => {
         </p>
       </div>
       <ul className={styles.profile_orders__list}>
-        {success ? (
+        {loading ? (
+          <Loader text={"loading..."} />
+        ) : (
           orders.map((item: IOrder) => (
             <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
           ))
-        ) : (
-          <Loader text={"loading..."} />
         )}
       </ul>
     </section>

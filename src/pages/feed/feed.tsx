@@ -16,7 +16,7 @@ export const FeedPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { orders, total, totalToday, success } = useSelector((store) => store.ws.feed);
+  const { orders, total, totalToday, loading } = useSelector((store) => store.ws.data);
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { url: "/all", auth: false } });
@@ -38,7 +38,9 @@ export const FeedPage = () => {
     navigate(`/feed/${number}`, { state: { background: location } });
   };
 
-  return success ? (
+  return loading ? (
+    <Loader text={"loading..."} />
+  ) : (
     <section className={styles.feed_page}>
       <h1 className="text text_type_main-large pt-10 pb-5">Лента заказов</h1>
       <div className={styles.feed_page__content}>
@@ -59,7 +61,5 @@ export const FeedPage = () => {
         </div>
       </div>
     </section>
-  ) : (
-    <Loader text={"loading..."} />
   );
 };

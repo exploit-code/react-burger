@@ -7,8 +7,9 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, NavLink } from "react-router-dom";
+import { memo } from "react";
 
-export const AppHeader = () => {
+export const AppHeader = memo(() => {
   return (
     <header className={cn(styles.app_header, "pt-4 pb-4")}>
       <nav className={styles.app_header__list}>
@@ -69,4 +70,4 @@ export const AppHeader = () => {
       </nav>
     </header>
   );
-};
+});

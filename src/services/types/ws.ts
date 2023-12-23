@@ -3,6 +3,7 @@ import { IOrder } from "../../utils/common-types";
 export interface IStateWS {
   connected: boolean;
   data: {
+    loading: boolean;
     success: boolean;
     orders: IOrder[];
     total: number;

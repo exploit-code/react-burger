@@ -9,7 +9,7 @@ import {
 import { removeAllIngridientsAction } from "../actions/burger-constructor";
 
 export const getOrderNumberThunk =
-  (ingredientsID: IIngredientID, accessToken: any): AppThunk =>
+  (ingredientsID: IIngredientID, accessToken: string): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
 
@@ -17,9 +17,11 @@ export const getOrderNumberThunk =
 
     const options: IRequestOptions = {
       method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
       body: JSON.stringify(ingredientsID),
-      Authorization: `Bearer ${accessToken}`,
     };
 
     request<IGetOrderNumberRequest>("orders", options)
