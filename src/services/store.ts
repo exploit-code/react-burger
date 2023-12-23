@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 import { wsThunk } from "./middleware/ws";
 
 const persistConfig = {
-  key: "root",
+  key: "app",
   storage,
 };
 
@@ -14,7 +14,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk, wsThunk("wss://norma.nomoreparties.space/orders/all")],
+  middleware: [thunk, wsThunk("wss://norma.nomoreparties.space/orders")],
 });
 
 export const persistor = persistStore(store);

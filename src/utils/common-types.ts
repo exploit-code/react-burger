@@ -57,6 +57,7 @@ export interface IRequestOptions {
   method: string;
   headers: Record<string, string>;
   body?: string;
+  Authorization?: string;
 }
 
 export interface ICheckSuccess {
@@ -170,7 +171,7 @@ export interface IIngredientID {
 
 export interface ISuccessfulOrders {
   title: string;
-  quantity: string;
+  quantity: number;
 }
 
 export interface IChildrenJSX {
@@ -179,11 +180,22 @@ export interface IChildrenJSX {
 
 export interface IOrdersProgressList {
   title: string;
-  list: string[];
+  list: IOrder[];
   success: boolean;
 }
 
+export interface IOrder {
+  ingredients: string[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}
+
 export interface IFeedCard {
-  onClick: React.MouseEventHandler<HTMLLIElement>;
-  status?: "done" | "error" | "progress";
+  onClick: (number: number) => void;
+  renderStatus?: boolean;
+  order: IOrder;
 }

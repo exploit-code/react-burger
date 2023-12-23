@@ -67,7 +67,7 @@ export const BurgerIngredients = memo(() => {
   return (
     <>
       {loading || error ? (
-        <Loader text={loading ? "loading" : "error"} />
+        <Loader text={loading ? "loading..." : "error"} />
       ) : (
         <section className={styles.ingredients}>
           <div className={cn(styles.ingredients__head, "pt-10 pb-10")}>

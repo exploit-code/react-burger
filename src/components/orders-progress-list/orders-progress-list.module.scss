@@ -7,11 +7,24 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 8px;
     height: 150px;
     overflow: auto;
+
+    &_column {
+      &_one {
+        grid-template-columns: 1fr;
+      }
+
+      &_two {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &_three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
     &::-webkit-scrollbar {
       width: 8px;

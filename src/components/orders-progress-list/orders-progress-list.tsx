@@ -1,22 +1,30 @@
 import classNames from "classnames";
 import styles from "./orders-progress-list.module.scss";
-import { IOrdersProgressList } from "../../utils/common-types";
+import { IOrder, IOrdersProgressList } from "../../utils/common-types";
 
 export const OrdersProgressList = ({ title, list, success }: IOrdersProgressList) => {
+  const columns: "one" | "two" | "three" =
+    list.length >= 10 && list.length <= 20 ? "two" : list.length >= 20 ? "three" : "one";
+
   return (
     <article className={styles.orders_progress_list}>
       <h2 className="text text_type_main-medium">{title}</h2>
-      <ul className={styles.orders_progress_list__list}>
-        {list.map((item, index) => (
+      <ul
+        className={classNames(
+          styles.orders_progress_list__list,
+          styles[`orders_progress_list__list_column_${columns}`]
+        )}
+      >
+        {list.map((item: IOrder) => (
           <li
-            key={index}
+            key={item._id}
             className={classNames(
               styles.orders_progress_list__item,
               "text text_type_digits-default",
               success && styles.orders_progress_list__item_success
             )}
           >
-            {item}
+            {item.number}
           </li>
         ))}
       </ul>

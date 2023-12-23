@@ -1,8 +1,8 @@
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient, IOrder } from "../../utils/common-types";
 import styles from "./group-preview.module.scss";
 import classNames from "classnames";
 
-export const GroupPreview = ({ ingredients }: { ingredients: IIngredient[] }) => {
+export const GroupPreview = ({ ingredients }: { ingredients: IOrder["ingredients"] }) => {
   const displayLimit = 5;
   const renderedIngredients = ingredients.slice(0, displayLimit);
   const remainingCount = Math.max(0, ingredients.length - displayLimit);
@@ -14,7 +14,7 @@ export const GroupPreview = ({ ingredients }: { ingredients: IIngredient[] }) =>
           className={classNames(styles.group_preview__item, styles[`group_preview__item_${index}`])}
           key={index}
         >
-          <img className={styles.group_preview__image} src={item.image} alt={item.name} />
+          <img className={styles.group_preview__image} src={""} alt={""} />
         </div>
       ))}
       {remainingCount > 0 && (

@@ -47,7 +47,7 @@ export const Profile = () => {
   }, [accessToken, dispatch, refreshToken, error]);
 
   return loading || error ? (
-    <Loader text={loading ? "loading" : "error"} />
+    <Loader text={loading ? "loading..." : "error"} />
   ) : (
     <form className={styles.profile} onSubmit={handleUpdateUserSubmit}>
       <Input

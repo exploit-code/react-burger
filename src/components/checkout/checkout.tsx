@@ -16,7 +16,7 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
 
   const handleOrderClick = () => {
     if (accessToken && ingredients && bun) {
-      dispatch(getOrderNumberThunk(ingredientsID));
+      dispatch(getOrderNumberThunk(ingredientsID, accessToken));
       openModal();
     } else navigate("/login");
   };
