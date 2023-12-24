@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { IOrder } from "../../utils/common-types";
 import { FeedCard } from "../../components/feed-card/feed-card";
 import { Loader } from "../../components/loader/loader";
+import { useUpgradeOrders } from "../../hooks/useOrders";
+import { setCurrentOrderAction } from "../../services/actions/current-order";
 
 export const ProfileOrdersPage = () => {
   const navigate = useNavigate();
@@ -14,6 +16,12 @@ export const ProfileOrdersPage = () => {
   const dispatch = useDispatch();
   const { accessToken } = useSelector((store) => store.auth);
   const { orders, loading } = useSelector((store) => store.ws.data);
+  const { data } = useSelector((store) => store.ingredients);
+
+  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
+    orders,
+    data,
+  });
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { url: `?token=${accessToken}`, auth: true } });
@@ -23,8 +31,15 @@ export const ProfileOrdersPage = () => {
     };
   }, [dispatch, accessToken]);
 
-  const handleOrderClick = (number: number) => {
-    navigate(`/profile/orders/${number}`, { state: { background: location } });
+  useEffect(() => {
+    upgradeOrders();
+    setInitialOrders((updatedOrders) => updatedOrders);
+  }, [upgradeOrders, setInitialOrders, orders, data]);
+
+  const handleOrderClick = (order: any) => {
+    dispatch(setCurrentOrderAction(order));
+
+    navigate(`/profile/orders/${order.number}`, { state: { background: location } });
   };
 
   return (
@@ -39,9 +54,16 @@ export const ProfileOrdersPage = () => {
         {loading ? (
           <Loader text={"loading..."} />
         ) : (
-          orders.map((item: IOrder) => (
-            <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
-          ))
+          upgradedOrders
+            .reverse()
+            .map((item: IOrder) => (
+              <FeedCard
+                order={item}
+                key={item._id}
+                onClick={handleOrderClick}
+                renderStatus={true}
+              />
+            ))
         )}
       </ul>
     </section>

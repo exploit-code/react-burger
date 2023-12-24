@@ -22,8 +22,6 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
       .filter(Boolean),
   };
 
-  console.log(ingredientsID);
-
   const handleOrderClick = () => {
     if (accessToken && ingredients && bun) {
       dispatch(getOrderNumberThunk(ingredientsID, accessToken));

@@ -4,10 +4,11 @@ import { GroupPreview } from "../group-preview/group-preview";
 // import { useSelector } from "../../services/hooks";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
+import { useOrderStatus } from "../../hooks/useOrderStatus";
 // import { IFeedCard } from "../../utils/common-types";
 
 export const FeedCard = ({ onClick, renderStatus, order }: any) => {
-
+  const { status } = useOrderStatus(order.status);
 
   return (
     <li className={styles.order_card} onClick={() => onClick(order)}>
@@ -28,7 +29,7 @@ export const FeedCard = ({ onClick, renderStatus, order }: any) => {
               styles[`order_card__status_${order.status}`]
             )}
           >
-            {order.status}
+            {status}
           </span>
         )}
       </div>

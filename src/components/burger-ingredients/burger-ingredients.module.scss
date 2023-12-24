@@ -9,7 +9,7 @@
   &__body {
     display: grid;
     gap: 40px;
-    height: calc(var(--vh100) - var(--header-height) - var(--burger-ingredients-head));
+    height: calc(var(--vh100) - 88px - 200px);
     overflow: auto;
 
     &::-webkit-scrollbar {

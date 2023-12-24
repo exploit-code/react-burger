@@ -18,7 +18,7 @@ export const useUpgradeOrders = ({ orders, data }: any) => {
       }, []);
 
       const totalPrice = upgradedIngredients.reduce((total: number, ingredient: any) => {
-        return total + (ingredient.price * ingredient.count || 0);
+        return total + ingredient.price * ingredient.count;
       }, 0);
 
       return {
