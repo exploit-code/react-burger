@@ -5,14 +5,26 @@ export const useUpgradeOrders = ({ orders, data }: any) => {
 
   const upgradeOrders = useCallback(() => {
     const updatedOrders = orders.map((order: any) => {
-      const upgradedIngredients = order.ingredients.map((ingredientId: string) => {
+      const upgradedIngredients = order.ingredients.reduce((acc: any, ingredientId: string) => {
         const foundIngredient = data.find((ingredient: any) => ingredient._id === ingredientId);
-        return foundIngredient || null;
-      });
+        const existingIngredient = acc.find((item: any) => item._id === ingredientId);
+
+        if (foundIngredient) {
+          if (existingIngredient) existingIngredient.count++;
+          else acc.push({ ...foundIngredient, count: 1 });
+        }
+
+        return acc;
+      }, []);
+
+      const totalPrice = upgradedIngredients.reduce((total: number, ingredient: any) => {
+        return total + (ingredient.price * ingredient.count || 0);
+      }, 0);
 
       return {
         ...order,
-        ingredients: upgradedIngredients.filter((ingredient: any) => ingredient),
+        ingredients: upgradedIngredients,
+        totalPrice: totalPrice,
       };
     });
 

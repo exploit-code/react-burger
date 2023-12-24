@@ -4,26 +4,13 @@ import { GroupPreview } from "../group-preview/group-preview";
 // import { useSelector } from "../../services/hooks";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
-import { IFeedCard } from "../../utils/common-types";
+// import { IFeedCard } from "../../utils/common-types";
 
-export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
-  // const { data } = useSelector((store) => store.ingredients);
+export const FeedCard = ({ onClick, renderStatus, order }: any) => {
 
-  // const matchedIngredients = order.ingredients.map((ingredientId) => {
-  //   const foundIngredient = data.find((ingredient) => ingredient._id === ingredientId);
-
-  //   if (foundIngredient) {
-  //     return {
-  //       name: foundIngredient.name,
-  //       image: foundIngredient.image,
-  //     };
-  //   }
-  // });
-
-  console.log(order);
 
   return (
-    <li className={styles.order_card} onClick={() => onClick(order.number)}>
+    <li className={styles.order_card} onClick={() => onClick(order)}>
       <div className={styles.order_card__head}>
         <span className="text text_type_digits-default">#{order.number}</span>
         <FormattedDate
@@ -47,7 +34,7 @@ export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
       </div>
       <div className={styles.order_card__footer}>
         <GroupPreview ingredients={order.ingredients} />
-        <IngredientPrice price={123} />
+        <IngredientPrice price={order.totalPrice} />
       </div>
     </li>
   );

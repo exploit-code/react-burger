@@ -12,6 +12,7 @@ import { IOrder } from "../../utils/common-types";
 import { Loader } from "../../components/loader/loader";
 
 import { useUpgradeOrders } from "../../hooks/useOrders";
+import { setCurrentOrderAction } from "../../services/actions/current-order";
 
 export const FeedPage = () => {
   const navigate = useNavigate();
@@ -47,8 +48,10 @@ export const FeedPage = () => {
   const doneOrders = getOrdersByStatus("done");
   const pendingOrders = getOrdersByStatus("pending");
 
-  const handleOrderClick = (number: number) => {
-    navigate(`/feed/${number}`, { state: { background: location } });
+  const handleOrderClick = (order: any) => {
+    dispatch(setCurrentOrderAction(order));
+
+    navigate(`/feed/${order.number}`, { state: { background: location } });
   };
 
   return loading ? (

@@ -16,12 +16,14 @@ import { Modal } from "../modal/modal";
 import { FeedPage } from "../../pages/feed/feed";
 import { FeedDetails } from "../feed-details/feed-details";
 import { FeedDetailsPage } from "../../pages/feed-details/feed-details";
+import { useSelector } from "../../services/hooks";
 
 export const App = () => {
   const location = useLocation();
   const navigate = useNavigate();
   let background = location.state && location.state.background;
   const closeModal = () => navigate(-1);
+  const { order } = useSelector((store) => store.currentOrder);
 
   return (
     <>
@@ -77,7 +79,7 @@ export const App = () => {
           <Route
             path="/feed/:number"
             element={
-              <Modal title={"#034535"} closeModal={closeModal}>
+              <Modal title={`#${order.number}`} closeModal={closeModal}>
                 <FeedDetails />
               </Modal>
             }
@@ -85,7 +87,7 @@ export const App = () => {
           <Route
             path="/profile/orders/:number"
             element={
-              <Modal title={"#034535"} closeModal={closeModal}>
+              <Modal title={`#${order.number}`} closeModal={closeModal}>
                 <FeedDetails />
               </Modal>
             }
