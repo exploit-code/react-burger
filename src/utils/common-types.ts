@@ -165,7 +165,7 @@ export interface IMoveIngredient {
 }
 
 export interface IIngredientID {
-  ingredients: IIngredient["_id"][];
+  ingredients: (IIngredient["_id"] | undefined)[];
 }
 
 export interface ISuccessfulOrders {

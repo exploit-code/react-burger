@@ -1,13 +1,13 @@
 import styles from "./feed-card.module.scss";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { GroupPreview } from "../group-preview/group-preview";
-import { useSelector } from "../../services/hooks";
+// import { useSelector } from "../../services/hooks";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
 import { IFeedCard } from "../../utils/common-types";
 
 export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
-  const { data } = useSelector((store) => store.ingredients);
+  // const { data } = useSelector((store) => store.ingredients);
 
   // const matchedIngredients = order.ingredients.map((ingredientId) => {
   //   const foundIngredient = data.find((ingredient) => ingredient._id === ingredientId);
@@ -19,6 +19,8 @@ export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
   //     };
   //   }
   // });
+
+  console.log(order);
 
   return (
     <li className={styles.order_card} onClick={() => onClick(order.number)}>
@@ -44,7 +46,7 @@ export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
         )}
       </div>
       <div className={styles.order_card__footer}>
-        <GroupPreview ingredients={[]} />
+        <GroupPreview ingredients={order.ingredients} />
         <IngredientPrice price={123} />
       </div>
     </li>

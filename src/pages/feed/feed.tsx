@@ -11,12 +11,20 @@ import { useSelector } from "../../services/hooks";
 import { IOrder } from "../../utils/common-types";
 import { Loader } from "../../components/loader/loader";
 
+import { useUpgradeOrders } from "../../hooks/useOrders";
+
 export const FeedPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
   const { orders, total, totalToday, loading } = useSelector((store) => store.ws.data);
+  const { data } = useSelector((store) => store.ingredients);
+
+  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
+    orders,
+    data,
+  });
 
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { url: "/all", auth: false } });
@@ -25,6 +33,11 @@ export const FeedPage = () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    upgradeOrders();
+    setInitialOrders((updatedOrders) => updatedOrders);
+  }, [upgradeOrders, setInitialOrders, orders, data]);
 
   const getOrdersByStatus = useCallback(
     (status: string) => orders.filter((item: IOrder) => item.status === status),
@@ -45,7 +58,7 @@ export const FeedPage = () => {
       <h1 className="text text_type_main-large pt-10 pb-5">Лента заказов</h1>
       <div className={styles.feed_page__content}>
         <ul className={styles.feed_page__list}>
-          {orders.map((item: IOrder) => (
+          {upgradedOrders.map((item: IOrder) => (
             <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={false} />
           ))}
         </ul>

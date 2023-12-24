@@ -1,4 +1,4 @@
-import { IIngredient, IOrder } from "../../utils/common-types";
+// import { IIngredient, IOrder } from "../../utils/common-types";
 import styles from "./group-preview.module.scss";
 import classNames from "classnames";
 

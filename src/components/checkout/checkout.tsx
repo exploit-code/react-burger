@@ -4,15 +4,25 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { getOrderNumberThunk } from "../../services/middleware/order-details";
 import { useNavigate } from "react-router-dom";
 import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/common-types";
+import { useCallback } from "react";
 
 export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
-  const ingredientsID: IIngredientID = {
-    ingredients: ingredients.map((item: IConstructorIngredient): string => item._id),
-  };
   const { accessToken } = useSelector((store) => store.auth);
+
+  const allConstructorIngredients = useCallback(() => {
+    return [bun, ...ingredients, bun].filter((item) => item);
+  }, [ingredients, bun]);
+
+  const ingredientsID: IIngredientID = {
+    ingredients: allConstructorIngredients()
+      .map((item) => item?._id)
+      .filter(Boolean),
+  };
+
+  console.log(ingredientsID);
 
   const handleOrderClick = () => {
     if (accessToken && ingredients && bun) {
