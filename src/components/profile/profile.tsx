@@ -13,7 +13,7 @@ import { Loader } from "../loader/loader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { loading, refreshToken, user, accessToken, error } = useSelector((store) => store.auth);
+  const { loading, user, accessToken, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({
     name: user.name,
     email: user.email,
@@ -42,9 +42,13 @@ export const Profile = () => {
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    if (error) dispatch(refreshTokenThunk({ token: refreshToken }));
-    else dispatch(getUserThunk({ token: accessToken }));
-  }, [accessToken, dispatch, refreshToken, error]);
+    // if (error) dispatch(refreshTokenThunk());
+    // else dispatch(getUserThunk({ token: accessToken }));
+    dispatch(getUserThunk({ token: accessToken })).then((res) => {
+      console.log("then", res);
+      // dispatch(refreshTokenThunk());
+    });
+  }, [accessToken, dispatch, error]);
 
   return loading || error ? (
     <Loader text={loading ? "loading..." : "error"} />

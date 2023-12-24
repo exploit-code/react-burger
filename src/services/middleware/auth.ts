@@ -1,4 +1,5 @@
 import { request } from "../../utils/api";
+import { getCookie, setCookie } from "../../utils/cookies";
 import { AppThunk, AppDispatch } from "../types";
 import {
   IRequestOptions,
@@ -10,13 +11,11 @@ import {
   IForgotPasswordResponse,
   IResetPasswordRequest,
   IResetPasswordResponse,
-  ILogoutRequest,
   ILogoutResponse,
   IGetUserRequest,
   IGetUserResponse,
   IUpdateUserRequest,
   IUpdateUserResponse,
-  IRefreshTokenRequest,
   IRefreshTokenResponse,
 } from "../../utils/common-types";
 import {
@@ -50,7 +49,7 @@ export const registerThunk =
   ({ email, name, password }: IRegisterRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(registerRequestAction());
-    console.log("registerThunk request")
+    console.log("registerThunk request");
 
     const options: IRequestOptions = {
       method: "POST",
@@ -60,18 +59,16 @@ export const registerThunk =
 
     request<IRegisterResponse>("auth/register", options)
       .then((res) => {
+        setCookie("refreshToken", res.refreshToken);
         dispatch(registerSuccessAction(res));
-        console.log("registerThunk success")
-
       })
       .catch(() => {
         dispatch(registerErrorAction());
-        console.log("registerThunk error")
       });
   };
 
 export const loginThunk =
-  ({ email, password }: ILoginRequest): AppThunk =>
+  ({ email, password }: ILoginRequest): AppThunk<Promise<ILoginResponse | void>> =>
   (dispatch: AppDispatch) => {
     dispatch(loginRequestAction());
 
@@ -85,6 +82,7 @@ export const loginThunk =
 
     return request<ILoginResponse>("auth/login", options)
       .then((res) => {
+        setCookie("refreshToken", res.refreshToken);
         dispatch(loginSuccessAction(res));
       })
       .catch(() => {
@@ -132,28 +130,47 @@ export const resetPasswordThunk =
       });
   };
 
-export const logoutThunk =
-  ({ token }: ILogoutRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(logoutRequestAction());
-
-    const options: IRequestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: token }),
-    };
-
-    request<ILogoutResponse>("auth/logout", options)
-      .then((res) => {
-        dispatch(logoutSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(logoutErrorAction());
-      });
+export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(logoutRequestAction());
+  const options: IRequestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json;charset=utf-8" },
+    body: JSON.stringify({ token: getCookie("refreshToken") }),
   };
 
+  request<ILogoutResponse>("auth/logout", options)
+    .then((res) => {
+      dispatch(logoutSuccessAction(res));
+    })
+    .catch(() => {
+      dispatch(logoutErrorAction());
+    });
+};
+
+// export const getUserThunk =
+//   ({ token }: IGetUserRequest): AppThunk =>
+//   (dispatch: AppDispatch) => {
+//     dispatch(getUserRequestAction());
+
+//     const options = {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json;charset=utf-8",
+//         Authorization: `Bearer ${token}`,
+//       },
+//     };
+
+//     return request<IGetUserResponse>("auth/user", options)
+//       .then((res) => {
+//         dispatch(getUserSuccessAction(res));
+//       })
+//       .catch(() => {
+//         dispatch(getUserErrorAction());
+//       });
+//   };
+
 export const getUserThunk =
-  ({ token }: IGetUserRequest): AppThunk =>
+  ({ token }: IGetUserRequest): AppThunk<Promise<IGetUserResponse | void>> =>
   (dispatch: AppDispatch) => {
     dispatch(getUserRequestAction());
 
@@ -198,18 +215,19 @@ export const updateUserThunk =
   };
 
 export const refreshTokenThunk =
-  ({ token }: IRefreshTokenRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (): AppThunk<Promise<IRefreshTokenResponse | void>> => (dispatch: AppDispatch) => {
     dispatch(refreshTokenRequestAction());
+
     const options: IRequestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json;charset=utf-8" },
-      body: JSON.stringify({ token: token }),
+      body: JSON.stringify({ token: getCookie("refreshToken") }),
     };
 
     return request<IRefreshTokenResponse>("auth/token", options)
       .then((res) => {
-        if (res && res.success) dispatch(refreshTokenSuccessAction(res));
+        setCookie("refreshToken", res.refreshToken);
+        dispatch(refreshTokenSuccessAction(res));
       })
       .catch(() => {
         dispatch(refreshTokenErrorAction());

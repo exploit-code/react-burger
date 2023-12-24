@@ -13,8 +13,6 @@ export const getOrderNumberThunk =
   (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
 
-    console.log(accessToken);
-
     const options: IRequestOptions = {
       method: "POST",
       headers: {

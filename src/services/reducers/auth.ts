@@ -30,7 +30,6 @@ import { IUser } from "../../utils/common-types";
 interface IAuthState {
   readonly user: IUser;
   readonly accessToken: string;
-  readonly refreshToken: string;
   readonly loading: boolean;
   readonly error: boolean;
   readonly reset: boolean;
@@ -42,7 +41,6 @@ const initialState: IAuthState = {
     email: "",
   },
   accessToken: "",
-  refreshToken: "",
   loading: false,
   error: false,
   reset: false,
@@ -62,7 +60,6 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         user: action.payload.user,
         loading: false,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
       };
 
     case REGISTER_ERROR:
@@ -101,7 +98,6 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         ...state,
         user: action.payload.user,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
         loading: false,
         reset: false,
       };
@@ -164,7 +160,6 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         ...state,
         loading: false,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
         error: false,
       };
 

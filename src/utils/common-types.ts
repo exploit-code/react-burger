@@ -113,19 +113,11 @@ export interface IResetPasswordResponse extends ICheckSuccess {
   message: string;
 }
 
-export interface ILogoutRequest {
-  token: string;
-}
-
 export interface ILogoutResponse extends ICheckSuccess {
   message: string;
 }
 
 export interface IGetUserRequest {
-  token: string;
-}
-
-export interface IRefreshTokenRequest {
   token: string;
 }
 
@@ -135,7 +127,12 @@ export interface IUser {
   password?: string;
 }
 
-export interface IGetUserResponse extends ICheckSuccess {
+// export interface IGetUserResponse extends ICheckSuccess {
+//   user: IUser;
+// }
+
+export interface IGetUserResponse {
+  success: boolean;
   user: IUser;
 }
 

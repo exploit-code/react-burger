@@ -3,13 +3,19 @@ import { IRequestOptions, ICheckSuccess } from "./common-types";
 const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 const checkResponse = <T>(res: Response): Promise<T> => {
-  if (res.ok) return res.json() as Promise<T>;
-  else return Promise.reject(`Ошибка ${res.status}`);
+  if (res.ok) {
+    return res.json() as Promise<T>;
+  } else {
+    return Promise.reject(`checkResponse error... ${res.status}`);
+  }
 };
 
 const checkSuccess = <T extends ICheckSuccess>(res: T): Promise<T> => {
-  if (res.success) return Promise.resolve(res);
-  else return Promise.reject(`Ответ не success: ${res}`);
+  if (res.success) {
+    return Promise.resolve(res);
+  } else {
+    return Promise.reject(`checkSuccess error...: ${res}`);
+  }
 };
 
 export const request = <T extends ICheckSuccess>(
