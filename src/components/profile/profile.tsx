@@ -42,12 +42,9 @@ export const Profile = () => {
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    // if (error) dispatch(refreshTokenThunk());
-    // else dispatch(getUserThunk({ token: accessToken }));
-    dispatch(getUserThunk({ token: accessToken })).then((res) => {
-      console.log("then", res);
-      // dispatch(refreshTokenThunk());
-    });
+    // надо как-то переделать =(
+    if (error) dispatch(refreshTokenThunk());
+    else dispatch(getUserThunk({ token: accessToken }));
   }, [accessToken, dispatch, error]);
 
   return loading || error ? (

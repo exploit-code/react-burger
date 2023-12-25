@@ -50,11 +50,7 @@ export const constructorIngredients = (
       };
 
     case REMOVE_ALL_INGREDIENTS:
-      return {
-        ...state,
-        bun: null,
-        ingredients: [],
-      };
+      return initialState;
 
     case MOVE_INGREDIENT:
       const { fromIndex, toIndex } = action.payload;

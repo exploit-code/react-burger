@@ -147,30 +147,8 @@ export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
     });
 };
 
-// export const getUserThunk =
-//   ({ token }: IGetUserRequest): AppThunk =>
-//   (dispatch: AppDispatch) => {
-//     dispatch(getUserRequestAction());
-
-//     const options = {
-//       method: "GET",
-//       headers: {
-//         "Content-Type": "application/json;charset=utf-8",
-//         Authorization: `Bearer ${token}`,
-//       },
-//     };
-
-//     return request<IGetUserResponse>("auth/user", options)
-//       .then((res) => {
-//         dispatch(getUserSuccessAction(res));
-//       })
-//       .catch(() => {
-//         dispatch(getUserErrorAction());
-//       });
-//   };
-
 export const getUserThunk =
-  ({ token }: IGetUserRequest): AppThunk<Promise<IGetUserResponse | void>> =>
+  ({ token }: IGetUserRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getUserRequestAction());
 
