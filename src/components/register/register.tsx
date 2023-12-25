@@ -13,14 +13,14 @@ import { registerThunk } from "../../services/middleware/auth";
 export const Register = () => {
   const dispatch = useDispatch();
   const { value, handleChange } = useFormData({ name: "", email: "", password: "" });
-  const { accessToken, loading } = useSelector((store) => store.auth);
+  const { authorized, loading } = useSelector((store) => store.auth);
 
   const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(registerThunk({ email: value.email, name: value.name, password: value.password }));
   };
 
-  return accessToken ? (
+  return authorized ? (
     <Navigate to="/" replace />
   ) : (
     <div className={styles.register}>

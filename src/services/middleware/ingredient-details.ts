@@ -1,5 +1,5 @@
 import { AppThunk, AppDispatch } from "../types";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 import { setCurrentIngredientAction } from "../actions/ingredient-details";
 
 export const setCurrentIngredientThunk =

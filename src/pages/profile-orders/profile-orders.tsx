@@ -4,17 +4,17 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/ws";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { IOrder } from "../../utils/common-types";
+import { IOrder } from "../../utils/interfaces";
 import { FeedCard } from "../../components/feed-card/feed-card";
 import { Loader } from "../../components/loader/loader";
 import { useUpgradeOrders } from "../../hooks/useOrders";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
+import { getCookie } from "../../utils/cookies";
 
 export const ProfileOrdersPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { accessToken } = useSelector((store) => store.auth);
   const { orders, loading } = useSelector((store) => store.ws.data);
   const { data } = useSelector((store) => store.ingredients);
 
@@ -24,12 +24,15 @@ export const ProfileOrdersPage = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START, payload: { url: `?token=${accessToken}`, auth: true } });
+    dispatch({
+      type: WS_CONNECTION_START,
+      payload: { url: `?token=${getCookie("accessToken")}`, auth: true },
+    });
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
-  }, [dispatch, accessToken]);
+  }, [dispatch]);
 
   useEffect(() => {
     upgradeOrders();

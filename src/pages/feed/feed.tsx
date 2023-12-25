@@ -8,9 +8,8 @@ import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants/ws";
 import { useSelector } from "../../services/hooks";
-import { IOrder } from "../../utils/common-types";
+import { IOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
-
 import { useUpgradeOrders } from "../../hooks/useOrders";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 
@@ -19,14 +18,6 @@ export const FeedPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { orders, total, totalToday, loading } = useSelector((store) => store.ws.data);
-  const { data } = useSelector((store) => store.ingredients);
-
-  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
-    orders,
-    data,
-  });
-
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { url: "/all", auth: false } });
 
@@ -34,6 +25,14 @@ export const FeedPage = () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
+
+  const { orders, total, totalToday, loading } = useSelector((store) => store.ws.data);
+  const { data } = useSelector((store) => store.ingredients);
+
+  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
+    orders,
+    data,
+  });
 
   useEffect(() => {
     upgradeOrders();

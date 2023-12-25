@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
 import { setCurrentIngredientThunk } from "../../services/middleware/ingredient-details";
 import { useDrag } from "react-dnd";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 
 export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredient }) => {
   const location = useLocation();

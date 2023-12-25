@@ -12,12 +12,11 @@ import {
   IResetPasswordRequest,
   IResetPasswordResponse,
   ILogoutResponse,
-  IGetUserRequest,
   IGetUserResponse,
   IUpdateUserRequest,
   IUpdateUserResponse,
   IRefreshTokenResponse,
-} from "../../utils/common-types";
+} from "../../utils/interfaces";
 import {
   forgotPasswordErrorAction,
   forgotPasswordRequestAction,
@@ -59,6 +58,7 @@ export const registerThunk =
 
     request<IRegisterResponse>("auth/register", options)
       .then((res) => {
+        setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch(registerSuccessAction(res));
       })
@@ -82,6 +82,7 @@ export const loginThunk =
 
     return request<ILoginResponse>("auth/login", options)
       .then((res) => {
+        setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
         dispatch(loginSuccessAction(res));
       })
@@ -147,30 +148,8 @@ export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
     });
 };
 
-export const getUserThunk =
-  ({ token }: IGetUserRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
-    dispatch(getUserRequestAction());
-
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    return request<IGetUserResponse>("auth/user", options)
-      .then((res) => {
-        dispatch(getUserSuccessAction(res));
-      })
-      .catch(() => {
-        dispatch(getUserErrorAction());
-      });
-  };
-
 export const updateUserThunk =
-  ({ user, accessToken }: IUpdateUserRequest): AppThunk =>
+  ({ user }: IUpdateUserRequest): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(updateUserRequestAction());
 
@@ -178,7 +157,7 @@ export const updateUserThunk =
       method: "PATCH",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${getCookie("accessToken")}`,
       },
       body: JSON.stringify(user),
     };
@@ -192,8 +171,33 @@ export const updateUserThunk =
       });
   };
 
+export const getUserThunk = (): AppThunk => (dispatch: AppDispatch) => {
+  dispatch(getUserRequestAction());
+
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: `Bearer ${getCookie("accessToken")}`,
+    },
+  };
+
+  return request<IGetUserResponse>("auth/user", options)
+    .then((res) => {
+      dispatch(getUserSuccessAction(res));
+    })
+    .catch((err) => {
+      if (err.message === "jwt expired") {
+        dispatch(refreshTokenThunk(getUserThunk()));
+      } else {
+        dispatch(getUserErrorAction());
+      }
+    });
+};
+
 export const refreshTokenThunk =
-  (): AppThunk<Promise<IRefreshTokenResponse | void>> => (dispatch: AppDispatch) => {
+  (afterRefresh: any): AppThunk<Promise<IRefreshTokenResponse | void>> =>
+  (dispatch: AppDispatch) => {
     dispatch(refreshTokenRequestAction());
 
     const options: IRequestOptions = {
@@ -204,8 +208,10 @@ export const refreshTokenThunk =
 
     return request<IRefreshTokenResponse>("auth/token", options)
       .then((res) => {
+        setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
-        dispatch(refreshTokenSuccessAction(res));
+        dispatch(afterRefresh);
+        dispatch(refreshTokenSuccessAction());
       })
       .catch(() => {
         dispatch(refreshTokenErrorAction());

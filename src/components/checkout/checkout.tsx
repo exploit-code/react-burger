@@ -3,14 +3,14 @@ import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { getOrderNumberThunk } from "../../services/middleware/order-details";
 import { useNavigate } from "react-router-dom";
-import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/common-types";
+import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/interfaces";
 import { useCallback } from "react";
 
 export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
-  const { accessToken } = useSelector((store) => store.auth);
+  const { authorized } = useSelector((store) => store.auth);
 
   const allConstructorIngredients = useCallback(() => {
     return [bun, ...ingredients, bun].filter((item) => item);
@@ -23,8 +23,8 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
   };
 
   const handleOrderClick = () => {
-    if (accessToken && ingredients && bun) {
-      dispatch(getOrderNumberThunk(ingredientsID, accessToken));
+    if (authorized && ingredients && bun) {
+      dispatch(getOrderNumberThunk(ingredientsID));
       openModal();
     } else navigate("/login");
   };

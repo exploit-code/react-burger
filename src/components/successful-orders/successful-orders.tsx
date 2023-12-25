@@ -1,4 +1,4 @@
-import { ISuccessfulOrders } from "../../utils/common-types";
+import { ISuccessfulOrders } from "../../utils/interfaces";
 import styles from "./successful-orders.module.scss";
 import classNames from "classnames";
 

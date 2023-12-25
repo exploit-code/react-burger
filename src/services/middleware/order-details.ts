@@ -1,15 +1,17 @@
 import { request } from "../../utils/api";
 import { AppThunk, AppDispatch } from "../types";
-import { IGetOrderNumberRequest, IIngredientID, IRequestOptions } from "../../utils/common-types";
+import { IGetOrderNumberRequest, IIngredientID, IRequestOptions } from "../../utils/interfaces";
 import {
   getOrderRequestAction,
   getOrderSuccessAction,
   getOrderErrorAction,
 } from "../actions/order-details";
 import { removeAllIngridientsAction } from "../actions/burger-constructor";
+import { getCookie } from "../../utils/cookies";
+import { refreshTokenThunk } from "./auth";
 
 export const getOrderNumberThunk =
-  (ingredientsID: IIngredientID, accessToken: string): AppThunk =>
+  (ingredientsID: IIngredientID): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getOrderRequestAction());
 
@@ -17,7 +19,7 @@ export const getOrderNumberThunk =
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${getCookie("accessToken")}`,
       },
       body: JSON.stringify(ingredientsID),
     };
@@ -27,7 +29,11 @@ export const getOrderNumberThunk =
         dispatch(getOrderSuccessAction(res));
         dispatch(removeAllIngridientsAction());
       })
-      .catch(() => {
-        dispatch(getOrderErrorAction());
+      .catch((err) => {
+        if (err.message === "jwt expired") {
+          dispatch(refreshTokenThunk(getOrderNumberThunk(ingredientsID)));
+        } else {
+          dispatch(getOrderErrorAction());
+        }
       });
   };

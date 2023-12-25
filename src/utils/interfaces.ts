@@ -61,6 +61,7 @@ export interface IRequestOptions {
 
 export interface ICheckSuccess {
   success: boolean;
+  message?: string;
 }
 
 export interface IGetIngredientsResponce extends ICheckSuccess {
@@ -117,28 +118,18 @@ export interface ILogoutResponse extends ICheckSuccess {
   message: string;
 }
 
-export interface IGetUserRequest {
-  token: string;
-}
-
 export interface IUser {
   name: string;
   email: string;
   password?: string;
 }
 
-// export interface IGetUserResponse extends ICheckSuccess {
-//   user: IUser;
-// }
-
-export interface IGetUserResponse {
-  success: boolean;
+export interface IGetUserResponse extends ICheckSuccess {
   user: IUser;
 }
 
 export interface IUpdateUserRequest {
   user: IUser;
-  accessToken: string;
 }
 
 export interface IUpdateUserResponse extends ICheckSuccess, IGetUserResponse {}

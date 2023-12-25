@@ -25,11 +25,11 @@ import {
   UPDATE_USER_ERROR,
 } from "../constants/auth";
 import { TAuthUnionActions } from "../types/auth";
-import { IUser } from "../../utils/common-types";
+import { IUser } from "../../utils/interfaces";
 
 interface IAuthState {
   readonly user: IUser;
-  readonly accessToken: string;
+  readonly authorized: boolean;
   readonly loading: boolean;
   readonly error: boolean;
   readonly reset: boolean;
@@ -40,7 +40,7 @@ const initialState: IAuthState = {
     name: "",
     email: "",
   },
-  accessToken: "",
+  authorized: false,
   loading: false,
   error: false,
   reset: false,
@@ -59,7 +59,7 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         ...state,
         user: action.payload.user,
         loading: false,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        authorized: true,
       };
 
     case REGISTER_ERROR:
@@ -76,9 +76,7 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
       };
 
     case LOGOUT_SUCCESS:
-      return {
-        ...initialState,
-      };
+      return initialState;
 
     case LOGOUT_ERROR:
       return {
@@ -97,7 +95,7 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
       return {
         ...state,
         user: action.payload.user,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        authorized: true,
         loading: false,
         reset: false,
       };
@@ -159,7 +157,7 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
       return {
         ...state,
         loading: false,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        authorized: true,
         error: false,
       };
 
@@ -168,6 +166,7 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         ...state,
         error: true,
         loading: false,
+        authorized: false,
       };
 
     case GET_USER_REQUEST:

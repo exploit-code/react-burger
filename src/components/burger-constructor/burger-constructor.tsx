@@ -9,7 +9,7 @@ import { useDrop, DropTargetMonitor } from "react-dnd";
 import { addIngridientAction } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "../../services/hooks/index";
 import { useModal } from "../../hooks/useModal";
-import { IConstructorIngredient } from "../../utils/common-types";
+import { IConstructorIngredient } from "../../utils/interfaces";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import styles from "./ingredient-price.module.scss";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 
 export const IngredientPrice = <T extends IIngredient["price"]>({ price }: { price: T }) => {
   return (

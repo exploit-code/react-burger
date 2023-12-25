@@ -7,7 +7,7 @@ import { memo } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
 import { getIngredientsThunk } from "../../services/middleware/burger-ingredients";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {

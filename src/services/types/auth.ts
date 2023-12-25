@@ -3,8 +3,7 @@ import {
   IForgotPasswordResponse,
   IResetPasswordResponse,
   IGetUserResponse,
-  IRefreshTokenResponse,
-} from "../../utils/common-types";
+} from "../../utils/interfaces";
 
 import {
   REGISTER_REQUEST,
@@ -130,7 +129,6 @@ export interface IRefreshTokenRequestAction {
 
 export interface IRefreshTokenSuccessAction {
   readonly type: typeof UPDATE_TOKEN_SUCCESS;
-  readonly payload: IRefreshTokenResponse;
 }
 
 export interface IRefreshTokenErrorAction {

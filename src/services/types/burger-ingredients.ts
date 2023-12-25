@@ -1,4 +1,4 @@
-import { IGetIngredientsResponce } from "../../utils/common-types";
+import { IGetIngredientsResponce } from "../../utils/interfaces";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,

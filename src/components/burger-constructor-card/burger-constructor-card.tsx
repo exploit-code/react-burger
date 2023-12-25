@@ -2,7 +2,7 @@ import styles from "./burger-constructor-card.module.scss";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/common-types";
+import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/interfaces";
 import {
   removeIngridientAction,
   moveIngridientsAction,

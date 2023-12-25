@@ -55,11 +55,10 @@ import {
   IGetUserResponse,
   ILoginResponse,
   ILogoutResponse,
-  IRefreshTokenResponse,
   IRegisterResponse,
   IResetPasswordResponse,
   IUpdateUserResponse,
-} from "../../utils/common-types";
+} from "../../utils/interfaces";
 
 export const registerRequestAction = (): IRegisterRequestAction => ({ type: REGISTER_REQUEST });
 
@@ -152,11 +151,8 @@ export const refreshTokenRequestAction = (): IRefreshTokenRequestAction => ({
   type: UPDATE_TOKEN_REQUEST,
 });
 
-export const refreshTokenSuccessAction = (
-  res: IRefreshTokenResponse
-): IRefreshTokenSuccessAction => ({
+export const refreshTokenSuccessAction = (): IRefreshTokenSuccessAction => ({
   type: UPDATE_TOKEN_SUCCESS,
-  payload: res,
 });
 
 export const refreshTokenErrorAction = (): IRefreshTokenErrorAction => ({

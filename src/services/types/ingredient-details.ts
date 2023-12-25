@@ -1,4 +1,4 @@
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 import { SET_CURRENT_INGREDIENT } from "../constants/ingredient-details";
 
 export interface ISetCurrentIngredientAction {

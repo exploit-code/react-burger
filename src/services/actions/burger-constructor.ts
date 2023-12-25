@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { IIngredient, IMoveIngredient } from "../../utils/common-types";
+import { IIngredient, IMoveIngredient } from "../../utils/interfaces";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,

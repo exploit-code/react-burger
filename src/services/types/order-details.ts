@@ -1,5 +1,5 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants/order-details";
-import { IGetOrderNumberRequest } from "../../utils/common-types";
+import { IGetOrderNumberRequest } from "../../utils/interfaces";
 
 export interface IGetOrderRequestAction {
   readonly type: typeof GET_ORDER_REQUEST;

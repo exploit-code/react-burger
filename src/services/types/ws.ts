@@ -1,4 +1,4 @@
-import { IOrder } from "../../utils/common-types";
+import { IOrder } from "../../utils/interfaces";
 
 export interface IStateWS {
   connected: boolean;

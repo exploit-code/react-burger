@@ -4,7 +4,7 @@ import {
   GET_INGREDIENTS_ERROR,
 } from "../constants/burger-ingredients";
 import { TBurgerIngredientsUnionActions } from "../types/burger-ingredients";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 
 export interface IStateIngredients {
   readonly data: IIngredient[] | [];

@@ -7,13 +7,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getUserThunk, updateUserThunk, refreshTokenThunk } from "../../services/middleware/auth";
+import { getUserThunk, updateUserThunk } from "../../services/middleware/auth";
 import { useEffect, useState } from "react";
 import { Loader } from "../loader/loader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { loading, user, accessToken, error } = useSelector((store) => store.auth);
+  const { loading, user, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({
     name: user.name,
     email: user.email,
@@ -27,7 +27,6 @@ export const Profile = () => {
     dispatch(
       updateUserThunk({
         user: { email: value.email, name: value.name, password: value.password },
-        accessToken: accessToken,
       })
     );
 
@@ -42,10 +41,8 @@ export const Profile = () => {
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    // надо как-то переделать =(
-    if (error) dispatch(refreshTokenThunk());
-    else dispatch(getUserThunk({ token: accessToken }));
-  }, [accessToken, dispatch, error]);
+    dispatch(getUserThunk());
+  }, [dispatch]);
 
   return loading || error ? (
     <Loader text={loading ? "loading..." : "error"} />

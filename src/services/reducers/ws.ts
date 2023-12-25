@@ -75,7 +75,9 @@ export const ws = (state = initialState, action: TWSUnionActions) => {
       };
 
     case WS_CONNECTION_CLOSED:
-      return initialState;
+      return {
+        ...state,
+      };
 
     default:
       return state;

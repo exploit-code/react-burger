@@ -1,6 +1,6 @@
 import { SET_CURRENT_INGREDIENT } from "../constants/ingredient-details";
 import { TIngredientDetailsUnionActions } from "../types/ingredient-details";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 
 interface IStateCurrentIngredient {
   readonly ingredient: null | IIngredient;

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import styles from "./orders-progress-list.module.scss";
-import { IOrder, IOrdersProgressList } from "../../utils/common-types";
+import { IOrder, IOrdersProgressList } from "../../utils/interfaces";
 
 export const OrdersProgressList = ({ title, list, success }: IOrdersProgressList) => {
   const columns: "one" | "two" | "three" =

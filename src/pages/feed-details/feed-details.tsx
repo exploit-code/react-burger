@@ -1,24 +1,36 @@
 import styles from "./feed-details.module.scss";
 import { FeedDetails } from "../../components/feed-details/feed-details";
 import { NotFoundPage } from "../not-found/not-found";
-// import { useSelector } from "../../services/hooks";
-// import { useParams } from "react-router-dom";
-// import { useMemo } from "react";
-// import { IIngredient } from "../../utils/common-types";
+import { useSelector } from "../../services/hooks";
+import { useUpgradeOrders } from "../../hooks/useOrders";
+import { useParams } from "react-router-dom";
+import { useEffect, useMemo } from "react";
 
 export const FeedDetailsPage = () => {
-  // const { id } = useParams<string>();
-  // const { data } = useSelector((store) => store.ingredients);
-  // const viewFeed: IIngredient | undefined = useMemo(
-  //   () => data.find((el: IIngredient) => el._id === id),
-  //   [data, id]
-  // );
+  const { id } = useParams<string>();
+  const { data } = useSelector((store) => store.ingredients);
+  const { orders } = useSelector((store) => store.ws.data);
 
-  const viewFeed = true;
+  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
+    orders,
+    data,
+  });
 
-  return viewFeed ? (
+  useEffect(() => {
+    upgradeOrders();
+    setInitialOrders((updatedOrders) => updatedOrders);
+  }, [upgradeOrders, setInitialOrders, orders, data]);
+
+  const searchOrder: any = useMemo(
+    () => upgradedOrders.find((el: any) => el.number === id),
+    [id, upgradedOrders]
+  );
+
+  console.log("FeedDetailsPage", searchOrder, upgradedOrders);
+
+  return searchOrder ? (
     <section className={styles.feed_details_page}>
-      <h2 className="text text_type_main-large">#034533</h2>
+      <h2 className="text text_type_main-large">number</h2>
       <FeedDetails />
     </section>
   ) : (

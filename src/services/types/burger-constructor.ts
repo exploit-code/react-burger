@@ -1,4 +1,4 @@
-import { IIngredient, IMoveIngredient, IConstructorIngredient } from "../../utils/common-types";
+import { IIngredient, IMoveIngredient, IConstructorIngredient } from "../../utils/interfaces";
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,

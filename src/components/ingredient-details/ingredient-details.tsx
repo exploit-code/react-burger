@@ -5,7 +5,7 @@ import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { useMemo } from "react";
-import { IIngredient } from "../../utils/common-types";
+import { IIngredient } from "../../utils/interfaces";
 
 export const IngredientDetails = () => {
   const { id } = useParams<string>();
