@@ -165,7 +165,6 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
         ...state,
         error: true,
         loading: false,
-        authorized: false,
       };
 
     case GET_USER_REQUEST:

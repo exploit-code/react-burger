@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { getCookie, setCookie } from "../../utils/cookies";
+import { deleteCookie, getCookie, setCookie } from "../../utils/cookies";
 import { AppThunk, AppDispatch } from "../types";
 import {
   IRequestOptions,
@@ -141,6 +141,7 @@ export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
 
   request<ILogoutResponse>("auth/logout", options)
     .then((res) => {
+      deleteCookie("accessToken");
       dispatch(logoutSuccessAction(res));
     })
     .catch(() => {
