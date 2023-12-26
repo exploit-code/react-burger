@@ -4,10 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/ws";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { IOrder } from "../../utils/interfaces";
+import { IUpdatedOrder } from "../../utils/interfaces";
 import { FeedCard } from "../../components/feed-card/feed-card";
 import { Loader } from "../../components/loader/loader";
-import { useUpgradeOrders } from "../../hooks/useOrders";
+import { useOrdersCombaine } from "../../hooks/useOrdersCombaine";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 import { getCookie } from "../../utils/cookies";
 
@@ -15,10 +15,11 @@ export const ProfileOrdersPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { orders, loading } = useSelector((store) => store.ws.data);
+  const { orders } = useSelector((store) => store.ws.userOrders);
+  const { loading } = useSelector((store) => store.ws);
   const { data } = useSelector((store) => store.ingredients);
 
-  const { upgradedOrders, upgradeOrders, setInitialOrders } = useUpgradeOrders({
+  const { upgradedOrders, upgradeOrders, setInitialOrders } = useOrdersCombaine({
     orders,
     data,
   });
@@ -39,7 +40,7 @@ export const ProfileOrdersPage = () => {
     setInitialOrders((updatedOrders) => updatedOrders);
   }, [upgradeOrders, setInitialOrders, orders, data]);
 
-  const handleOrderClick = (order: any) => {
+  const handleOrderClick = (order: IUpdatedOrder) => {
     dispatch(setCurrentOrderAction(order));
 
     navigate(`/profile/orders/${order.number}`, { state: { background: location } });
@@ -57,16 +58,9 @@ export const ProfileOrdersPage = () => {
         {loading ? (
           <Loader text={"loading..."} />
         ) : (
-          upgradedOrders
-            .reverse()
-            .map((item: IOrder) => (
-              <FeedCard
-                order={item}
-                key={item._id}
-                onClick={handleOrderClick}
-                renderStatus={true}
-              />
-            ))
+          upgradedOrders.map((item: IUpdatedOrder) => (
+            <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
+          ))
         )}
       </ul>
     </section>

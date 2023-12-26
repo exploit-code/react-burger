@@ -1,15 +1,11 @@
 import styles from "./feed-card.module.scss";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { GroupPreview } from "../group-preview/group-preview";
-// import { useSelector } from "../../services/hooks";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
-import { useOrderStatus } from "../../hooks/useOrderStatus";
-// import { IFeedCard } from "../../utils/common-types";
+import { IFeedCard } from "../../utils/interfaces";
 
-export const FeedCard = ({ onClick, renderStatus, order }: any) => {
-  const { status } = useOrderStatus(order.status);
-
+export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
   return (
     <li className={styles.order_card} onClick={() => onClick(order)}>
       <div className={styles.order_card__head}>
@@ -29,7 +25,7 @@ export const FeedCard = ({ onClick, renderStatus, order }: any) => {
               styles[`order_card__status_${order.status}`]
             )}
           >
-            {status}
+            {order.upgradeStatus}
           </span>
         )}
       </div>

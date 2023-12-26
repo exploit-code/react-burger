@@ -21,6 +21,7 @@ export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredi
 
   const handleIngredientClick = () => {
     dispatch(setCurrentIngredientThunk(ingredient));
+
     navigate(`/ingredients/${ingredient._id}`, { state: { background: location } });
   };
 

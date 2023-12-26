@@ -1,16 +1,16 @@
+import { IUpdatedOrder } from "../../utils/interfaces";
 import { SET_CURRENT_ORDER } from "../constants/current-order";
-// import { TIngredientDetailsUnionActions } from "../types/ingredient-details";
-// import { IIngredient } from "../../utils/common-types";
+import { TCurrentOrderUnionActions } from "../types/current-order";
 
-// interface IStateCurrentIngredient {
-//   readonly ingredient: null | IIngredient;
-// }
+interface IStateCurrentOrder {
+  readonly order: IUpdatedOrder | null;
+}
 
-const initialState = {
+const initialState: IStateCurrentOrder = {
   order: null,
 };
 
-export const currentOrder = (state = initialState, action: any) => {
+export const currentOrder = (state = initialState, action: TCurrentOrderUnionActions) => {
   switch (action.type) {
     case SET_CURRENT_ORDER:
       return {

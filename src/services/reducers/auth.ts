@@ -157,7 +157,6 @@ export const auth = (state = initialState, action: TAuthUnionActions) => {
       return {
         ...state,
         loading: false,
-        authorized: true,
         error: false,
       };
 

@@ -181,8 +181,29 @@ export interface IOrder {
   name: string;
 }
 
+export interface IIngredientUpgrade extends IIngredient {
+  count: number;
+}
+
+export interface IUpdatedOrder {
+  ingredients: IIngredientUpgrade[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  totalPrice: number;
+  upgradeStatus: string;
+}
+
+export interface IUseOrdersCombaine {
+  orders: IOrder[];
+  data: IIngredient[];
+}
+
 export interface IFeedCard {
-  onClick: (number: number) => void;
-  renderStatus?: boolean;
-  order: IOrder;
+  renderStatus: boolean;
+  order: IUpdatedOrder;
+  onClick: (order: IUpdatedOrder) => void;
 }

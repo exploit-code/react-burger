@@ -2,8 +2,14 @@ import { IOrder } from "../../utils/interfaces";
 
 export interface IStateWS {
   connected: boolean;
-  data: {
-    loading: boolean;
+  loading: boolean;
+  feedOrders: {
+    success: boolean;
+    orders: IOrder[];
+    total: number;
+    totalToday: number;
+  };
+  userOrders: {
     success: boolean;
     orders: IOrder[];
     total: number;

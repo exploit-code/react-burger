@@ -196,7 +196,7 @@ export const getUserThunk = (): AppThunk => (dispatch: AppDispatch) => {
 };
 
 export const refreshTokenThunk =
-  (afterRefresh: any): AppThunk<Promise<IRefreshTokenResponse | void>> =>
+  (afterRefresh: AppThunk): AppThunk<Promise<IRefreshTokenResponse | void>> =>
   (dispatch: AppDispatch) => {
     dispatch(refreshTokenRequestAction());
 
@@ -210,8 +210,8 @@ export const refreshTokenThunk =
       .then((res) => {
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
         setCookie("refreshToken", res.refreshToken);
-        dispatch(afterRefresh);
         dispatch(refreshTokenSuccessAction());
+        dispatch(afterRefresh);
       })
       .catch(() => {
         dispatch(refreshTokenErrorAction());

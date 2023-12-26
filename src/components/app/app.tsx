@@ -79,7 +79,7 @@ export const App = () => {
           <Route
             path="/feed/:number"
             element={
-              <Modal title={`#${order.number}`} closeModal={closeModal}>
+              <Modal title={`#${order?.number}`} closeModal={closeModal}>
                 <FeedDetails />
               </Modal>
             }
@@ -87,7 +87,7 @@ export const App = () => {
           <Route
             path="/profile/orders/:number"
             element={
-              <Modal title={`#${order.number}`} closeModal={closeModal}>
+              <Modal title={`#${order?.number}`} closeModal={closeModal}>
                 <FeedDetails />
               </Modal>
             }

@@ -11,8 +11,24 @@ import { TWSUnionActions, IStateWS } from "../types/ws";
 
 const initialState: IStateWS = {
   connected: false,
-  data: {
-    loading: false,
+  loading: false,
+  feedOrders: {
+    success: false,
+    total: 0,
+    totalToday: 0,
+    orders: [
+      {
+        ingredients: [],
+        _id: "",
+        status: "",
+        number: 0,
+        createdAt: "",
+        updatedAt: "",
+        name: "",
+      },
+    ],
+  },
+  userOrders: {
     success: false,
     total: 0,
     totalToday: 0,
@@ -36,42 +52,45 @@ export const ws = (state = initialState, action: TWSUnionActions) => {
       return {
         ...state,
         connected: true,
-        data: { ...state.data, loading: true },
+        loading: true,
       };
 
     case WS_CONNECTION_FEED_SUCCESS:
       return {
         ...state,
         connected: true,
+        loading: false,
         error: undefined,
-        data: { ...state.data, loading: false },
+        feedOrders: { ...state.feedOrders },
       };
 
     case WS_CONNECTION_USER_SUCCESS:
       return {
         ...state,
         connected: true,
+        loading: false,
         error: undefined,
-        data: { ...state.data, loading: false },
+        userOrders: { ...state.userOrders },
       };
 
     case WS_CONNECTION_ERROR:
       return {
         ...state,
         error: action.payload,
+        loading: false,
         connected: false,
       };
 
     case WS_GET_FEED_DATA:
       return {
         ...state,
-        data: { ...state.data, ...action.payload },
+        feedOrders: { ...state.feedOrders, ...action.payload },
       };
 
     case WS_GET_USER_DATA:
       return {
         ...state,
-        data: { ...state.data, ...action.payload },
+        userOrders: { ...state.userOrders, ...action.payload },
       };
 
     case WS_CONNECTION_CLOSED:
