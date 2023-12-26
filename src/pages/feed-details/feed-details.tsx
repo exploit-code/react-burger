@@ -8,10 +8,7 @@ import { useEffect, useMemo } from "react";
 
 export const FeedDetailsPage = () => {
   const { number } = useParams<string>();
-
   const { feedOrders } = useSelector((store) => store.ws);
-  // const { userOrders } = useSelector((store) => store.ws);
-
   const { data } = useSelector((store) => store.ingredients);
 
   const { upgradedOrders, upgradeOrders, setInitialOrders } = useOrdersCombaine({
@@ -29,9 +26,11 @@ export const FeedDetailsPage = () => {
     [upgradedOrders, number]
   );
 
-  if (!viewOrder) console.log("хуй");
-
-  console.log(viewOrder);
+  useEffect(() => {
+    if (viewOrder && Number(number) !== viewOrder.number) {
+      console.log("Order not found");
+    }
+  }, [viewOrder, number]);
 
   return viewOrder ? (
     <section className={styles.feed_details_page}>
