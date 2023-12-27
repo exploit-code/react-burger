@@ -1,11 +1,11 @@
-import styles from "./feed-card.module.scss";
+import styles from "./order-card.module.scss";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { GroupPreview } from "../group-preview/group-preview";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
-import { IFeedCard } from "../../utils/interfaces";
+import { IOrderCard } from "../../utils/interfaces";
 
-export const FeedCard = ({ onClick, renderStatus, order }: IFeedCard) => {
+export const OrderCard = ({ onClick, renderStatus, order }: IOrderCard) => {
   return (
     <li className={styles.order_card} onClick={() => onClick(order)}>
       <div className={styles.order_card__head}>

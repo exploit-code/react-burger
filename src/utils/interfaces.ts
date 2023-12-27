@@ -144,7 +144,6 @@ export interface IGetOrderNumberRequest extends ICheckSuccess {
   order: {
     number: number;
   };
-  success: boolean;
 }
 
 export interface IMoveIngredient {
@@ -202,7 +201,7 @@ export interface IUseOrdersCombaine {
   data: IIngredient[];
 }
 
-export interface IFeedCard {
+export interface IOrderCard {
   renderStatus: boolean;
   order: IUpdatedOrder;
   onClick: (order: IUpdatedOrder) => void;

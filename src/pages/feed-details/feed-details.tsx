@@ -1,5 +1,5 @@
 import styles from "./feed-details.module.scss";
-import { FeedDetails } from "../../components/feed-details/feed-details";
+import { OrderInfo } from "../../components/order-info/order-info";
 import { NotFoundPage } from "../not-found/not-found";
 import { useSelector } from "../../services/hooks";
 import { useOrdersCombaine } from "../../hooks/useOrdersCombaine";
@@ -35,7 +35,7 @@ export const FeedDetailsPage = () => {
   return viewOrder ? (
     <section className={styles.feed_details_page}>
       <h2 className="text text_type_main-large">{viewOrder.number}</h2>
-      <FeedDetails />
+      <OrderInfo />
     </section>
   ) : (
     <NotFoundPage />

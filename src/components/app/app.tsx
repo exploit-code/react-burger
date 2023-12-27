@@ -14,7 +14,7 @@ import { IngredientPage } from "../../pages/ingredient/ingredient";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import { FeedPage } from "../../pages/feed/feed";
-import { FeedDetails } from "../feed-details/feed-details";
+import { OrderInfo } from "../order-info/order-info";
 import { FeedDetailsPage } from "../../pages/feed-details/feed-details";
 import { useSelector } from "../../services/hooks";
 
@@ -80,7 +80,7 @@ export const App = () => {
             path="/feed/:number"
             element={
               <Modal title={`#${order?.number}`} closeModal={closeModal}>
-                <FeedDetails />
+                <OrderInfo />
               </Modal>
             }
           />
@@ -88,7 +88,7 @@ export const App = () => {
             path="/profile/orders/:number"
             element={
               <Modal title={`#${order?.number}`} closeModal={closeModal}>
-                <FeedDetails />
+                <OrderInfo />
               </Modal>
             }
           />

@@ -2,7 +2,7 @@ import { OrdersProgress } from "../../components/orders-progress/orders-progress
 import { SuccessfulOrders } from "../../components/successful-orders/successful-orders";
 import styles from "./feed.module.scss";
 import { OrdersProgressList } from "../../components/orders-progress-list/orders-progress-list";
-import { FeedCard } from "../../components/feed-card/feed-card";
+import { OrderCard } from "../../components/order-card/order-card";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -62,7 +62,7 @@ export const FeedPage = () => {
       <div className={styles.feed_page__content}>
         <ul className={styles.feed_page__list}>
           {upgradedOrders.map((item) => (
-            <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={false} />
+            <OrderCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={false} />
           ))}
         </ul>
         <div className={styles.feed_page__info}>

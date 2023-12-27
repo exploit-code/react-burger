@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/ws";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
-import { FeedCard } from "../../components/feed-card/feed-card";
+import { OrderCard } from "../../components/order-card/order-card";
 import { Loader } from "../../components/loader/loader";
 import { useOrdersCombaine } from "../../hooks/useOrdersCombaine";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
@@ -59,7 +59,7 @@ export const ProfileOrdersPage = () => {
           <Loader text={"loading..."} />
         ) : (
           upgradedOrders.map((item: IUpdatedOrder) => (
-            <FeedCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
+            <OrderCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
           ))
         )}
       </ul>
