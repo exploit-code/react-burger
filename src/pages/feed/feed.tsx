@@ -19,7 +19,7 @@ export const FeedPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START, payload: { url: "/all", auth: false } });
+    dispatch({ type: WS_CONNECTION_START, payload: { path: "/all", auth: false } });
 
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
@@ -62,7 +62,12 @@ export const FeedPage = () => {
       <div className={styles.feed_page__content}>
         <ul className={styles.feed_page__list}>
           {upgradedOrders.map((item) => (
-            <OrderCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={false} />
+            <OrderCard
+              order={item}
+              key={item._id}
+              onClick={handleOrderClick}
+              renderStatus={false}
+            />
           ))}
         </ul>
         <div className={styles.feed_page__info}>

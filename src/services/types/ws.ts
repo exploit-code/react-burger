@@ -30,7 +30,7 @@ import {
 } from "../constants/ws";
 
 export interface IWSConnectPayload {
-  readonly url: string;
+  readonly path: string;
   readonly auth: boolean;
 }
 

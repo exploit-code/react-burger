@@ -20,33 +20,39 @@ export const wsThunk = (wsURL: string): Middleware => {
       const { dispatch } = store;
       const { type, payload } = action;
 
-      // console.log(action);
-
       if (type === WS_CONNECTION_START) {
-        const endpoint = `${wsURL}${payload.url}`;
+        const { path, auth } = payload;
+        const endpoint: string = `${wsURL}${path}`;
+        const authorized: boolean = auth;
 
         socket = new WebSocket(endpoint);
 
         if (socket) {
-          socket.onopen = (event) => {
+          socket.onopen = (event: Event) => {
             dispatch({
-              type: payload.auth ? WS_CONNECTION_USER_SUCCESS : WS_CONNECTION_FEED_SUCCESS,
+              type: authorized ? WS_CONNECTION_USER_SUCCESS : WS_CONNECTION_FEED_SUCCESS,
               payload: event,
             });
           };
 
-          socket.onerror = (event) => {
+          socket.onerror = (event: Event) => {
             dispatch({ type: WS_CONNECTION_ERROR, payload: event });
           };
 
-          socket.onmessage = (event) => {
-            dispatch({
-              type: payload.auth ? WS_GET_USER_DATA : WS_GET_FEED_DATA,
-              payload: JSON.parse(event.data),
-            });
+          socket.onmessage = (event: MessageEvent<string>) => {
+            const { data } = event;
+            try {
+              const parseData = JSON.parse(data);
+              dispatch({
+                type: authorized ? WS_GET_USER_DATA : WS_GET_FEED_DATA,
+                payload: parseData,
+              });
+            } catch {
+              dispatch({ type: WS_CONNECTION_ERROR, payload: event });
+            }
           };
 
-          socket.onclose = (event) => {
+          socket.onclose = (event: CloseEvent) => {
             dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
           };
         }

@@ -27,7 +27,7 @@ export const ProfileOrdersPage = () => {
   useEffect(() => {
     dispatch({
       type: WS_CONNECTION_START,
-      payload: { url: `?token=${getCookie("accessToken")}`, auth: true },
+      payload: { path: `?token=${getCookie("accessToken")}`, auth: true },
     });
 
     return () => {
