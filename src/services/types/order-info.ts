@@ -11,7 +11,7 @@ export interface IGetOrderInfoRequestAction {
 
 export interface IGetOrderInfoSuccessAction {
   readonly type: typeof GET_ORDER_INFO_SUCCESS;
-  readonly payload: IOrder;
+  readonly payload: any;
 }
 
 export interface IGetOrderInfoErrorAction {

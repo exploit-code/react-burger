@@ -180,6 +180,11 @@ export interface IOrder {
   name: string;
 }
 
+export interface IRequestOrder {
+  success: boolean;
+  orders: IOrder[];
+}
+
 export interface IIngredientUpgrade extends IIngredient {
   count: number;
 }

@@ -3,6 +3,7 @@ import styles from "./order-info.module.scss";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "../../services/hooks";
+import { IUpdatedOrder } from "../../utils/interfaces";
 
 export const OrderInfo = () => {
   const { order } = useSelector((store) => store.currentOrder);

@@ -18,40 +18,34 @@ export const OrderInfoPage = () => {
   const dispatch = useDispatch();
   const { number } = useParams<string>();
   const { data } = useSelector((store) => store.ingredients);
-  const { orders } = useSelector((store) => store.orderInfo.info);
+  const { requestOrder } = useSelector((store) => store.orderInfo);
   const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
   const foundOrder = updatedOrders.find((order) => order.number === Number(number));
-  let responseFlag = false;
-  let requestOrder = updatedOrders[0];
 
   useEffect(() => {
-    if (!foundOrder) {
+    if (foundOrder) {
+      dispatch(setCurrentOrderAction(foundOrder));
+    } else {
       dispatch(getOrderInfoThunk(number));
     }
   }, [dispatch, number, foundOrder]);
 
   useEffect(() => {
-    if (data && orders && responseFlag) {
-      dispatch(combineOrdersUpdatedAction({ orders, data }));
+    if (requestOrder.number === Number(number)) {
+      dispatch(combineOrdersUpdatedAction({ orders: [requestOrder], data }));
       try {
         dispatch(combineOrdersCompliteAction());
-        if (requestOrder) dispatch(setCurrentOrderAction(requestOrder));
       } catch {
         dispatch(combineOrdersErrorAction());
       }
     }
-    // return () => {
-    //   dispatch(combineOrdersClearAction());
-    // };
-  }, [dispatch, data, orders, responseFlag, requestOrder]);
+  }, [dispatch, requestOrder, number, data]);
 
   return loading || error ? (
     <Loader text={loading ? "loading..." : "error"} />
   ) : foundOrder ? (
     <section className={styles.feed_details_page}>
-      <h2 className="text text_type_main-large">
-        {foundOrder ? foundOrder.number : requestOrder.number}
-      </h2>
+      <h2 className="text text_type_main-large">{foundOrder.number}</h2>
       <OrderInfo />
     </section>
   ) : (
