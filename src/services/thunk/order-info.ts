@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { AppThunk, AppDispatch } from "../types";
+import { AppThunk } from "../types";
 import { IRequestOrder } from "../../utils/interfaces";
 import {
   getOrderInfoRequestAction,
@@ -9,7 +9,7 @@ import {
 
 export const getOrderInfoThunk =
   (orderNumber: string): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(getOrderInfoRequestAction());
 
     request<IRequestOrder>(`orders/${orderNumber}`)

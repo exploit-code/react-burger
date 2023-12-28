@@ -1,5 +1,5 @@
 import { request } from "../../utils/api";
-import { AppThunk, AppDispatch } from "../types";
+import { AppThunk } from "../types";
 import { IGetOrderNumberRequest, IIngredientID, IRequestOptions } from "../../utils/interfaces";
 import {
   getOrderRequestAction,
@@ -12,7 +12,7 @@ import { refreshTokenThunk } from "./auth";
 
 export const getOrderNumberThunk =
   (ingredientsID: IIngredientID): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(getOrderRequestAction());
 
     const options: IRequestOptions = {

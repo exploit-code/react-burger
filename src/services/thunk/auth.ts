@@ -1,6 +1,6 @@
 import { request } from "../../utils/api";
 import { deleteCookie, getCookie, setCookie } from "../../utils/cookies";
-import { AppThunk, AppDispatch } from "../types";
+import { AppThunk } from "../types";
 import {
   IRequestOptions,
   ILoginRequest,
@@ -46,7 +46,7 @@ import {
 
 export const registerThunk =
   ({ email, name, password }: IRegisterRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(registerRequestAction());
     console.log("registerThunk request");
 
@@ -69,7 +69,7 @@ export const registerThunk =
 
 export const loginThunk =
   ({ email, password }: ILoginRequest): AppThunk<Promise<ILoginResponse | void>> =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(loginRequestAction());
 
     const options: IRequestOptions = {
@@ -93,7 +93,7 @@ export const loginThunk =
 
 export const forgotPasswordThunk =
   ({ email }: IForgotPasswordRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(forgotPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -113,7 +113,7 @@ export const forgotPasswordThunk =
 
 export const resetPasswordThunk =
   ({ password, token }: IResetPasswordRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(resetPasswordRequestAction());
 
     const options: IRequestOptions = {
@@ -131,7 +131,7 @@ export const resetPasswordThunk =
       });
   };
 
-export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
+export const logoutThunk = (): AppThunk => (dispatch) => {
   dispatch(logoutRequestAction());
   const options: IRequestOptions = {
     method: "POST",
@@ -152,7 +152,7 @@ export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
 
 export const updateUserThunk =
   ({ user }: IUpdateUserRequest): AppThunk =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(updateUserRequestAction());
 
     const options: IRequestOptions = {
@@ -173,7 +173,7 @@ export const updateUserThunk =
       });
   };
 
-export const getUserThunk = (): AppThunk => (dispatch: AppDispatch) => {
+export const getUserThunk = (): AppThunk => (dispatch) => {
   dispatch(getUserRequestAction());
 
   const options = {
@@ -199,7 +199,7 @@ export const getUserThunk = (): AppThunk => (dispatch: AppDispatch) => {
 
 export const refreshTokenThunk =
   (afterRefresh: AppThunk): AppThunk<Promise<IRefreshTokenResponse | void>> =>
-  (dispatch: AppDispatch) => {
+  (dispatch) => {
     dispatch(refreshTokenRequestAction());
 
     const options: IRequestOptions = {

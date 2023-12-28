@@ -5,9 +5,9 @@ import {
   getIngredientsRequestAction,
   getIngredientsSuccessAction,
 } from "../actions/burger-ingredients";
-import { AppThunk, AppDispatch } from "../types";
+import { AppThunk } from "../types";
 
-export const getIngredientsThunk = (): AppThunk => (dispatch: AppDispatch) => {
+export const getIngredientsThunk = (): AppThunk => (dispatch) => {
   dispatch(getIngredientsRequestAction());
   return request<IGetIngredientsResponce>("ingredients")
     .then((res) => {
