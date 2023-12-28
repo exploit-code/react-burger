@@ -62,6 +62,11 @@ export const wsThunk = (wsURL: string): Middleware => {
         socket.send(JSON.stringify(payload));
       }
 
+      if (type === WS_CONNECTION_CLOSED && socket) {
+        socket.close();
+        socket = null;
+      }
+
       next(action);
     };
   }) as Middleware;
