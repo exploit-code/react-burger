@@ -40,7 +40,6 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
         ...state,
         connected: true,
         loading: false,
-        error: undefined,
         feedOrders: { ...state.feedOrders },
       };
 
@@ -49,7 +48,6 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
         ...state,
         connected: true,
         loading: false,
-        error: undefined,
         userOrders: { ...state.userOrders },
       };
 
@@ -76,6 +74,8 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
+        connected: false,
+        loading: false,
       };
 
     default:

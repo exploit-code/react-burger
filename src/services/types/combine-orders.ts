@@ -6,25 +6,25 @@ import {
 } from "../constants/combine-orders";
 import { IUseOrdersCombaine } from "../../utils/interfaces";
 
-export interface ICombineOrdersClearAction {
+export interface ICombineOrdersClear {
   readonly type: typeof COMBINE_ORDERS_CLEAR;
 }
 
-export interface ICombineOrdersUpdatedAction {
+export interface ICombineOrdersUpdated {
   readonly type: typeof COMBINE_ORDERS_UPDATED;
   readonly payload: IUseOrdersCombaine;
 }
 
-export interface ICombineOrdersErrorAction {
+export interface ICombineOrdersError {
   readonly type: typeof COMBINE_ORDERS_ERROR;
 }
 
-export interface ICombineOrdersCompliteAction {
+export interface ICombineOrdersComplite {
   readonly type: typeof COMBINE_ORDERS_COMPLITE;
 }
 
 export type TCombineOrdersUnionActions =
-  | ICombineOrdersClearAction
-  | ICombineOrdersUpdatedAction
-  | ICombineOrdersErrorAction
-  | ICombineOrdersCompliteAction;
+  | ICombineOrdersClear
+  | ICombineOrdersUpdated
+  | ICombineOrdersError
+  | ICombineOrdersComplite;

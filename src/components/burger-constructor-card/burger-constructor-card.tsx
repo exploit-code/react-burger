@@ -4,8 +4,8 @@ import { useDispatch } from "../../services/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/interfaces";
 import {
-  removeIngridientAction,
-  moveIngridientsAction,
+  removeIngridient,
+  moveIngridients,
 } from "../../services/actions/burger-constructor";
 
 export const BurgerConstructorCard = <T extends IConstructorIngredient>({
@@ -17,7 +17,7 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
 }) => {
   const dispatch = useDispatch();
   const removeIngredient = (ingredient: IConstructorIngredient) => {
-    dispatch(removeIngridientAction(ingredient));
+    dispatch(removeIngridient(ingredient));
   };
 
   const [, constructorIngredientDragRef] = useDrag({
@@ -34,7 +34,7 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
     hover(draggedItem: IConstructorDraggedItem<T> | undefined) {
       if (!draggedItem || draggedItem.index === index) return;
 
-      dispatch(moveIngridientsAction({ fromIndex: draggedItem.index, toIndex: index }));
+      dispatch(moveIngridients({ fromIndex: draggedItem.index, toIndex: index }));
 
       draggedItem.index = index;
     },

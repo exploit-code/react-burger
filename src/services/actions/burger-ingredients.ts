@@ -5,22 +5,20 @@ import {
   GET_INGREDIENTS_ERROR,
 } from "../constants/burger-ingredients";
 import {
-  IGetIngredientsErrorAction,
-  IGetIngredientsRequestAction,
-  IGetIngredientsSuccessAction,
+  IgetIngredientsError,
+  IgetIngredientsRequest,
+  IgetIngredientsSuccess,
 } from "../types/burger-ingredients";
 
-export const getIngredientsRequestAction = (): IGetIngredientsRequestAction => ({
+export const getIngredientsRequest = (): IgetIngredientsRequest => ({
   type: GET_INGREDIENTS_REQUEST,
 });
 
-export const getIngredientsSuccessAction = (
-  res: IGetIngredientsResponce
-): IGetIngredientsSuccessAction => ({
+export const getIngredientsSuccess = (res: IGetIngredientsResponce): IgetIngredientsSuccess => ({
   type: GET_INGREDIENTS_SUCCESS,
   payload: res,
 });
 
-export const getIngredientsErrorAction = (): IGetIngredientsErrorAction => ({
+export const getIngredientsError = (): IgetIngredientsError => ({
   type: GET_INGREDIENTS_ERROR,
 });

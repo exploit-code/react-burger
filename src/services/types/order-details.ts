@@ -7,20 +7,20 @@ export interface IStateOrderDetails {
   readonly error: boolean;
 }
 
-export interface IGetOrderRequestAction {
+export interface IGetOrderRequest {
   readonly type: typeof GET_ORDER_REQUEST;
 }
 
-export interface IGetOrderSuccessAction {
+export interface IGetOrderSuccess {
   readonly type: typeof GET_ORDER_SUCCESS;
   readonly payload: IGetOrderNumberRequest;
 }
 
-export interface IGetOrderErrorAction {
+export interface IGetOrderError {
   readonly type: typeof GET_ORDER_ERROR;
 }
 
 export type TOrderDetailsUnionActions =
-  | IGetOrderRequestAction
-  | IGetOrderSuccessAction
-  | IGetOrderErrorAction;
+  | IGetOrderRequest
+  | IGetOrderSuccess
+  | IGetOrderError;

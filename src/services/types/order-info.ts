@@ -11,20 +11,20 @@ export interface IStateOrderInfo {
   readonly error: boolean;
 }
 
-export interface IGetOrderInfoRequestAction {
+export interface IGetOrderInfoRequest {
   readonly type: typeof GET_ORDER_INFO_REQUEST;
 }
 
-export interface IGetOrderInfoSuccessAction {
+export interface IGetOrderInfoSuccess {
   readonly type: typeof GET_ORDER_INFO_SUCCESS;
   readonly payload: IRequestOrder;
 }
 
-export interface IGetOrderInfoErrorAction {
+export interface IGetOrderInfoError {
   readonly type: typeof GET_ORDER_INFO_ERROR;
 }
 
 export type TOrderInfoUnionActions =
-  | IGetOrderInfoRequestAction
-  | IGetOrderInfoSuccessAction
-  | IGetOrderInfoErrorAction;
+  | IGetOrderInfoRequest
+  | IGetOrderInfoSuccess
+  | IGetOrderInfoError;

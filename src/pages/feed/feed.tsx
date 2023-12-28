@@ -10,11 +10,11 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/consta
 import { useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
-import { setCurrentOrderAction } from "../../services/actions/current-order";
+import { setCurrentOrder } from "../../services/actions/current-order";
 import {
-  combineOrdersCompliteAction,
-  combineOrdersErrorAction,
-  combineOrdersUpdatedAction,
+  combineOrdersComplite,
+  combineOrdersError,
+  combineOrdersUpdated,
 } from "../../services/actions/combine-orders";
 
 export const FeedPage = () => {
@@ -42,19 +42,19 @@ export const FeedPage = () => {
   const pendingOrders = getOrdersByStatus("pending");
 
   const handleOrderClick = (order: IUpdatedOrder) => {
-    dispatch(setCurrentOrderAction(order));
+    dispatch(setCurrentOrder(order));
 
     navigate(`/feed/${order.number}`, { state: { background: location } });
   };
 
   useEffect(() => {
-    dispatch(combineOrdersUpdatedAction({ orders, data }));
+    dispatch(combineOrdersUpdated({ orders, data }));
     try {
       if (orders && data) {
-        dispatch(combineOrdersCompliteAction());
+        dispatch(combineOrdersComplite());
       }
     } catch {
-      dispatch(combineOrdersErrorAction());
+      dispatch(combineOrdersError());
     }
   }, [data, orders, dispatch]);
 

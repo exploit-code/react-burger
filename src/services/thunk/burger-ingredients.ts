@@ -1,19 +1,19 @@
 import { request } from "../../utils/api";
 import { IGetIngredientsResponce } from "../../utils/interfaces";
 import {
-  getIngredientsErrorAction,
-  getIngredientsRequestAction,
-  getIngredientsSuccessAction,
+  getIngredientsError,
+  getIngredientsRequest,
+  getIngredientsSuccess,
 } from "../actions/burger-ingredients";
 import { AppThunk } from "../types";
 
 export const getIngredientsThunk = (): AppThunk => (dispatch) => {
-  dispatch(getIngredientsRequestAction());
+  dispatch(getIngredientsRequest());
   return request<IGetIngredientsResponce>("ingredients")
     .then((res) => {
-      dispatch(getIngredientsSuccessAction(res));
+      dispatch(getIngredientsSuccess(res));
     })
     .catch(() => {
-      dispatch(getIngredientsErrorAction());
+      dispatch(getIngredientsError());
     });
 };

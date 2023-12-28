@@ -5,20 +5,20 @@ import {
   GET_INGREDIENTS_ERROR,
 } from "../constants/burger-ingredients";
 
-export interface IGetIngredientsRequestAction {
+export interface IgetIngredientsRequest {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
 
-export interface IGetIngredientsSuccessAction {
+export interface IgetIngredientsSuccess {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
   readonly payload: IGetIngredientsResponce;
 }
 
-export interface IGetIngredientsErrorAction {
+export interface IgetIngredientsError {
   readonly type: typeof GET_INGREDIENTS_ERROR;
 }
 
 export type TBurgerIngredientsUnionActions =
-  | IGetIngredientsRequestAction
-  | IGetIngredientsSuccessAction
-  | IGetIngredientsErrorAction;
+  | IgetIngredientsRequest
+  | IgetIngredientsSuccess
+  | IgetIngredientsError;

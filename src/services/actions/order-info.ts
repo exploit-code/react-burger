@@ -5,20 +5,20 @@ import {
   GET_ORDER_INFO_ERROR,
 } from "../constants/order-info";
 import {
-  IGetOrderInfoRequestAction,
-  IGetOrderInfoSuccessAction,
-  IGetOrderInfoErrorAction,
+  IGetOrderInfoRequest,
+  IGetOrderInfoSuccess,
+  IGetOrderInfoError,
 } from "../types/order-info";
 
-export const getOrderInfoRequestAction = (): IGetOrderInfoRequestAction => ({
+export const getOrderInfoRequest = (): IGetOrderInfoRequest => ({
   type: GET_ORDER_INFO_REQUEST,
 });
 
-export const getOrderInfoSuccessAction = (res: IRequestOrder): IGetOrderInfoSuccessAction => ({
+export const getOrderInfoSuccess = (res: IRequestOrder): IGetOrderInfoSuccess => ({
   type: GET_ORDER_INFO_SUCCESS,
   payload: res,
 });
 
-export const getOrderInfoErrorAction = (): IGetOrderInfoErrorAction => ({
+export const getOrderInfoError = (): IGetOrderInfoError => ({
   type: GET_ORDER_INFO_ERROR,
 });

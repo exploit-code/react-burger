@@ -7,13 +7,13 @@ import {
   MOVE_INGREDIENT,
 } from "../constants/burger-constructor";
 import {
-  IAddIngridientAction,
-  IMoveIngridientAction,
-  IRemoveAllIngridientAction,
-  IRemoveIngridientAction,
+  IAddIngridient,
+  IMoveIngridient,
+  IRemoveAllIngridient,
+  IRemoveIngridient,
 } from "../types/burger-constructor";
 
-export const addIngridientAction = (payload: IIngredient): IAddIngridientAction => {
+export const addIngridient = (payload: IIngredient): IAddIngridient => {
   return {
     type: ADD_INGREDIENT,
     payload: {
@@ -23,7 +23,7 @@ export const addIngridientAction = (payload: IIngredient): IAddIngridientAction 
   };
 };
 
-export const removeIngridientAction = (payload: IIngredient): IRemoveIngridientAction => {
+export const removeIngridient = (payload: IIngredient): IRemoveIngridient => {
   return {
     type: REMOVE_INGREDIENT,
     payload: {
@@ -32,13 +32,13 @@ export const removeIngridientAction = (payload: IIngredient): IRemoveIngridientA
   };
 };
 
-export const removeAllIngridientsAction = (): IRemoveAllIngridientAction => {
+export const removeAllIngridients = (): IRemoveAllIngridient => {
   return {
     type: REMOVE_ALL_INGREDIENTS,
   };
 };
 
-export const moveIngridientsAction = (payload: IMoveIngredient): IMoveIngridientAction => {
+export const moveIngridients = (payload: IMoveIngredient): IMoveIngridient => {
   return {
     type: MOVE_INGREDIENT,
     payload: {

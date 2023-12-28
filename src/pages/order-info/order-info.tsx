@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { getOrderInfoThunk } from "../../services/thunk/order-info";
-import { setCurrentOrderAction } from "../../services/actions/current-order";
+import { setCurrentOrder } from "../../services/actions/current-order";
 import {
-  combineOrdersCompliteAction,
-  combineOrdersErrorAction,
-  combineOrdersUpdatedAction,
+  combineOrdersComplite,
+  combineOrdersError,
+  combineOrdersUpdated,
 } from "../../services/actions/combine-orders";
 import { Loader } from "../../components/loader/loader";
 
@@ -23,7 +23,7 @@ export const OrderInfoPage = () => {
 
   useEffect(() => {
     if (foundOrder) {
-      dispatch(setCurrentOrderAction(foundOrder));
+      dispatch(setCurrentOrder(foundOrder));
     } else {
       if (number) dispatch(getOrderInfoThunk(number));
     }
@@ -31,11 +31,11 @@ export const OrderInfoPage = () => {
 
   useEffect(() => {
     if (requestOrder.number === Number(number)) {
-      dispatch(combineOrdersUpdatedAction({ orders: [requestOrder], data }));
+      dispatch(combineOrdersUpdated({ orders: [requestOrder], data }));
       try {
-        dispatch(combineOrdersCompliteAction());
+        dispatch(combineOrdersComplite());
       } catch {
-        dispatch(combineOrdersErrorAction());
+        dispatch(combineOrdersError());
       }
     }
   }, [dispatch, requestOrder, number, data]);

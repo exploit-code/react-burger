@@ -6,7 +6,7 @@ import { Modal } from "../modal/modal";
 import { Bun } from "../bun/bun";
 import { Checkout } from "../checkout/checkout";
 import { useDrop, DropTargetMonitor } from "react-dnd";
-import { addIngridientAction } from "../../services/actions/burger-constructor";
+import { addIngridient } from "../../services/actions/burger-constructor";
 import { useDispatch, useSelector } from "../../services/hooks/index";
 import { useModal } from "../../hooks/useModal";
 import { IConstructorIngredient } from "../../utils/interfaces";
@@ -22,7 +22,7 @@ export const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient: IConstructorIngredient) {
-      dispatch(addIngridientAction(ingredient));
+      dispatch(addIngridient(ingredient));
     },
   });
 

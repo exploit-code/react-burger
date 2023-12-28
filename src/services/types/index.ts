@@ -3,7 +3,7 @@ import { store } from "../store";
 import { TAuthUnionActions } from "./auth";
 import { TBurgerConstructorUnionActions } from "./burger-constructor";
 import { TBurgerIngredientsUnionActions } from "./burger-ingredients";
-import { TIngredientDetailsUnionActions } from "./ingredient-details";
+import { TIngredientDetailsUnionActions } from "./current-ingredient";
 import { TOrderDetailsUnionActions } from "./order-details";
 import { TWSUnionActions } from "./web-socket";
 import { TCurrentOrderUnionActions } from "./current-order";

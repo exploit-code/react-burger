@@ -1,5 +1,5 @@
-import { SET_CURRENT_INGREDIENT } from "../constants/ingredient-details";
-import { TIngredientDetailsUnionActions } from "../types/ingredient-details";
+import { SET_CURRENT_INGREDIENT } from "../constants/current-ingredient";
+import { TIngredientDetailsUnionActions } from "../types/current-ingredient";
 import { IIngredient } from "../../utils/interfaces";
 
 interface IStateCurrentIngredient {

@@ -6,27 +6,27 @@ import {
   MOVE_INGREDIENT,
 } from "../constants/burger-constructor";
 
-export interface IAddIngridientAction {
+export interface IAddIngridient {
   readonly type: typeof ADD_INGREDIENT;
   readonly payload: IConstructorIngredient;
 }
 
-export interface IRemoveIngridientAction {
+export interface IRemoveIngridient {
   readonly type: typeof REMOVE_INGREDIENT;
   readonly payload: IIngredient;
 }
 
-export interface IRemoveAllIngridientAction {
+export interface IRemoveAllIngridient {
   readonly type: typeof REMOVE_ALL_INGREDIENTS;
 }
 
-export interface IMoveIngridientAction {
+export interface IMoveIngridient {
   readonly type: typeof MOVE_INGREDIENT;
   readonly payload: IMoveIngredient;
 }
 
 export type TBurgerConstructorUnionActions =
-  | IAddIngridientAction
-  | IRemoveIngridientAction
-  | IRemoveAllIngridientAction
-  | IMoveIngridientAction;
+  | IAddIngridient
+  | IRemoveIngridient
+  | IRemoveAllIngridient
+  | IMoveIngridient;

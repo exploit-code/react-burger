@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { OrderCard } from "../../components/order-card/order-card";
 import { Loader } from "../../components/loader/loader";
-import { setCurrentOrderAction } from "../../services/actions/current-order";
+import { setCurrentOrder } from "../../services/actions/current-order";
 import {
-  combineOrdersCompliteAction,
-  combineOrdersErrorAction,
-  combineOrdersUpdatedAction,
+  combineOrdersComplite,
+  combineOrdersError,
+  combineOrdersUpdated,
 } from "../../services/actions/combine-orders";
 import { getCookie } from "../../utils/cookies";
 
@@ -35,16 +35,16 @@ export const ProfileOrdersPage = () => {
   }, [dispatch]);
 
   const handleOrderClick = (order: IUpdatedOrder) => {
-    dispatch(setCurrentOrderAction(order));
+    dispatch(setCurrentOrder(order));
     navigate(`/profile/orders/${order.number}`, { state: { background: location } });
   };
 
   useEffect(() => {
-    dispatch(combineOrdersUpdatedAction({ orders, data }));
+    dispatch(combineOrdersUpdated({ orders, data }));
     try {
-      dispatch(combineOrdersCompliteAction());
+      dispatch(combineOrdersComplite());
     } catch {
-      dispatch(combineOrdersErrorAction());
+      dispatch(combineOrdersError());
     }
   }, [data, orders, dispatch]);
 

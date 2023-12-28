@@ -2,21 +2,21 @@ import { request } from "../../utils/api";
 import { AppThunk } from "../types";
 import { IRequestOrder } from "../../utils/interfaces";
 import {
-  getOrderInfoRequestAction,
-  getOrderInfoSuccessAction,
-  getOrderInfoErrorAction,
+  getOrderInfoRequest,
+  getOrderInfoSuccess,
+  getOrderInfoError,
 } from "../actions/order-info";
 
 export const getOrderInfoThunk =
   (orderNumber: string): AppThunk =>
   (dispatch) => {
-    dispatch(getOrderInfoRequestAction());
+    dispatch(getOrderInfoRequest());
 
     request<IRequestOrder>(`orders/${orderNumber}`)
       .then((res) => {
-        dispatch(getOrderInfoSuccessAction(res));
+        dispatch(getOrderInfoSuccess(res));
       })
       .catch(() => {
-        dispatch(getOrderInfoErrorAction());
+        dispatch(getOrderInfoError());
       });
   };

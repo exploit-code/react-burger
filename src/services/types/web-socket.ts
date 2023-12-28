@@ -3,6 +3,7 @@ import { IOrder } from "../../utils/interfaces";
 export interface IStateWS {
   connected: boolean;
   loading: boolean;
+  error?: Event;
   feedOrders: {
     orders: IOrder[];
     success: boolean;
@@ -15,7 +16,6 @@ export interface IStateWS {
     total: number;
     totalToday: number;
   };
-  error?: Event;
 }
 
 import {
@@ -34,52 +34,52 @@ export interface IWSConnectPayload {
   readonly auth: boolean;
 }
 
-export interface IWSConnectStartAction {
+export interface IWSConnectStart {
   readonly type: typeof WS_CONNECTION_START;
   readonly payload: IWSConnectPayload;
 }
 
-export interface IWSConnectFeedSuccessAction {
+export interface IWSConnectFeedSuccess {
   readonly type: typeof WS_CONNECTION_FEED_SUCCESS;
   readonly payload: Event;
 }
 
-export interface IWSConnectUserSuccessAction {
+export interface IWSConnectUserSuccess {
   readonly type: typeof WS_CONNECTION_USER_SUCCESS;
   readonly payload: Event;
 }
 
-export interface IWSConnectErrorAction {
+export interface IWSConnectError {
   readonly type: typeof WS_CONNECTION_ERROR;
   readonly payload: Event;
 }
 
-export interface IWSGetFeedDataAction {
+export interface IWSGetFeedData {
   readonly type: typeof WS_GET_FEED_DATA;
   readonly payload: Event;
 }
 
-export interface IWSGetUserDataAction {
+export interface IWSGetUserData {
   readonly type: typeof WS_GET_USER_DATA;
   readonly payload: Event;
 }
 
-export interface IWSConnectionClosedAction {
+export interface IWSConnectionClosed {
   readonly type: typeof WS_CONNECTION_CLOSED;
   readonly payload?: Event;
 }
 
-export interface IWSSendDataAction {
+export interface IWSSendData {
   readonly type: typeof WS_SEND_DATA;
   readonly payload: Event;
 }
 
 export type TWSUnionActions =
-  | IWSConnectStartAction
-  | IWSConnectFeedSuccessAction
-  | IWSConnectUserSuccessAction
-  | IWSConnectErrorAction
-  | IWSGetFeedDataAction
-  | IWSGetUserDataAction
-  | IWSConnectionClosedAction
-  | IWSSendDataAction;
+  | IWSConnectStart
+  | IWSConnectFeedSuccess
+  | IWSConnectUserSuccess
+  | IWSConnectError
+  | IWSGetFeedData
+  | IWSGetUserData
+  | IWSConnectionClosed
+  | IWSSendData;
