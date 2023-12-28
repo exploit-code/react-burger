@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { getOrderInfoThunk } from "../../services/middleware/order-info";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 import {
-  combineOrdersClearAction,
   combineOrdersCompliteAction,
   combineOrdersErrorAction,
   combineOrdersUpdatedAction,
@@ -26,7 +25,7 @@ export const OrderInfoPage = () => {
     if (foundOrder) {
       dispatch(setCurrentOrderAction(foundOrder));
     } else {
-      dispatch(getOrderInfoThunk(number));
+      if (number) dispatch(getOrderInfoThunk(number));
     }
   }, [dispatch, number, foundOrder]);
 

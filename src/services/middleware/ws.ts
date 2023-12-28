@@ -20,8 +20,6 @@ export const wsThunk = (wsURL: string): Middleware => {
       const { dispatch } = store;
       const { type, payload } = action;
 
-      console.log(action);
-
       if (type === WS_CONNECTION_START) {
         const { path, auth } = payload;
         const endpoint: string = `${wsURL}${path}`;

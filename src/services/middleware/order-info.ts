@@ -1,6 +1,6 @@
 import { request } from "../../utils/api";
 import { AppThunk, AppDispatch } from "../types";
-import { IGetOrderNumberRequest, IRequestOptions } from "../../utils/interfaces";
+import { IRequestOrder } from "../../utils/interfaces";
 import {
   getOrderInfoRequestAction,
   getOrderInfoSuccessAction,
@@ -8,11 +8,11 @@ import {
 } from "../actions/order-info";
 
 export const getOrderInfoThunk =
-  (orderNumber: any): AppThunk =>
+  (orderNumber: string): AppThunk =>
   (dispatch: AppDispatch) => {
     dispatch(getOrderInfoRequestAction());
 
-    request<IGetOrderNumberRequest>(`orders/${orderNumber}`)
+    request<IRequestOrder>(`orders/${orderNumber}`)
       .then((res) => {
         dispatch(getOrderInfoSuccessAction(res));
       })

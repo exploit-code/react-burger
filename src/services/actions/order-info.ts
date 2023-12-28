@@ -1,3 +1,4 @@
+import { IRequestOrder } from "../../utils/interfaces";
 import {
   GET_ORDER_INFO_REQUEST,
   GET_ORDER_INFO_SUCCESS,
@@ -13,7 +14,7 @@ export const getOrderInfoRequestAction = (): IGetOrderInfoRequestAction => ({
   type: GET_ORDER_INFO_REQUEST,
 });
 
-export const getOrderInfoSuccessAction = (res: any): IGetOrderInfoSuccessAction => ({
+export const getOrderInfoSuccessAction = (res: IRequestOrder): IGetOrderInfoSuccessAction => ({
   type: GET_ORDER_INFO_SUCCESS,
   payload: res,
 });

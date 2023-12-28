@@ -171,13 +171,15 @@ export interface IOrdersProgressList {
 }
 
 export interface IOrder {
-  ingredients: string[];
   _id: string;
+  ingredients: string[];
+  owner: string;
   status: string;
-  number: number;
+  name: string;
   createdAt: string;
   updatedAt: string;
-  name: string;
+  number: number;
+  __v: number;
 }
 
 export interface IRequestOrder {

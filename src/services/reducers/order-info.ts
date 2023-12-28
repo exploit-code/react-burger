@@ -1,24 +1,30 @@
-import { IOrder, IRequestOrder } from "../../utils/interfaces";
 import {
   GET_ORDER_INFO_REQUEST,
   GET_ORDER_INFO_SUCCESS,
   GET_ORDER_INFO_ERROR,
 } from "../constants/order-info";
-import { TOrderInfoUnionActions } from "../types/order-info";
+import { TOrderInfoUnionActions, IStateOrderInfo } from "../types/order-info";
 
-export interface IStateOrderInfo {
-  readonly requestOrder: {};
-  readonly loading: boolean;
-  readonly error: boolean;
-}
-
-const initialState = {
-  requestOrder: {},
+const initialState: IStateOrderInfo = {
+  requestOrder: {
+    _id: "",
+    ingredients: [],
+    owner: "",
+    status: "",
+    name: "",
+    createdAt: "",
+    updatedAt: "",
+    number: 0,
+    __v: 0,
+  },
   loading: false,
   error: false,
 };
 
-export const orderInfo = (state = initialState, action: TOrderInfoUnionActions): any => {
+export const orderInfo = (
+  state = initialState,
+  action: TOrderInfoUnionActions
+): IStateOrderInfo => {
   switch (action.type) {
     case GET_ORDER_INFO_REQUEST:
       return {
@@ -27,7 +33,6 @@ export const orderInfo = (state = initialState, action: TOrderInfoUnionActions):
       };
 
     case GET_ORDER_INFO_SUCCESS:
-      // console.log("reducer orderInfo success:", action.payload);
       return {
         ...state,
         loading: false,

@@ -1,11 +1,5 @@
 import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants/order-details";
-import { TOrderDetailsUnionActions } from "../types/order-details";
-
-export interface IStateOrderDetails {
-  readonly order: number | null;
-  readonly loading: boolean;
-  readonly error: boolean;
-}
+import { TOrderDetailsUnionActions, IStateOrderDetails } from "../types/order-details";
 
 const initialState: IStateOrderDetails = {
   order: null,

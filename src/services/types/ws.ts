@@ -4,14 +4,14 @@ export interface IStateWS {
   connected: boolean;
   loading: boolean;
   feedOrders: {
-    success: boolean;
     orders: IOrder[];
+    success: boolean;
     total: number;
     totalToday: number;
   };
   userOrders: {
-    success: boolean;
     orders: IOrder[];
+    success: boolean;
     total: number;
     totalToday: number;
   };

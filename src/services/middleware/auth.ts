@@ -58,9 +58,8 @@ export const registerThunk =
 
     request<IRegisterResponse>("auth/register", options)
       .then((res) => {
-        const noExpirationDate = new Date("9999-01-01");
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-        setCookie("refreshToken", res.refreshToken, { expires: noExpirationDate });
+        setCookie("refreshToken", res.refreshToken);
         dispatch(registerSuccessAction(res));
       })
       .catch(() => {
@@ -83,9 +82,8 @@ export const loginThunk =
 
     return request<ILoginResponse>("auth/login", options)
       .then((res) => {
-        const noExpirationDate = new Date("9999-01-01");
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-        setCookie("refreshToken", res.refreshToken, { expires: noExpirationDate });
+        setCookie("refreshToken", res.refreshToken);
         dispatch(loginSuccessAction(res));
       })
       .catch(() => {
@@ -211,9 +209,8 @@ export const refreshTokenThunk =
 
     return request<IRefreshTokenResponse>("auth/token", options)
       .then((res) => {
-        const noExpirationDate = new Date("9999-01-01");
         setCookie("accessToken", res.accessToken.split("Bearer ")[1]);
-        setCookie("refreshToken", res.refreshToken, { expires: noExpirationDate });
+        setCookie("refreshToken", res.refreshToken);
         dispatch(refreshTokenSuccessAction());
         dispatch(afterRefresh);
       })

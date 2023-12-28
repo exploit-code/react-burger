@@ -13,40 +13,20 @@ const initialState: IStateWS = {
   connected: false,
   loading: false,
   feedOrders: {
+    orders: [],
     success: false,
     total: 0,
     totalToday: 0,
-    orders: [
-      {
-        ingredients: [],
-        _id: "",
-        status: "",
-        number: 0,
-        createdAt: "",
-        updatedAt: "",
-        name: "",
-      },
-    ],
   },
   userOrders: {
+    orders: [],
     success: false,
     total: 0,
     totalToday: 0,
-    orders: [
-      {
-        ingredients: [],
-        _id: "",
-        status: "",
-        number: 0,
-        createdAt: "",
-        updatedAt: "",
-        name: "",
-      },
-    ],
   },
 };
 
-export const ws = (state = initialState, action: TWSUnionActions) => {
+export const ws = (state = initialState, action: TWSUnionActions): IStateWS => {
   switch (action.type) {
     case WS_CONNECTION_START:
       return {

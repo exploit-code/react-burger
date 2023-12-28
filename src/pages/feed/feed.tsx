@@ -12,7 +12,6 @@ import { IOrder, IUpdatedOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 import {
-  combineOrdersClearAction,
   combineOrdersCompliteAction,
   combineOrdersErrorAction,
   combineOrdersUpdatedAction,
@@ -52,16 +51,11 @@ export const FeedPage = () => {
     dispatch(combineOrdersUpdatedAction({ orders, data }));
     try {
       if (orders && data) {
-        console.log("combineOrdersCompliteAction")
         dispatch(combineOrdersCompliteAction());
       }
     } catch {
       dispatch(combineOrdersErrorAction());
     }
-
-    // return () => {
-    //   dispatch(combineOrdersClearAction());
-    // };
   }, [data, orders, dispatch]);
 
   return loading || error ? (
