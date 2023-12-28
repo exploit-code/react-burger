@@ -142,6 +142,7 @@ export const logoutThunk = (): AppThunk => (dispatch: AppDispatch) => {
   request<ILogoutResponse>("auth/logout", options)
     .then((res) => {
       deleteCookie("accessToken");
+      deleteCookie("refreshToken");
       dispatch(logoutSuccessAction(res));
     })
     .catch(() => {
