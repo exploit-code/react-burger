@@ -10,35 +10,29 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/consta
 import { useSelector } from "../../services/hooks";
 import { IOrder, IUpdatedOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
-import { useOrdersCombaine } from "../../hooks/useOrdersCombaine";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
+import {
+  combineOrdersClearAction,
+  combineOrdersCompliteAction,
+  combineOrdersErrorAction,
+  combineOrdersUpdatedAction,
+} from "../../services/actions/combine-orders";
 
 export const FeedPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const { orders, total, totalToday } = useSelector((store) => store.ws.feedOrders);
+  const { data } = useSelector((store) => store.ingredients);
+  const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
+
   useEffect(() => {
     dispatch({ type: WS_CONNECTION_START, payload: { path: "/all", auth: false } });
-
     return () => {
       dispatch({ type: WS_CONNECTION_CLOSED });
     };
   }, [dispatch]);
-
-  const { orders, total, totalToday } = useSelector((store) => store.ws.feedOrders);
-  const { loading } = useSelector((store) => store.ws);
-  const { data } = useSelector((store) => store.ingredients);
-
-  const { upgradedOrders, upgradeOrders, setInitialOrders } = useOrdersCombaine({
-    orders,
-    data,
-  });
-
-  useEffect(() => {
-    upgradeOrders();
-    setInitialOrders((updatedOrders) => updatedOrders);
-  }, [upgradeOrders, setInitialOrders, orders, data]);
 
   const getOrdersByStatus = useCallback(
     (status: string) => orders.filter((item: IOrder) => item.status === status),
@@ -54,14 +48,30 @@ export const FeedPage = () => {
     navigate(`/feed/${order.number}`, { state: { background: location } });
   };
 
-  return loading ? (
-    <Loader text={"loading..."} />
+  useEffect(() => {
+    dispatch(combineOrdersUpdatedAction({ orders, data }));
+    try {
+      if (orders && data) {
+        console.log("combineOrdersCompliteAction")
+        dispatch(combineOrdersCompliteAction());
+      }
+    } catch {
+      dispatch(combineOrdersErrorAction());
+    }
+
+    // return () => {
+    //   dispatch(combineOrdersClearAction());
+    // };
+  }, [data, orders, dispatch]);
+
+  return loading || error ? (
+    <Loader text={loading ? "loading..." : "error"} />
   ) : (
     <section className={styles.feed_page}>
       <h1 className="text text_type_main-large pt-10 pb-5">Лента заказов</h1>
       <div className={styles.feed_page__content}>
         <ul className={styles.feed_page__list}>
-          {upgradedOrders.map((item) => (
+          {updatedOrders.map((item) => (
             <OrderCard
               order={item}
               key={item._id}

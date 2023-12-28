@@ -1,17 +1,15 @@
 import styles from "./burger-ingredients.module.scss";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
-import { useDispatch, useSelector } from "../../services/hooks";
+import { useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
-import { getIngredientsThunk } from "../../services/middleware/burger-ingredients";
 import { IIngredient } from "../../utils/interfaces";
 import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
-  const dispatch = useDispatch();
   const { loading, error, data } = useSelector((store) => store.ingredients);
 
   const bunItems: IIngredient[] = useMemo(
@@ -59,10 +57,6 @@ export const BurgerIngredients = memo(() => {
       else if (pos >= mainBox) setCurrent("main");
     }
   };
-
-  useEffect(() => {
-    dispatch(getIngredientsThunk());
-  }, [dispatch]);
 
   return (
     <>

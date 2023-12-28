@@ -20,6 +20,8 @@ export const wsThunk = (wsURL: string): Middleware => {
       const { dispatch } = store;
       const { type, payload } = action;
 
+      console.log(action);
+
       if (type === WS_CONNECTION_START) {
         const { path, auth } = payload;
         const endpoint: string = `${wsURL}${path}`;
@@ -43,7 +45,7 @@ export const wsThunk = (wsURL: string): Middleware => {
             const { data } = event;
             try {
               const parseData = JSON.parse(data);
-              dispatch({
+              return dispatch({
                 type: authorized ? WS_GET_USER_DATA : WS_GET_FEED_DATA,
                 payload: parseData,
               });

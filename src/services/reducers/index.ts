@@ -6,6 +6,8 @@ import { constructorIngredients } from "./burger-constructor";
 import { auth } from "./auth";
 import { ws } from "./ws";
 import { currentOrder } from "./current-order";
+import { orderInfo } from "./order-info";
+import { combineOrders } from "./combine-orders";
 
 export const rootReducer = combineReducers({
   ingredients,
@@ -15,4 +17,6 @@ export const rootReducer = combineReducers({
   auth,
   ws,
   currentOrder,
+  orderInfo,
+  combineOrders,
 });

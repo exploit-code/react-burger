@@ -4,9 +4,14 @@ import { GroupPreview } from "../group-preview/group-preview";
 import { IngredientPrice } from "../ingredient-price/ingredient-price";
 import classNames from "classnames";
 import { IOrderCard } from "../../utils/interfaces";
+import { useSelector } from "../../services/hooks";
+import { Loader } from "../loader/loader";
 
 export const OrderCard = ({ onClick, renderStatus, order }: IOrderCard) => {
-  return (
+  const { loading, error } = useSelector((store) => store.combineOrders);
+  return loading || error ? (
+    <Loader text={loading ? "loading..." : "error"} />
+  ) : (
     <li className={styles.order_card} onClick={() => onClick(order)}>
       <div className={styles.order_card__head}>
         <span className="text text_type_digits-default">#{order.number}</span>

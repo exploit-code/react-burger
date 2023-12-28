@@ -7,22 +7,21 @@ import { useDispatch, useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { OrderCard } from "../../components/order-card/order-card";
 import { Loader } from "../../components/loader/loader";
-import { useOrdersCombaine } from "../../hooks/useOrdersCombaine";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
+import {
+  combineOrdersCompliteAction,
+  combineOrdersErrorAction,
+  combineOrdersUpdatedAction,
+} from "../../services/actions/combine-orders";
 import { getCookie } from "../../utils/cookies";
 
 export const ProfileOrdersPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
   const { orders } = useSelector((store) => store.ws.userOrders);
-  const { loading } = useSelector((store) => store.ws);
   const { data } = useSelector((store) => store.ingredients);
-
-  const { upgradedOrders, upgradeOrders, setInitialOrders } = useOrdersCombaine({
-    orders,
-    data,
-  });
 
   useEffect(() => {
     dispatch({
@@ -35,16 +34,19 @@ export const ProfileOrdersPage = () => {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    upgradeOrders();
-    setInitialOrders((updatedOrders) => updatedOrders);
-  }, [upgradeOrders, setInitialOrders, orders, data]);
-
   const handleOrderClick = (order: IUpdatedOrder) => {
     dispatch(setCurrentOrderAction(order));
-
     navigate(`/profile/orders/${order.number}`, { state: { background: location } });
   };
+
+  useEffect(() => {
+    dispatch(combineOrdersUpdatedAction({ orders, data }));
+    try {
+      dispatch(combineOrdersCompliteAction());
+    } catch {
+      dispatch(combineOrdersErrorAction());
+    }
+  }, [data, orders, dispatch]);
 
   return (
     <section className={styles.profile_orders}>
@@ -55,10 +57,10 @@ export const ProfileOrdersPage = () => {
         </p>
       </div>
       <ul className={styles.profile_orders__list}>
-        {loading ? (
-          <Loader text={"loading..."} />
+        {loading || error ? (
+          <Loader text={loading ? "loading..." : "error"} />
         ) : (
-          upgradedOrders.map((item: IUpdatedOrder) => (
+          updatedOrders.map((item: IUpdatedOrder) => (
             <OrderCard order={item} key={item._id} onClick={handleOrderClick} renderStatus={true} />
           ))
         )}

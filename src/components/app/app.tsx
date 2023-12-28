@@ -15,15 +15,22 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details";
 import { Modal } from "../modal/modal";
 import { FeedPage } from "../../pages/feed/feed";
 import { OrderInfo } from "../order-info/order-info";
-import { FeedDetailsPage } from "../../pages/feed-details/feed-details";
-import { useSelector } from "../../services/hooks";
+import { OrderInfoPage } from "../../pages/order-info/order-info";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { useEffect } from "react";
+import { getIngredientsThunk } from "../../services/middleware/burger-ingredients";
 
 export const App = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   let background = location.state && location.state.background;
   const closeModal = () => navigate(-1);
   const { order } = useSelector((store) => store.currentOrder);
+
+  useEffect(() => {
+    dispatch(getIngredientsThunk());
+  }, [dispatch]);
 
   return (
     <>
@@ -58,10 +65,10 @@ export const App = () => {
           />
           <Route
             path="profile/orders/:number"
-            element={<ProtectedRouteElement children={<FeedDetailsPage />} anonymous={false} />}
+            element={<ProtectedRouteElement children={<OrderInfoPage />} anonymous={false} />}
           />
           <Route path="feed" element={<FeedPage />} />
-          <Route path="feed/:number" element={<FeedDetailsPage />} />
+          <Route path="feed/:number" element={<OrderInfoPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

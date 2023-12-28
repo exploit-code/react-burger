@@ -9,7 +9,7 @@ import { AppThunk, AppDispatch } from "../types";
 
 export const getIngredientsThunk = (): AppThunk => (dispatch: AppDispatch) => {
   dispatch(getIngredientsRequestAction());
-  request<IGetIngredientsResponce>("ingredients")
+  return request<IGetIngredientsResponce>("ingredients")
     .then((res) => {
       dispatch(getIngredientsSuccessAction(res));
     })
