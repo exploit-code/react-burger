@@ -4,8 +4,8 @@ import { IIngredientUpgrade } from "../../utils/interfaces";
 
 export const GroupPreview = ({ ingredients }: { ingredients: IIngredientUpgrade[] }) => {
   const displayLimit: number = 5;
-  const renderedIngredients: IIngredientUpgrade[] = ingredients.slice(0, displayLimit);
-  const remainingCount: number = Math.max(0, ingredients.length - displayLimit);
+  const renderedIngredients = ingredients.slice(0, displayLimit);
+  const remainingCount = Math.max(0, ingredients.length - displayLimit);
 
   return (
     <div className={styles.group_preview}>

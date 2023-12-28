@@ -7,7 +7,7 @@ const initialState: IStateOrderDetails = {
   error: false,
 };
 
-export const order = (
+export const orderDetails = (
   state = initialState,
   action: TOrderDetailsUnionActions
 ): IStateOrderDetails => {

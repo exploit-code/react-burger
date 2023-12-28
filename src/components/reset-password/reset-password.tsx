@@ -3,7 +3,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { resetPasswordThunk } from "../../services/middleware/auth";
+import { resetPasswordThunk } from "../../services/thunk/auth";
 
 export const ResetPassword = () => {
   const dispatch = useDispatch();

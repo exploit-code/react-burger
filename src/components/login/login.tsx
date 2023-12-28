@@ -7,7 +7,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch } from "../../services/hooks";
-import { loginThunk } from "../../services/middleware/auth";
+import { loginThunk } from "../../services/thunk/auth";
 
 export const Login = () => {
   const dispatch = useDispatch();

@@ -10,20 +10,10 @@ import { IIngredient } from "../../utils/interfaces";
 import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
-  const { loading, error, data } = useSelector((store) => store.ingredients);
-
-  const bunItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "bun"),
-    [data]
-  );
-  const sauceItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "sauce"),
-    [data]
-  );
-  const mainItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "main"),
-    [data]
-  );
+  const { loading, error, data } = useSelector((store) => store.burgerIngredients);
+  const bunItems = useMemo(() => data.filter((item) => item.type === "bun"), [data]);
+  const sauceItems = useMemo(() => data.filter((item) => item.type === "sauce"), [data]);
+  const mainItems = useMemo(() => data.filter((item) => item.type === "main"), [data]);
   const bunBoxRef = useRef<HTMLDivElement>(null);
   const sauceBoxRef = useRef<HTMLDivElement>(null);
   const mainBoxRef = useRef<HTMLDivElement>(null);

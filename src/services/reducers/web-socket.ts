@@ -6,8 +6,8 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_FEED_DATA,
   WS_GET_USER_DATA,
-} from "../constants/ws";
-import { TWSUnionActions, IStateWS } from "../types/ws";
+} from "../constants/web-socket";
+import { TWSUnionActions, IStateWS } from "../types/web-socket";
 
 const initialState: IStateWS = {
   connected: false,
@@ -26,7 +26,7 @@ const initialState: IStateWS = {
   },
 };
 
-export const ws = (state = initialState, action: TWSUnionActions): IStateWS => {
+export const webSocket = (state = initialState, action: TWSUnionActions): IStateWS => {
   switch (action.type) {
     case WS_CONNECTION_START:
       return {

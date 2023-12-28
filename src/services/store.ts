@@ -3,7 +3,7 @@ import { rootReducer } from "./reducers";
 import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import thunk from "redux-thunk";
-import { wsThunk } from "./middleware/ws";
+import { socketMiddleware } from "./middleware/web-socket";
 
 const persistConfig = {
   key: "app",
@@ -14,7 +14,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk, wsThunk("wss://norma.nomoreparties.space/orders")],
+  middleware: [thunk, socketMiddleware("wss://norma.nomoreparties.space/orders")],
 });
 
 export const persistor = persistStore(store);

@@ -8,7 +8,7 @@ import {
 import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { registerThunk } from "../../services/middleware/auth";
+import { registerThunk } from "../../services/thunk/auth";
 
 export const Register = () => {
   const dispatch = useDispatch();

@@ -5,10 +5,10 @@ import { OrdersProgressList } from "../../components/orders-progress-list/orders
 import { OrderCard } from "../../components/order-card/order-card";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants/ws";
+import { useDispatch } from "../../services/hooks";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants/web-socket";
 import { useSelector } from "../../services/hooks";
-import { IOrder, IUpdatedOrder } from "../../utils/interfaces";
+import { IUpdatedOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 import {
@@ -22,8 +22,8 @@ export const FeedPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { orders, total, totalToday } = useSelector((store) => store.ws.feedOrders);
-  const { data } = useSelector((store) => store.ingredients);
+  const { orders, total, totalToday } = useSelector((store) => store.webSocket.feedOrders);
+  const { data } = useSelector((store) => store.burgerIngredients);
   const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const FeedPage = () => {
   }, [dispatch]);
 
   const getOrdersByStatus = useCallback(
-    (status: string) => orders.filter((item: IOrder) => item.status === status),
+    (status: string) => orders.filter((item) => item.status === status),
     [orders]
   );
 

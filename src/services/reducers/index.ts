@@ -1,22 +1,22 @@
 import { combineReducers } from "redux";
-import { ingredients } from "./burger-ingredients";
-import { currentIngredient } from "./ingredient-details";
-import { order } from "./order-details";
-import { constructorIngredients } from "./burger-constructor";
+import { burgerIngredients } from "./burger-ingredients";
+import { currentIngredient } from "./current-ingredient";
+import { orderDetails } from "./order-details";
+import { burgerConstructor } from "./burger-constructor";
 import { auth } from "./auth";
-import { ws } from "./ws";
+import { webSocket } from "./web-socket";
 import { currentOrder } from "./current-order";
 import { orderInfo } from "./order-info";
 import { combineOrders } from "./combine-orders";
 
 export const rootReducer = combineReducers({
-  ingredients,
+  burgerIngredients,
+  burgerConstructor,
   currentIngredient,
-  order,
-  constructorIngredients,
-  auth,
-  ws,
+  orderDetails,
   currentOrder,
   orderInfo,
+  auth,
+  webSocket,
   combineOrders,
 });

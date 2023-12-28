@@ -18,7 +18,7 @@ const initialState: IStateIngredients = {
   error: false,
 };
 
-export const ingredients = (
+export const burgerIngredients = (
   state = initialState,
   action: TBurgerIngredientsUnionActions
 ): IStateIngredients => {

@@ -4,7 +4,7 @@ import { NotFoundPage } from "../not-found/not-found";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { getOrderInfoThunk } from "../../services/middleware/order-info";
+import { getOrderInfoThunk } from "../../services/thunk/order-info";
 import { setCurrentOrderAction } from "../../services/actions/current-order";
 import {
   combineOrdersCompliteAction,
@@ -16,7 +16,7 @@ import { Loader } from "../../components/loader/loader";
 export const OrderInfoPage = () => {
   const dispatch = useDispatch();
   const { number } = useParams<string>();
-  const { data } = useSelector((store) => store.ingredients);
+  const { data } = useSelector((store) => store.burgerIngredients);
   const { requestOrder } = useSelector((store) => store.orderInfo);
   const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
   const foundOrder = updatedOrders.find((order) => order.number === Number(number));

@@ -17,7 +17,7 @@ const initialState: IStateConstructorIngredients = {
   ingredients: [],
 };
 
-export const constructorIngredients = (
+export const burgerConstructor = (
   state = initialState,
   action: TBurgerConstructorUnionActions
 ): IStateConstructorIngredients => {

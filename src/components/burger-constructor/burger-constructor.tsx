@@ -13,7 +13,7 @@ import { IConstructorIngredient } from "../../utils/interfaces";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { ingredients, bun } = useSelector((store) => store.burgerConstructor);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const [{ isHover }, ingredientsRef] = useDrop({

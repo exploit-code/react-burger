@@ -2,7 +2,7 @@ import styles from "./profile-orders.module.scss";
 import { SiteBar } from "../../components/sidebar/sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/ws";
+import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/web-socket";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { OrderCard } from "../../components/order-card/order-card";
@@ -20,8 +20,8 @@ export const ProfileOrdersPage = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
-  const { orders } = useSelector((store) => store.ws.userOrders);
-  const { data } = useSelector((store) => store.ingredients);
+  const { orders } = useSelector((store) => store.webSocket.userOrders);
+  const { data } = useSelector((store) => store.burgerIngredients);
 
   useEffect(() => {
     dispatch({

@@ -9,10 +9,10 @@ import {
   WS_GET_FEED_DATA,
   WS_SEND_DATA,
   WS_GET_USER_DATA,
-} from "../constants/ws";
-import { TWSUnionActions } from "../types/ws";
+} from "../constants/web-socket";
+import { TWSUnionActions } from "../types/web-socket";
 
-export const wsThunk = (wsURL: string): Middleware => {
+export const socketMiddleware = (wsURL: string): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>): AppThunk => {
     let socket: WebSocket | null = null;
 

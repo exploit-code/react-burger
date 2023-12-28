@@ -5,7 +5,8 @@ import { useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
 
 export const OrderDetails = () => {
-  const { order, loading, error } = useSelector((store) => store.order);
+  const { order, loading, error } = useSelector((store) => store.orderDetails);
+
   return (
     <>
       {loading || error ? (

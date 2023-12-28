@@ -8,7 +8,7 @@ import { IIngredient } from "../../utils/interfaces";
 
 export const IngredientPage = () => {
   const { id } = useParams<string>();
-  const { data } = useSelector((store) => store.ingredients);
+  const { data } = useSelector((store) => store.burgerIngredients);
   const viewIngredient: IIngredient | undefined = useMemo(
     () => data.find((el: IIngredient) => el._id === id),
     [data, id]

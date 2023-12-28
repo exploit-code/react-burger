@@ -5,15 +5,11 @@ import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../../pages/not-found/not-found";
 import { useMemo } from "react";
-import { IIngredient } from "../../utils/interfaces";
 
 export const IngredientDetails = () => {
   const { id } = useParams<string>();
-  const { data } = useSelector((store) => store.ingredients);
-  const viewIngredient: IIngredient | undefined = useMemo(
-    () => data.find((el: IIngredient) => el._id === id),
-    [data, id]
-  );
+  const { data } = useSelector((store) => store.burgerIngredients);
+  const viewIngredient = useMemo(() => data.find((item) => item._id === id), [data, id]);
 
   return viewIngredient ? (
     <section className={cn(styles.ingredient_details)}>

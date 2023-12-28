@@ -17,7 +17,7 @@ import { FeedPage } from "../../pages/feed/feed";
 import { OrderInfo } from "../order-info/order-info";
 import { OrderInfoPage } from "../../pages/order-info/order-info";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getIngredientsThunk } from "../../services/middleware/burger-ingredients";
+import { getIngredientsThunk } from "../../services/thunk/burger-ingredients";
 import { useEffect } from "react";
 
 export const App = () => {

@@ -4,7 +4,7 @@ import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-c
 import { memo } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { useLocation, useNavigate } from "react-router-dom";
-import { setCurrentIngredientThunk } from "../../services/middleware/ingredient-details";
+import { setCurrentIngredientThunk } from "../../services/thunk/ingredient-details";
 import { useDrag } from "react-dnd";
 import { IIngredient } from "../../utils/interfaces";
 
@@ -13,11 +13,9 @@ export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredi
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { ingredients, bun } = useSelector((store) => store.burgerConstructor);
   const allConstructorIngredients = [...ingredients, bun];
-  const count: number = allConstructorIngredients.filter(
-    (item) => item?._id === ingredient._id
-  ).length;
+  const count = allConstructorIngredients.filter((item) => item?._id === ingredient._id).length;
 
   const handleIngredientClick = () => {
     dispatch(setCurrentIngredientThunk(ingredient));

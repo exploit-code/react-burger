@@ -1,15 +1,15 @@
 import { Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./checkout.module.scss";
 import { useDispatch, useSelector } from "../../services/hooks";
-import { getOrderNumberThunk } from "../../services/middleware/order-details";
+import { getOrderNumberThunk } from "../../services/thunk/order-details";
 import { useNavigate } from "react-router-dom";
-import { IConstructorIngredient, IUseModal, IIngredientID } from "../../utils/interfaces";
+import { IUseModal, IIngredientID } from "../../utils/interfaces";
 import { useCallback } from "react";
 
 export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { ingredients, bun } = useSelector((store) => store.constructorIngredients);
+  const { ingredients, bun } = useSelector((store) => store.burgerConstructor);
   const { authorized } = useSelector((store) => store.auth);
 
   const allConstructorIngredients = useCallback(() => {
@@ -29,12 +29,9 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
     } else navigate("/login");
   };
 
-  const ingredientsPrice = ingredients.reduce(
-    (acc: number, item: IConstructorIngredient) => acc + item.price,
-    0
-  );
-  const bunPrice: number = bun ? bun.price : 0;
-  const totalPrice: number = ingredientsPrice + bunPrice * 2;
+  const ingredientsPrice = ingredients.reduce((acc, item) => acc + item.price, 0);
+  const bunPrice = bun ? bun.price : 0;
+  const totalPrice = ingredientsPrice + bunPrice * 2;
 
   return (
     <div className={styles.checkout}>

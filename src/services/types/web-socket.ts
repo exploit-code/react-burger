@@ -27,7 +27,7 @@ import {
   WS_GET_FEED_DATA,
   WS_SEND_DATA,
   WS_GET_USER_DATA,
-} from "../constants/ws";
+} from "../constants/web-socket";
 
 export interface IWSConnectPayload {
   readonly path: string;

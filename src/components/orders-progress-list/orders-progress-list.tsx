@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import styles from "./orders-progress-list.module.scss";
-import { IOrder, IOrdersProgressList } from "../../utils/interfaces";
+import { IOrdersProgressList } from "../../utils/interfaces";
 
 export const OrdersProgressList = ({ title, list, success }: IOrdersProgressList) => {
   const columns: "one" | "two" | "three" =
@@ -15,7 +15,7 @@ export const OrdersProgressList = ({ title, list, success }: IOrdersProgressList
           styles[`orders_progress_list__list_column_${columns}`]
         )}
       >
-        {list.map((item: IOrder) => (
+        {list.map((item) => (
           <li
             key={item._id}
             className={classNames(

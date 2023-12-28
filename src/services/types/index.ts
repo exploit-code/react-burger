@@ -5,7 +5,7 @@ import { TBurgerConstructorUnionActions } from "./burger-constructor";
 import { TBurgerIngredientsUnionActions } from "./burger-ingredients";
 import { TIngredientDetailsUnionActions } from "./ingredient-details";
 import { TOrderDetailsUnionActions } from "./order-details";
-import { TWSUnionActions } from "./ws";
+import { TWSUnionActions } from "./web-socket";
 import { TCurrentOrderUnionActions } from "./current-order";
 import { TOrderInfoUnionActions } from "./order-info";
 import { TCombineOrdersUnionActions } from "./combine-orders";

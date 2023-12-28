@@ -9,6 +9,7 @@ import { Loader } from "../loader/loader";
 
 export const OrderCard = ({ onClick, renderStatus, order }: IOrderCard) => {
   const { loading, error } = useSelector((store) => store.combineOrders);
+
   return loading || error ? (
     <Loader text={loading ? "loading..." : "error"} />
   ) : (
