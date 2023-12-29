@@ -3,12 +3,12 @@ import { store } from "../store";
 import { TAuthUnionActions } from "./auth";
 import { TBurgerConstructorUnionActions } from "./burger-constructor";
 import { TBurgerIngredientsUnionActions } from "./burger-ingredients";
-import { TIngredientDetailsUnionActions } from "./current-ingredient";
+import { TCurrentIngredientUnionActions } from "./current-ingredient";
 import { TOrderDetailsUnionActions } from "./order-details";
-import { TWSUnionActions } from "./web-socket";
 import { TCurrentOrderUnionActions } from "./current-order";
 import { TOrderInfoUnionActions } from "./order-info";
 import { TCombineOrdersUnionActions } from "./combine-orders";
+import { TWSUnionActions } from "./web-socket";
 
 export type RootState = ReturnType<typeof store.getState>;
 
@@ -16,12 +16,12 @@ type TApplicationActions =
   | TAuthUnionActions
   | TBurgerConstructorUnionActions
   | TBurgerIngredientsUnionActions
-  | TIngredientDetailsUnionActions
+  | TCurrentIngredientUnionActions
   | TOrderDetailsUnionActions
-  | TWSUnionActions
   | TCurrentOrderUnionActions
   | TOrderInfoUnionActions
-  | TCombineOrdersUnionActions;
+  | TCombineOrdersUnionActions
+  | TWSUnionActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

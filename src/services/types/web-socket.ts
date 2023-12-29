@@ -1,85 +1,84 @@
+import {
+  WS_CONNECTION_FEED_START,
+  WS_CONNECTION_USER_START,
+  WS_CONNECTION_FEED_SUCCESS,
+  WS_CONNECTION_USER_SUCCESS,
+  WS_CONNECTION_FEED_ERROR,
+  WS_CONNECTION_USER_ERROR,
+  WS_CONNECTION_FEED_CLOSED,
+  WS_CONNECTION_USER_CLOSED,
+  WS_GET_FEED_DATA,
+  WS_GET_USER_DATA,
+} from "../constants/web-socket";
 import { IOrder } from "../../utils/interfaces";
 
-export interface IStateWS {
+export interface IWSState {
   connected: boolean;
   loading: boolean;
   error?: Event;
   feedOrders: {
-    orders: IOrder[];
     success: boolean;
+    orders: IOrder[];
     total: number;
     totalToday: number;
   };
   userOrders: {
-    orders: IOrder[];
     success: boolean;
+    orders: IOrder[];
     total: number;
     totalToday: number;
   };
 }
 
-import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_FEED_SUCCESS,
-  WS_CONNECTION_USER_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_FEED_DATA,
-  WS_SEND_DATA,
-  WS_GET_USER_DATA,
-} from "../constants/web-socket";
-
-export interface IWSConnectPayload {
-  readonly path: string;
-  readonly auth: boolean;
+export interface IWSConnectFeedStart {
+  readonly type: typeof WS_CONNECTION_FEED_START;
 }
-
-export interface IWSConnectStart {
-  readonly type: typeof WS_CONNECTION_START;
-  readonly payload: IWSConnectPayload;
+export interface IWSConnectUserStart {
+  readonly type: typeof WS_CONNECTION_USER_START;
 }
 
 export interface IWSConnectFeedSuccess {
   readonly type: typeof WS_CONNECTION_FEED_SUCCESS;
-  readonly payload: Event;
 }
-
 export interface IWSConnectUserSuccess {
   readonly type: typeof WS_CONNECTION_USER_SUCCESS;
-  readonly payload: Event;
 }
 
-export interface IWSConnectError {
-  readonly type: typeof WS_CONNECTION_ERROR;
+export interface IWSConnectFeedError {
+  readonly type: typeof WS_CONNECTION_FEED_ERROR;
+  readonly payload: Event;
+}
+export interface IWSConnectUserError {
+  readonly type: typeof WS_CONNECTION_USER_ERROR;
   readonly payload: Event;
 }
 
 export interface IWSGetFeedData {
   readonly type: typeof WS_GET_FEED_DATA;
-  readonly payload: Event;
+  payload: IOrder[];
 }
 
 export interface IWSGetUserData {
   readonly type: typeof WS_GET_USER_DATA;
-  readonly payload: Event;
+  payload: IOrder[];
 }
 
-export interface IWSConnectionClosed {
-  readonly type: typeof WS_CONNECTION_CLOSED;
-  readonly payload?: Event;
+export interface IWSConnectionFeedClosed {
+  readonly type: typeof WS_CONNECTION_FEED_CLOSED;
 }
 
-export interface IWSSendData {
-  readonly type: typeof WS_SEND_DATA;
-  readonly payload: Event;
+export interface IWSConnectionUserClosed {
+  readonly type: typeof WS_CONNECTION_USER_CLOSED;
 }
 
 export type TWSUnionActions =
-  | IWSConnectStart
+  | IWSConnectFeedStart
+  | IWSConnectUserStart
   | IWSConnectFeedSuccess
   | IWSConnectUserSuccess
-  | IWSConnectError
+  | IWSConnectFeedError
+  | IWSConnectUserError
   | IWSGetFeedData
   | IWSGetUserData
-  | IWSConnectionClosed
-  | IWSSendData;
+  | IWSConnectionFeedClosed
+  | IWSConnectionUserClosed;

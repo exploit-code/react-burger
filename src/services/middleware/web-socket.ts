@@ -1,64 +1,67 @@
 import type { Middleware, MiddlewareAPI } from "redux";
-import type { AppDispatch, AppThunk, RootState } from "../types";
-
+import { getCookie } from "../../utils/cookies";
 import { TWSUnionActions } from "../types/web-socket";
 
-export const socketMiddleware = (wsURL: string): Middleware => {
-  return ((store: MiddlewareAPI<AppDispatch, RootState>): AppThunk => {
+export type TWsActions = {
+  wsInit: string;
+  wsOpen: string;
+  wsMessage: string;
+  wsClose: string;
+  wsError: string;
+};
+
+export const socketMiddleware: (
+  wsActions: TWsActions,
+  wsURL: string,
+  wsAuth: boolean
+) => Middleware = (wsActions: TWsActions, wsURL: string, wsAuth: boolean) => {
+  return (store: MiddlewareAPI) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action: TWSUnionActions) => {
       const { dispatch } = store;
-      const { type, payload } = action;
+      const { type } = action;
+      const { wsInit, wsOpen, wsMessage, wsClose, wsError } = wsActions;
 
-      // if (type === WS_CONNECTION_START) {
-      //   const { path, auth } = payload;
-      //   const endpoint: string = `${wsURL}${path}`;
-      //   const authorized: boolean = auth;
+      if (type === wsInit && !socket) {
+        if (wsAuth) socket = new WebSocket(`${wsURL}?token=${getCookie("accessToken")}`);
+        else socket = new WebSocket(wsURL);
 
-      //   socket = new WebSocket(endpoint);
+        if (socket) {
+          socket.onopen = (event) => {
+            dispatch({ type: wsOpen, payload: event });
+          };
 
-      //   if (socket) {
-      //     socket.onopen = (event: Event) => {
-      //       dispatch({
-      //         type: authorized ? WS_CONNECTION_USER_SUCCESS : WS_CONNECTION_FEED_SUCCESS,
-      //         payload: event,
-      //       });
-      //     };
+          socket.onerror = (event: Event) => {
+            dispatch({ type: wsError, payload: event });
+          };
 
-      //     socket.onerror = (event: Event) => {
-      //       dispatch({ type: WS_CONNECTION_ERROR, payload: event });
-      //     };
+          socket.onmessage = (event: MessageEvent<string>) => {
+            const { data } = event;
+            try {
+              const parseData = JSON.parse(data);
+              return dispatch({
+                type: wsMessage,
+                payload: parseData,
+              });
+            } catch {
+              dispatch({ type: wsError, payload: event });
+            }
+          };
 
-      //     socket.onmessage = (event: MessageEvent<string>) => {
-      //       const { data } = event;
-      //       try {
-      //         const parseData = JSON.parse(data);
-      //         return dispatch({
-      //           type: authorized ? WS_GET_USER_DATA : WS_GET_FEED_DATA,
-      //           payload: parseData,
-      //         });
-      //       } catch {
-      //         dispatch({ type: WS_CONNECTION_ERROR, payload: event });
-      //       }
-      //     };
+          socket.onclose = (event: CloseEvent) => {
+            dispatch({ type: wsClose, payload: event });
+            socket = null;
+          };
+        }
+      }
 
-      //     socket.onclose = (event: CloseEvent) => {
-      //       dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
-      //     };
-      //   }
-      // }
-
-      // if (type === WS_SEND_DATA && socket && payload) {
-      //   socket.send(JSON.stringify(payload));
-      // }
-
-      // if (type === WS_CONNECTION_CLOSED && socket) {
-      //   socket.close();
-      //   socket = null;
-      // }
+      if (type === wsClose && socket) {
+        socket.close();
+        socket = null;
+      }
 
       next(action);
     };
-  }) as Middleware;
+  };
 };

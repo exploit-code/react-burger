@@ -2,7 +2,6 @@ import styles from "./profile-orders.module.scss";
 import { SiteBar } from "../../components/sidebar/sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { WS_CONNECTION_START, WS_CONNECTION_CLOSED } from "../../services/constants/web-socket";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { OrderCard } from "../../components/order-card/order-card";
@@ -13,7 +12,7 @@ import {
   combineOrdersError,
   combineOrdersUpdated,
 } from "../../services/actions/combine-orders";
-import { getCookie } from "../../utils/cookies";
+import { wsConnectionUserClosed, wsConnectionUserStart } from "../../services/actions/web-socket";
 
 export const ProfileOrdersPage = () => {
   const navigate = useNavigate();
@@ -24,13 +23,10 @@ export const ProfileOrdersPage = () => {
   const { data } = useSelector((store) => store.burgerIngredients);
 
   useEffect(() => {
-    dispatch({
-      type: WS_CONNECTION_START,
-      payload: { path: `?token=${getCookie("accessToken")}`, auth: true },
-    });
+    dispatch(wsConnectionUserStart());
 
     return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED });
+      dispatch(wsConnectionUserClosed());
     };
   }, [dispatch]);
 

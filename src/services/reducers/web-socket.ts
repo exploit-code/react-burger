@@ -1,15 +1,18 @@
 import {
-  WS_CONNECTION_START,
+  WS_CONNECTION_FEED_START,
+  WS_CONNECTION_USER_START,
   WS_CONNECTION_FEED_SUCCESS,
   WS_CONNECTION_USER_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
   WS_GET_FEED_DATA,
   WS_GET_USER_DATA,
+  WS_CONNECTION_FEED_ERROR,
+  WS_CONNECTION_USER_ERROR,
+  WS_CONNECTION_FEED_CLOSED,
+  WS_CONNECTION_USER_CLOSED,
 } from "../constants/web-socket";
-import { TWSUnionActions, IStateWS } from "../types/web-socket";
+import { IWSState, TWSUnionActions } from "../types/web-socket";
 
-const initialState: IStateWS = {
+const initialState: IWSState = {
   connected: false,
   loading: false,
   feedOrders: {
@@ -26,9 +29,16 @@ const initialState: IStateWS = {
   },
 };
 
-export const webSocket = (state = initialState, action: TWSUnionActions): IStateWS => {
+export const webSocket = (state = initialState, action: TWSUnionActions): IWSState => {
   switch (action.type) {
-    case WS_CONNECTION_START:
+    case WS_CONNECTION_FEED_START:
+      return {
+        ...state,
+        connected: true,
+        loading: true,
+      };
+
+    case WS_CONNECTION_USER_START:
       return {
         ...state,
         connected: true,
@@ -40,7 +50,6 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
         ...state,
         connected: true,
         loading: false,
-        feedOrders: { ...state.feedOrders },
       };
 
     case WS_CONNECTION_USER_SUCCESS:
@@ -48,15 +57,22 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
         ...state,
         connected: true,
         loading: false,
-        userOrders: { ...state.userOrders },
       };
 
-    case WS_CONNECTION_ERROR:
+    case WS_CONNECTION_FEED_ERROR:
       return {
         ...state,
-        error: action.payload,
         loading: false,
         connected: false,
+        error: action.payload,
+      };
+
+    case WS_CONNECTION_USER_ERROR:
+      return {
+        ...state,
+        loading: false,
+        connected: false,
+        error: action.payload,
       };
 
     case WS_GET_FEED_DATA:
@@ -71,7 +87,14 @@ export const webSocket = (state = initialState, action: TWSUnionActions): IState
         userOrders: { ...state.userOrders, ...action.payload },
       };
 
-    case WS_CONNECTION_CLOSED:
+    case WS_CONNECTION_FEED_CLOSED:
+      return {
+        ...state,
+        connected: false,
+        loading: false,
+      };
+
+    case WS_CONNECTION_USER_CLOSED:
       return {
         ...state,
         connected: false,

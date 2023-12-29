@@ -6,7 +6,6 @@ import { OrderCard } from "../../components/order-card/order-card";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "../../services/hooks";
-import { WS_CONNECTION_CLOSED, WS_CONNECTION_START } from "../../services/constants/web-socket";
 import { useSelector } from "../../services/hooks";
 import { IUpdatedOrder } from "../../utils/interfaces";
 import { Loader } from "../../components/loader/loader";
@@ -16,6 +15,7 @@ import {
   combineOrdersError,
   combineOrdersUpdated,
 } from "../../services/actions/combine-orders";
+import { wsConnectionFeedClosed, wsConnectionFeedStart } from "../../services/actions/web-socket";
 
 export const FeedPage = () => {
   const navigate = useNavigate();
@@ -27,9 +27,10 @@ export const FeedPage = () => {
   const { updatedOrders, loading, error } = useSelector((store) => store.combineOrders);
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START, payload: { path: "/all", auth: false } });
+    dispatch(wsConnectionFeedStart());
+
     return () => {
-      dispatch({ type: WS_CONNECTION_CLOSED });
+      dispatch(wsConnectionFeedClosed());
     };
   }, [dispatch]);
 

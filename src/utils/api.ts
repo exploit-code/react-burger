@@ -1,6 +1,6 @@
 import { IRequestOptions, ICheckSuccess } from "./interfaces";
 
-const BASE_URL = "https://norma.nomoreparties.space/api/";
+export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 const checkResponse = <T>(res: Response): Promise<T> => {
   if (res.ok) {

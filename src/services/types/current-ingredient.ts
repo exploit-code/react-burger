@@ -6,4 +6,4 @@ export interface ISetCurrentIngredient {
   readonly payload: IIngredient;
 }
 
-export type TIngredientDetailsUnionActions = ISetCurrentIngredient;
+export type TCurrentIngredientUnionActions = ISetCurrentIngredient;
