@@ -43,3 +43,21 @@
   max-width: 1280px;
   margin: auto;
 }
+
+#root {
+  display: none;
+  @media screen and (min-width: 1280px) {
+    display: block;
+  }
+}
+
+#informer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  @media screen and (min-width: 1280px) {
+    display: none;
+  }
+}
