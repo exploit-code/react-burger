@@ -23,32 +23,45 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-} from "../actions/auth";
+} from "../constants/auth";
+import { TAuthUnionActions } from "../types/auth";
+import { IUser } from "../../utils/interfaces";
 
-const initialState = {
-  user: null,
-  accessToken: null,
-  refreshToken: null,
+interface IAuthState {
+  readonly user: IUser;
+  readonly authorized: boolean;
+  readonly loading: boolean;
+  readonly error: boolean;
+  readonly reset: boolean;
+}
+
+const initialState: IAuthState = {
+  user: {
+    name: "",
+    email: "",
+  },
+  authorized: false,
   loading: false,
   error: false,
   reset: false,
 };
 
-export const auth = (state = initialState, action) => {
+export const auth = (state = initialState, action: TAuthUnionActions) => {
   switch (action.type) {
     case REGISTER_REQUEST:
       return {
         ...state,
         loading: true,
       };
+
     case REGISTER_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
         loading: false,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
+        authorized: true,
       };
+
     case REGISTER_ERROR:
       return {
         ...state,
@@ -61,10 +74,10 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case LOGOUT_SUCCESS:
-      return {
-        ...initialState,
-      };
+      return initialState;
+
     case LOGOUT_ERROR:
       return {
         ...state,
@@ -77,20 +90,21 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case LOGIN_SUCCESS:
       return {
         ...state,
         user: action.payload.user,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
+        authorized: true,
         loading: false,
         reset: false,
       };
+
     case LOGIN_ERROR:
       return {
         ...state,
-        error: true,
         loading: false,
+        error: true,
       };
 
     case FORGOT_PASSWORD_REQUEST:
@@ -98,12 +112,14 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case FORGOT_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
         reset: true,
       };
+
     case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
@@ -116,12 +132,14 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         loading: false,
         reset: false,
       };
+
     case RESET_PASSWORD_ERROR:
       return {
         ...state,
@@ -134,14 +152,14 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case UPDATE_TOKEN_SUCCESS:
       return {
         ...state,
         loading: false,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
-        refreshToken: action.payload.refreshToken,
         error: false,
       };
+
     case UPDATE_TOKEN_ERROR:
       return {
         ...state,
@@ -154,17 +172,19 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case GET_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         user: action.payload.user,
       };
+
     case GET_USER_ERROR:
       return {
         ...state,
-        error: true,
         loading: false,
+        error: true,
       };
 
     case UPDATE_USER_REQUEST:
@@ -172,12 +192,14 @@ export const auth = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
     case UPDATE_USER_SUCCESS:
       return {
         ...state,
         loading: false,
         user: action.payload.user,
       };
+
     case UPDATE_USER_ERROR:
       return {
         ...state,

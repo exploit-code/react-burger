@@ -1,11 +1,26 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT, REMOVE_ALL_INGREDIENT, MOVE_INGREDIENT } from "../actions/burger-constructor";
+import {
+  ADD_INGREDIENT,
+  REMOVE_INGREDIENT,
+  REMOVE_ALL_INGREDIENTS,
+  MOVE_INGREDIENT,
+} from "../constants/burger-constructor";
+import { IConstructorIngredient } from "../../utils/interfaces";
+import { TBurgerConstructorUnionActions } from "../types/burger-constructor";
 
-const initialState = {
+export interface IStateConstructorIngredients {
+  readonly bun: IConstructorIngredient | null;
+  readonly ingredients: IConstructorIngredient[];
+}
+
+const initialState: IStateConstructorIngredients = {
   bun: null,
   ingredients: [],
 };
 
-export const constructorIngredients = (state = initialState, action) => {
+export const burgerConstructor = (
+  state = initialState,
+  action: TBurgerConstructorUnionActions
+): IStateConstructorIngredients => {
   switch (action.type) {
     case ADD_INGREDIENT:
       if (action.payload.type === "bun") {
@@ -19,8 +34,11 @@ export const constructorIngredients = (state = initialState, action) => {
           ingredients: [...state.ingredients, action.payload],
         };
       }
+
     case REMOVE_INGREDIENT:
-      const removedElementIndex = state.ingredients.findIndex((item) => item._id === action.payload);
+      const removedElementIndex = state.ingredients.findIndex(
+        (item) => item._id === action.payload._id
+      );
       if (removedElementIndex === -1) {
         return state;
       }
@@ -30,12 +48,10 @@ export const constructorIngredients = (state = initialState, action) => {
         ...state,
         ingredients: updIngredients,
       };
-    case REMOVE_ALL_INGREDIENT:
-      return {
-        ...state,
-        bun: null,
-        ingredients: [],
-      };
+
+    case REMOVE_ALL_INGREDIENTS:
+      return initialState;
+
     case MOVE_INGREDIENT:
       const { fromIndex, toIndex } = action.payload;
       const movedIngredient = state.ingredients[fromIndex];
@@ -46,6 +62,7 @@ export const constructorIngredients = (state = initialState, action) => {
         ...state,
         ingredients: updatedIngredients,
       };
+
     default:
       return state;
   }

@@ -1,15 +1,16 @@
 import styles from "./order-details.module.scss";
 import cn from "classnames";
 import orderDetailsImage from "../../images/order-popup-image.svg";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
 
 export const OrderDetails = () => {
-  const { order, loading, error }: any = useSelector((store: any) => store.order);
+  const { order, loading, error } = useSelector((store) => store.orderDetails);
+
   return (
     <>
       {loading || error ? (
-        <Loader text={loading ? "loading" : "error"} />
+        <Loader text={loading ? "loading..." : "error"} />
       ) : (
         <section className={styles.order_details}>
           <p className={cn(styles.order_details__tablo, "text text_type_digits-large mb-8")}>

@@ -37,19 +37,6 @@ export interface IUseModal {
   closeModal: () => void;
 }
 
-export interface IUseFormData {
-  name?: string;
-  email?: string;
-  password?: string;
-  token?: string;
-}
-
-export interface IUseFormDataReturn {
-  value: IUseFormData;
-  setValue: React.Dispatch<React.SetStateAction<IUseFormData>>;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export interface IModal {
   title?: string;
   children: React.ReactNode;
@@ -74,6 +61,11 @@ export interface IRequestOptions {
 
 export interface ICheckSuccess {
   success: boolean;
+  message?: string;
+}
+
+export interface IGetIngredientsResponce extends ICheckSuccess {
+  data: IIngredient[];
 }
 
 export interface ILoginRequest {
@@ -122,34 +114,102 @@ export interface IResetPasswordResponse extends ICheckSuccess {
   message: string;
 }
 
-export interface ILogoutRequest {
-  token: string;
-}
-
 export interface ILogoutResponse extends ICheckSuccess {
   message: string;
 }
 
-export interface IGetUserRequest {
-  token: string;
+export interface IUser {
+  name: string;
+  email: string;
+  password?: string;
 }
 
 export interface IGetUserResponse extends ICheckSuccess {
-  user: {
-    email: string;
-    name: string;
-  };
+  user: IUser;
 }
 
-export interface IUpdateUserRequest extends IGetUserResponse {
-  accessToken: string;
+export interface IUpdateUserRequest {
+  user: IUser;
 }
 
 export interface IUpdateUserResponse extends ICheckSuccess, IGetUserResponse {}
 
-export interface IUpdateTokenRequest extends IGetUserRequest {}
-
-export interface IUpdateTokenResponse extends ICheckSuccess {
+export interface IRefreshTokenResponse extends ICheckSuccess {
   accessToken: string;
   refreshToken: string;
+}
+
+export interface IGetOrderNumberRequest extends ICheckSuccess {
+  name: string;
+  order: {
+    number: number;
+  };
+}
+
+export interface IMoveIngredient {
+  fromIndex: number;
+  toIndex: number;
+}
+
+export interface IIngredientID {
+  ingredients: (IIngredient["_id"] | undefined)[];
+}
+
+export interface ISuccessfulOrders {
+  title: string;
+  quantity: number;
+}
+
+export interface IChildrenJSX {
+  children: JSX.Element;
+}
+
+export interface IOrdersProgressList {
+  title: string;
+  list: IOrder[];
+  success: boolean;
+}
+
+export interface IOrder {
+  _id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  __v: number;
+}
+
+export interface IRequestOrder {
+  success: boolean;
+  orders: IOrder[];
+}
+
+export interface IIngredientUpgrade extends IIngredient {
+  count: number;
+}
+
+export interface IUpdatedOrder {
+  ingredients: IIngredientUpgrade[];
+  _id: string;
+  status: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  totalPrice: number;
+  upgradeStatus: string;
+}
+
+export interface IUseOrdersCombaine {
+  orders: IOrder[];
+  data: IIngredient[];
+}
+
+export interface IOrderCard {
+  renderStatus: boolean;
+  order: IUpdatedOrder;
+  onClick: (order: IUpdatedOrder) => void;
 }

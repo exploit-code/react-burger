@@ -1,31 +1,19 @@
 import styles from "./burger-ingredients.module.scss";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo } from "react";
 import cn from "classnames";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIngredientCard } from "../burger-ingredient-card/burger-ingredient-card";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { Loader } from "../loader/loader";
-import { getIngredients } from "../../services/actions/burger-ingredients";
-import { IIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/interfaces";
 import { RefObject } from "react";
 
 export const BurgerIngredients = memo(() => {
-  const dispatch = useDispatch();
-  const { loading, error, data }: any = useSelector((store: any) => store.ingredients);
-
-  const bunItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "bun"),
-    [data]
-  );
-  const sauceItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "sauce"),
-    [data]
-  );
-  const mainItems: IIngredient[] = useMemo(
-    () => data.filter((filterItem: IIngredient) => filterItem.type === "main"),
-    [data]
-  );
+  const { loading, error, data } = useSelector((store) => store.burgerIngredients);
+  const bunItems = useMemo(() => data.filter((item) => item.type === "bun"), [data]);
+  const sauceItems = useMemo(() => data.filter((item) => item.type === "sauce"), [data]);
+  const mainItems = useMemo(() => data.filter((item) => item.type === "main"), [data]);
   const bunBoxRef = useRef<HTMLDivElement>(null);
   const sauceBoxRef = useRef<HTMLDivElement>(null);
   const mainBoxRef = useRef<HTMLDivElement>(null);
@@ -60,13 +48,10 @@ export const BurgerIngredients = memo(() => {
     }
   };
 
-  //@ts-ignore: next sprint
-  useEffect(() => dispatch(getIngredients()), [dispatch]);
-
   return (
     <>
       {loading || error ? (
-        <Loader text={loading ? "loading" : "error"} />
+        <Loader text={loading ? "loading..." : "error"} />
       ) : (
         <section className={styles.ingredients}>
           <div className={cn(styles.ingredients__head, "pt-10 pb-10")}>

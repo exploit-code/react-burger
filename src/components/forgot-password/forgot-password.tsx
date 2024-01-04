@@ -2,27 +2,31 @@ import styles from "./forgot-password.module.scss";
 import { EmailInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { forgotPasswordThunk } from "../../services/thunk/auth";
+import { useEffect } from "react";
 
 export const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading }: any = useSelector((store: any) => store.auth);
-  const { value, handleChange } = useFormData({ email: "" });
+  const { loading, reset } = useSelector((store) => store.auth);
+  const { value, handleChange } = useFormData({});
 
   const handleForgotPasswordSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore: next sprint
-    dispatch(forgotPassword(value)).then(() => navigate("/reset-password"));
+    dispatch(forgotPasswordThunk({ email: value.email }));
   };
+
+  useEffect(() => {
+    if (reset) navigate("/reset-password");
+  }, [reset, navigate]);
 
   return (
     <div className={styles.forgotPassword}>
       <form className={styles.forgotPassword__form} onSubmit={handleForgotPasswordSubmit}>
         <h2 className="text text_type_main-medium">Восстановление пароля</h2>
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.email || ""}
           name={"email"}
           isIcon={false}

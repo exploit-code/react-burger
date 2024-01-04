@@ -6,16 +6,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
-import { getUser, updateUser, updateToken } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { getUserThunk, updateUserThunk } from "../../services/thunk/auth";
 import { useEffect, useState } from "react";
 import { Loader } from "../loader/loader";
 
 export const Profile = () => {
   const dispatch = useDispatch();
-  const { loading, refreshToken, user, accessToken, error }: any = useSelector(
-    (store: any) => store.auth
-  );
+  const { loading, user, error } = useSelector((store) => store.auth);
   const { value, setValue, handleChange } = useFormData({
     name: user.name,
     email: user.email,
@@ -25,31 +23,35 @@ export const Profile = () => {
 
   const handleUpdateUserSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore: next sprint
-    dispatch(updateUser({ user: value, accessToken }));
+
+    dispatch(
+      updateUserThunk({
+        user: { email: value.email, name: value.name, password: value.password },
+      })
+    );
+
+    value.password = "";
   };
   const handleCancel = () => setValue({ name: user.name, email: user.email, password: "" });
 
   useEffect(() => {
-    if (user.email !== value.email || user.name !== value.name) setShowButtons(true);
+    if (user.email !== value.email || user.name !== value.name || value.password !== "")
+      setShowButtons(true);
     else setShowButtons(false);
   }, [showButtons, value, user]);
 
   useEffect(() => {
-    //@ts-ignore: next sprint
-    if (error) dispatch(updateToken(refreshToken));
-    //@ts-ignore: next sprint
-    else dispatch(getUser(accessToken));
-  }, [accessToken, dispatch, refreshToken, error]);
+    dispatch(getUserThunk());
+  }, [dispatch]);
 
   return loading || error ? (
-    <Loader text={loading ? "loading" : "error"} />
+    <Loader text={loading ? "loading..." : "error"} />
   ) : (
     <form className={styles.profile} onSubmit={handleUpdateUserSubmit}>
       <Input
         type={"text"}
         onChange={(e) => handleChange(e)}
-        value={value.name || ""}
+        value={value.name}
         name={"name"}
         placeholder="Имя"
         error={false}
@@ -57,14 +59,14 @@ export const Profile = () => {
       />
       <EmailInput
         onChange={(e) => handleChange(e)}
-        value={value.email || ""}
+        value={value.email}
         name={"email"}
         placeholder="Логин"
         isIcon={true}
       />
       <PasswordInput
         onChange={(e) => handleChange(e)}
-        value={value.password || ""}
+        value={value.password}
         name={"password"}
         icon="EditIcon"
       />

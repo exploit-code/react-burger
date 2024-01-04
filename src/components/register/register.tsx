@@ -7,18 +7,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Navigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
-import { register } from "../../services/actions/auth";
+import { useDispatch, useSelector } from "../../services/hooks";
+import { registerThunk } from "../../services/thunk/auth";
 
 export const Register = () => {
   const dispatch = useDispatch();
   const { value, handleChange } = useFormData({ name: "", email: "", password: "" });
-  const { accessToken, loading }: any = useSelector((store: any) => store.auth);
+  const { authorized, loading } = useSelector((store) => store.auth);
 
-  //@ts-ignore: next sprint
-  const handleRegisterSubmit = () => dispatch(register(value));
+  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(registerThunk({ email: value.email, name: value.name, password: value.password }));
+  };
 
-  return accessToken ? (
+  return authorized ? (
     <Navigate to="/" replace />
   ) : (
     <div className={styles.register}>
@@ -27,20 +29,20 @@ export const Register = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.name || ""}
           name={"name"}
           size={"default"}
           extraClass="ml-1"
         />
         <EmailInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.email || ""}
           name={"email"}
           isIcon={false}
         />
         <PasswordInput
-          onChange={(e) => handleChange(e)}
+          onChange={handleChange}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"

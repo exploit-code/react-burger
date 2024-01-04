@@ -6,19 +6,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useFormData } from "../../hooks/useFormData";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../services/actions/auth";
+import { useDispatch } from "../../services/hooks";
+import { loginThunk } from "../../services/thunk/auth";
 
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { value, handleChange } = useFormData({ email: "", password: "" });
-  const { loading }: any = useSelector((store: any) => store.auth);
+  const { value, handleChange } = useFormData({});
 
   const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //@ts-ignore: next sprint
-    dispatch(login(value)).then(() => navigate("/"));
+    dispatch(loginThunk({ email: value.email, password: value.password })).then(() => {
+      navigate("/");
+    });
   };
 
   return (
@@ -37,7 +37,7 @@ export const Login = () => {
           name={"password"}
           extraClass="mb-2"
         />
-        <Button htmlType="submit" type="primary" size="medium" disabled={loading}>
+        <Button htmlType="submit" type="primary" size="medium">
           Войти
         </Button>
       </form>

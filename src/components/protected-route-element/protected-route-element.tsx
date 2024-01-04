@@ -1,13 +1,13 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { IProtectedRoute } from "../../utils/types";
+import { useSelector } from "../../services/hooks";
+import { IProtectedRoute } from "../../utils/interfaces";
 
 export const ProtectedRouteElement = ({ children, anonymous = false }: IProtectedRoute) => {
-  const { accessToken }: any = useSelector((store: any) => store.auth);
+  const { authorized } = useSelector((store) => store.auth);
   const location = useLocation();
   const from = location.state?.from || "/";
 
-  if (anonymous && accessToken) return <Navigate to={from} />;
-  if (!anonymous && !accessToken) return <Navigate to="/login" state={{ from: location }} />;
+  if (anonymous && authorized) return <Navigate to={from} />;
+  if (!anonymous && !authorized) return <Navigate to="/login" state={{ from: location }} />;
   return children;
 };

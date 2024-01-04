@@ -1,6 +1,6 @@
 import styles from "./close-button.module.scss";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { IUseModal } from "../../utils/types";
+import { IUseModal } from "../../utils/interfaces";
 
 export const CloseButton = ({ closeModal }: { closeModal: IUseModal["closeModal"] }) => {
   return (

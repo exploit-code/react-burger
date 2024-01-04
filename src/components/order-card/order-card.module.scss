@@ -1,0 +1,50 @@
+.order_card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 40px;
+  background-color: var(--interface-modal-bg);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__price {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__status {
+    &_progress {
+      color: var(--text-primary-color);
+    }
+
+    &_done {
+      color: var(--colors-interface-success);
+    }
+
+    &_error {
+      color: var(--colors-interface-error);
+    }
+  }
+}

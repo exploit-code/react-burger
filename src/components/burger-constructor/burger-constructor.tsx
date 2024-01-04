@@ -6,14 +6,14 @@ import { Modal } from "../modal/modal";
 import { Bun } from "../bun/bun";
 import { Checkout } from "../checkout/checkout";
 import { useDrop, DropTargetMonitor } from "react-dnd";
-import { addIngridientAction } from "../../services/actions/burger-constructor";
-import { useDispatch, useSelector } from "react-redux";
+import { addIngridient } from "../../services/actions/burger-constructor";
+import { useDispatch, useSelector } from "../../services/hooks/index";
 import { useModal } from "../../hooks/useModal";
-import { IConstructorIngredient } from "../../utils/types";
+import { IConstructorIngredient } from "../../utils/interfaces";
 
 export const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const { ingredients, bun }: any = useSelector((store: any) => store.constructorIngredients);
+  const { ingredients, bun } = useSelector((store) => store.burgerConstructor);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const [{ isHover }, ingredientsRef] = useDrop({
@@ -22,7 +22,7 @@ export const BurgerConstructor = () => {
       isHover: monitor.isOver(),
     }),
     drop(ingredient: IConstructorIngredient) {
-      dispatch(addIngridientAction(ingredient));
+      dispatch(addIngridient(ingredient));
     },
   });
 
@@ -40,7 +40,7 @@ export const BurgerConstructor = () => {
             <Bun
               type={"top"}
               isLocked={true}
-              text={bun.name}
+              text={`${bun.name} (верх)`}
               price={bun.price}
               thumbnail={bun.image}
             />
@@ -58,7 +58,7 @@ export const BurgerConstructor = () => {
             <Bun
               type={"bottom"}
               isLocked={true}
-              text={bun.name}
+              text={`${bun.name} (низ)`}
               price={bun.price}
               thumbnail={bun.image}
             />

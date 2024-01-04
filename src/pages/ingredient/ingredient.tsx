@@ -1,14 +1,14 @@
 import styles from "./ingredient.module.scss";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { IngredientDetails } from "../../components/ingredient-details/ingredient-details";
 import { useParams } from "react-router-dom";
 import { NotFoundPage } from "../not-found/not-found";
 import { useMemo } from "react";
-import { IIngredient } from "../../utils/types";
+import { IIngredient } from "../../utils/interfaces";
 
 export const IngredientPage = () => {
   const { id } = useParams<string>();
-  const { data }: any = useSelector((store: any) => store.ingredients);
+  const { data } = useSelector((store) => store.burgerIngredients);
   const viewIngredient: IIngredient | undefined = useMemo(
     () => data.find((el: IIngredient) => el._id === id),
     [data, id]

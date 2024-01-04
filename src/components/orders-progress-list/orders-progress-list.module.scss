@@ -1,0 +1,43 @@
+.orders_progress_list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    height: 150px;
+    overflow: auto;
+
+    &_column {
+      &_one {
+        grid-template-columns: 1fr;
+      }
+
+      &_two {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      &_three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--text-inactive-color);
+    }
+  }
+
+  &__item {
+    &_success {
+      color: var(--colors-interface-success);
+    }
+  }
+}

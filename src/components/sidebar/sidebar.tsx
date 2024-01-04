@@ -1,17 +1,14 @@
 import { NavLink, Link } from "react-router-dom";
 import styles from "./sitebar.module.scss";
-import { logout } from "../../services/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import { logoutThunk } from "../../services/thunk/auth";
+import { useDispatch } from "../../services/hooks";
 
 export const SiteBar = () => {
   const dispatch = useDispatch();
-  const { refreshToken }: any = useSelector((store: any) => store.auth);
 
   const handleLogout = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
-    //@ts-ignore: next sprint
-    dispatch(logout(refreshToken));
+    dispatch(logoutThunk());
   };
 
   return (
@@ -53,9 +50,6 @@ export const SiteBar = () => {
           </Link>
         </li>
       </ul>
-      <p className={"text text_type_main-default text_color_inactive"}>
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
     </nav>
   );
 };
