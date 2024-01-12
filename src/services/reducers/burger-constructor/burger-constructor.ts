@@ -3,16 +3,16 @@ import {
   REMOVE_INGREDIENT,
   REMOVE_ALL_INGREDIENTS,
   MOVE_INGREDIENT,
-} from "../constants/burger-constructor";
-import { IConstructorIngredient } from "../../utils/interfaces";
-import { TBurgerConstructorUnionActions } from "../types/burger-constructor";
+} from "../../constants/burger-constructor";
+import { IConstructorIngredient } from "../../../utils/interfaces";
+import { TBurgerConstructorUnionActions } from "../../types/burger-constructor";
 
 export interface IStateConstructorIngredients {
   readonly bun: IConstructorIngredient | null;
   readonly ingredients: IConstructorIngredient[];
 }
 
-const initialState: IStateConstructorIngredients = {
+export const initialState: IStateConstructorIngredients = {
   bun: null,
   ingredients: [],
 };

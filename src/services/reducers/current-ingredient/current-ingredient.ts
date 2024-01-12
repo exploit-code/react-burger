@@ -1,12 +1,12 @@
-import { SET_CURRENT_INGREDIENT } from "../constants/current-ingredient";
-import { TCurrentIngredientUnionActions } from "../types/current-ingredient";
-import { IIngredient } from "../../utils/interfaces";
+import { SET_CURRENT_INGREDIENT } from "../../constants/current-ingredient";
+import { TCurrentIngredientUnionActions } from "../../types/current-ingredient";
+import { IIngredient } from "../../../utils/interfaces";
 
 interface IStateCurrentIngredient {
   readonly ingredient: null | IIngredient;
 }
 
-const initialState: IStateCurrentIngredient = {
+export const initialState: IStateCurrentIngredient = {
   ingredient: null,
 };
 

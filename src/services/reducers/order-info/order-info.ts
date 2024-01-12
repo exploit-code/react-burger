@@ -2,10 +2,10 @@ import {
   GET_ORDER_INFO_REQUEST,
   GET_ORDER_INFO_SUCCESS,
   GET_ORDER_INFO_ERROR,
-} from "../constants/order-info";
-import { TOrderInfoUnionActions, IStateOrderInfo } from "../types/order-info";
+} from "../../constants/order-info";
+import { TOrderInfoUnionActions, IStateOrderInfo } from "../../types/order-info";
 
-const initialState: IStateOrderInfo = {
+export const initialState: IStateOrderInfo = {
   requestOrder: {
     _id: "",
     ingredients: [],

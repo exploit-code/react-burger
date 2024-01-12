@@ -1,7 +1,11 @@
-import { GET_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_ERROR } from "../constants/order-details";
-import { TOrderDetailsUnionActions, IStateOrderDetails } from "../types/order-details";
+import {
+  GET_ORDER_REQUEST,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_ERROR,
+} from "../../constants/order-details";
+import { TOrderDetailsUnionActions, IStateOrderDetails } from "../../types/order-details";
 
-const initialState: IStateOrderDetails = {
+export const initialState: IStateOrderDetails = {
   order: null,
   loading: false,
   error: false,

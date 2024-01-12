@@ -23,9 +23,9 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
-} from "../constants/auth";
-import { TAuthUnionActions } from "../types/auth";
-import { IUser } from "../../utils/interfaces";
+} from "../../constants/auth";
+import { TAuthUnionActions } from "../../types/auth";
+import { IUser } from "../../../utils/interfaces";
 
 interface IAuthState {
   readonly user: IUser;
@@ -35,7 +35,7 @@ interface IAuthState {
   readonly reset: boolean;
 }
 
-const initialState: IAuthState = {
+export const initialState: IAuthState = {
   user: {
     name: "",
     email: "",

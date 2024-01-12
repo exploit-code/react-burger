@@ -2,9 +2,9 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_ERROR,
-} from "../constants/burger-ingredients";
-import { TBurgerIngredientsUnionActions } from "../types/burger-ingredients";
-import { IIngredient } from "../../utils/interfaces";
+} from "../../constants/burger-ingredients";
+import { TBurgerIngredientsUnionActions } from "../../types/burger-ingredients";
+import { IIngredient } from "../../../utils/interfaces";
 
 export interface IStateIngredients {
   readonly data: IIngredient[] | [];
@@ -12,7 +12,7 @@ export interface IStateIngredients {
   readonly error: boolean;
 }
 
-const initialState: IStateIngredients = {
+export const initialState: IStateIngredients = {
   data: [],
   loading: false,
   error: false,

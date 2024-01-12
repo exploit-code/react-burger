@@ -9,10 +9,10 @@ import {
   WS_CONNECTION_USER_ERROR,
   WS_CONNECTION_FEED_CLOSED,
   WS_CONNECTION_USER_CLOSED,
-} from "../constants/web-socket";
-import { IWSState, TWSUnionActions } from "../types/web-socket";
+} from "../../constants/web-socket";
+import { IWSState, TWSUnionActions } from "../../types/web-socket";
 
-const initialState: IWSState = {
+export const initialState: IWSState = {
   connected: false,
   loading: false,
   feedOrders: {

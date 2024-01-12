@@ -1,12 +1,12 @@
-import { IUpdatedOrder } from "../../utils/interfaces";
-import { SET_CURRENT_ORDER } from "../constants/current-order";
-import { TCurrentOrderUnionActions } from "../types/current-order";
+import { IUpdatedOrder } from "../../../utils/interfaces";
+import { SET_CURRENT_ORDER } from "../../constants/current-order";
+import { TCurrentOrderUnionActions } from "../../types/current-order";
 
 interface IStateCurrentOrder {
   readonly order: IUpdatedOrder | null;
 }
 
-const initialState: IStateCurrentOrder = {
+export const initialState: IStateCurrentOrder = {
   order: null,
 };
 

@@ -1,11 +1,11 @@
-import { IIngredient, IOrder, IIngredientUpgrade, IUpdatedOrder } from "../../utils/interfaces";
+import { IIngredient, IOrder, IIngredientUpgrade, IUpdatedOrder } from "../../../utils/interfaces";
 import {
   COMBINE_ORDERS_CLEAR,
   COMBINE_ORDERS_COMPLITE,
   COMBINE_ORDERS_ERROR,
   COMBINE_ORDERS_UPDATED,
-} from "../constants/combine-orders";
-import { TCombineOrdersUnionActions } from "../types/combine-orders";
+} from "../../constants/combine-orders";
+import { TCombineOrdersUnionActions } from "../../types/combine-orders";
 
 export interface ICombineOrders {
   updatedOrders: IUpdatedOrder[];
@@ -13,7 +13,7 @@ export interface ICombineOrders {
   error: boolean;
 }
 
-const initialState: ICombineOrders = {
+export const initialState: ICombineOrders = {
   updatedOrders: [],
   loading: false,
   error: false,
