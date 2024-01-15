@@ -30,14 +30,16 @@ export const Login = () => {
           value={value.email || ""}
           name={"email"}
           isIcon={false}
+          data-testid="email"
         />
         <PasswordInput
           onChange={handleChange}
           value={value.password || ""}
           name={"password"}
           extraClass="mb-2"
+          data-testid="password"
         />
-        <Button htmlType="submit" type="primary" size="medium">
+        <Button htmlType="submit" type="primary" size="medium" data-testid="submit">
           Войти
         </Button>
       </form>

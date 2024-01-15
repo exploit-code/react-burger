@@ -3,10 +3,7 @@ import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burg
 import { useDispatch } from "../../services/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import { IConstructorIngredient, IConstructorDraggedItem } from "../../utils/interfaces";
-import {
-  removeIngridient,
-  moveIngridients,
-} from "../../services/actions/burger-constructor";
+import { removeIngridient, moveIngridients } from "../../services/actions/burger-constructor";
 
 export const BurgerConstructorCard = <T extends IConstructorIngredient>({
   ingredient,
@@ -44,6 +41,7 @@ export const BurgerConstructorCard = <T extends IConstructorIngredient>({
     <li
       className={styles.burger_constructor_card}
       ref={(node) => constructorIngredientDragRef(constructorIngredientDropRef(node))}
+      data-testid={ingredient._id}
     >
       <DragIcon type="primary" />
       <ConstructorElement

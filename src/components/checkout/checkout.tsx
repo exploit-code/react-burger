@@ -45,6 +45,7 @@ export const Checkout = ({ openModal }: { openModal: IUseModal["openModal"] }) =
         size="large"
         onClick={handleOrderClick}
         disabled={!(ingredients.length && bun)}
+        data-testid="checkout_button"
       >
         Оформить заказ
       </Button>
