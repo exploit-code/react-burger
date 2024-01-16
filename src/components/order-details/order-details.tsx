@@ -13,7 +13,10 @@ export const OrderDetails = () => {
         <Loader text={loading ? "loading..." : "error"} />
       ) : (
         <section className={styles.order_details}>
-          <p className={cn(styles.order_details__tablo, "text text_type_digits-large mb-8")}>
+          <p
+            className={cn(styles.order_details__tablo, "text text_type_digits-large mb-8")}
+            data-testid={order}
+          >
             {order}
           </p>
           <p className="mb-15 text text_type_main-medium">идентификатор заказа</p>
