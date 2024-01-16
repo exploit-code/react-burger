@@ -15,7 +15,45 @@ describe("test modal", () => {
   });
 });
 
-describe("test dnd and order request", () => {
+describe("test dnd", () => {
+  beforeEach(() => {
+    cy.visit("/");
+  });
+
+  it("should dnd", () => {
+    cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').should("exist").as("bun");
+    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"]').should("exist").as("ingredient");
+    cy.get('[data-testid="burger_constructor"]').should("exist").as("constructor");
+
+    cy.get("@bun").trigger("dragstart");
+    cy.get("@constructor").trigger("dragenter").trigger("drop");
+
+    cy.get('[data-testid="burger_constructor__bun_top"] [data-testid="top"]').should(
+      "contain",
+      "Краторная булка N-200i (верх)"
+    );
+    cy.get('[data-testid="burger_constructor__bun_bottom"] [data-testid="bottom"]').should(
+      "contain",
+      "Краторная булка N-200i (низ)"
+    );
+
+    cy.get("@ingredient").trigger("dragstart");
+    cy.get("@constructor").trigger("dragenter").trigger("drop");
+
+    cy.get(
+      '[data-testid="burger_constructor__ingredients"] [data-testid="643d69a5c3f7b9001cfa0941"]'
+    ).should("contain", "Биокотлета из марсианской Магнолии");
+
+    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"] .constructor-element__action')
+      .should("exist")
+      .click();
+    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"] .constructor-element__action').should(
+      "not.exist"
+    );
+  });
+});
+
+describe("test login and order request", () => {
   beforeEach(() => {
     cy.visit("/login");
     cy.get('[data-testid="email"]').should("exist").type("email@mail.ru");
@@ -27,7 +65,7 @@ describe("test dnd and order request", () => {
     cy.wait("@loginResponse");
   });
 
-  it("should dnd, order request and open modal", () => {
+  it("should login and order request", () => {
     cy.visit("/");
     cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').should("exist").as("bun");
     cy.get('[data-testid="643d69a5c3f7b9001cfa0941"]').should("exist").as("ingredient");
