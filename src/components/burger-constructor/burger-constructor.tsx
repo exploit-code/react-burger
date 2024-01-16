@@ -34,8 +34,12 @@ export const BurgerConstructor = () => {
         className={cn(styles.burger_constructor__combine)}
         ref={ingredientsRef}
         style={{ borderColor }}
+        data-testid="burger_constructor"
       >
-        <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_top)}>
+        <div
+          className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_top)}
+          data-testid="burger_constructor__bun_top"
+        >
           {bun && (
             <Bun
               type={"top"}
@@ -47,13 +51,19 @@ export const BurgerConstructor = () => {
           )}
         </div>
 
-        <ul className={cn(styles.burger_constructor__ingredients)}>
+        <ul
+          className={cn(styles.burger_constructor__ingredients)}
+          data-testid="burger_constructor__ingredients"
+        >
           {ingredients.map((item: IConstructorIngredient, index: number) => (
             <BurgerConstructorCard ingredient={item} key={item.uuid} index={index} />
           ))}
         </ul>
 
-        <div className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_bottom)}>
+        <div
+          className={cn(styles.burger_constructor__bun, styles.burger_constructor__bun_bottom)}
+          data-testid="burger_constructor__bun_bottom"
+        >
           {bun && (
             <Bun
               type={"bottom"}

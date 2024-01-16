@@ -12,7 +12,10 @@ export const IngredientParams = ({ currentIngredient }: { currentIngredient: IIn
 
   return (
     <div className={styles.ingredient_params}>
-      <h4 className={cn(styles.ingredient_params__title, "text text_type_main-medium")}>
+      <h4
+        className={cn(styles.ingredient_params__title, "text text_type_main-medium")}
+        data-testid="ingredient_params"
+      >
         {currentIngredient.name}
       </h4>
 

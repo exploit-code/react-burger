@@ -4,7 +4,7 @@ import { IUseModal } from "../../utils/interfaces";
 
 export const CloseButton = ({ closeModal }: { closeModal: IUseModal["closeModal"] }) => {
   return (
-    <button className={styles.close_button} onClick={closeModal}>
+    <button className={styles.close_button} onClick={closeModal} data-testid="close_button">
       <CloseIcon type="primary" />
     </button>
   );

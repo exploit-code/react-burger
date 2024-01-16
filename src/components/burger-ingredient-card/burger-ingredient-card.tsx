@@ -33,6 +33,7 @@ export const BurgerIngredientCard = memo(({ ingredient }: { ingredient: IIngredi
       className={styles.burger_ingredient_card}
       ref={ingredientDragRef}
       onClick={handleIngredientClick}
+      data-testid={ingredient._id}
     >
       <div
         className={cn(styles.burger_ingredient_card__box, styles.burger_ingredient_card__box_head)}

@@ -1,0 +1,9 @@
+{
+  "accessToken": "cy-hash",
+  "refreshToken": "cy-hash",
+  "success": true,
+  "user": {
+    "email": "email@mail.ru",
+    "name": "username"
+  }
+}

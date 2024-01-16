@@ -23,6 +23,7 @@ export const Modal = ({ title = "", children, closeModal }: IModal) => {
           <section
             className={cn(styles.modal, "pt-10 pr-10 pb-15 pl-10")}
             onClick={(e) => e.stopPropagation()}
+            data-testid="modal"
           >
             <div className={styles.modal__head}>
               <h2 className="text text_type_main-large">{title}</h2>

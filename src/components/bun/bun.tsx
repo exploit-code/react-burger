@@ -4,7 +4,7 @@ import { IBun } from "../../utils/interfaces";
 
 export const Bun = ({ type, isLocked, text, price, thumbnail }: IBun) => {
   return (
-    <div className={styles.bun}>
+    <div className={styles.bun} data-testid={type}>
       <ConstructorElement
         type={type}
         isLocked={isLocked}
