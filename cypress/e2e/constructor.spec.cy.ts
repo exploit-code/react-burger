@@ -6,11 +6,11 @@ describe("test modal", () => {
   });
 
   it("should opening and closing a modal window with ingredient", () => {
-    cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').click();
-    cy.get('[data-testid="modal"]').contains("Детали ингредиента");
+    cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').should("exist").click();
+    cy.get('[data-testid="modal"]').should("exist").contains("Детали ингредиента");
     cy.url().should("include", "/ingredients/643d69a5c3f7b9001cfa093c");
-    cy.get('[data-testid="ingredient_params"]').contains("Краторная булка N-200i");
-    cy.get('[data-testid="close_button"]').click();
+    cy.get('[data-testid="ingredient_params"]').should("exist").contains("Краторная булка N-200i");
+    cy.get('[data-testid="close_button"]').should("exist").click();
     cy.get('[data-testid="modal"]').should("not.exist");
   });
 });
@@ -29,9 +29,9 @@ describe("test dnd and order request", () => {
 
   it("should dnd, order request and open modal", () => {
     cy.visit("/");
-    cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').as("bun");
-    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"]').as("ingredient");
-    cy.get('[data-testid="burger_constructor"]').as("constructor");
+    cy.get('[data-testid="643d69a5c3f7b9001cfa093c"]').should("exist").as("bun");
+    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"]').should("exist").as("ingredient");
+    cy.get('[data-testid="burger_constructor"]').should("exist").as("constructor");
 
     cy.get("@bun").trigger("dragstart");
     cy.get("@constructor").trigger("dragenter").trigger("drop");
