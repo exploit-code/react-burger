@@ -2,8 +2,6 @@
 
 Production: [https://react-burger-exploit-code.vercel.app/](https://react-burger-exploit-code.vercel.app/)
 
-### Available Scripts
-
 In the project directory, you can run:
 
 ### `npm start`
