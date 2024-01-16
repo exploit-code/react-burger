@@ -1,6 +1,6 @@
 # Stellar-Burgers
 
-###[Production:](https://react-burger-exploit-code.vercel.app/)
+### Production: [https://react-burger-exploit-code.vercel.app/](https://react-burger-exploit-code.vercel.app/)
 
 ### Available Scripts
 
